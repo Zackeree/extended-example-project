@@ -22,10 +22,7 @@ interface IPersonRepository : PagingAndSortingRepository<Person, Long>, JpaSpeci
      * @param pageable the [Pageable] object
      * @return a [Page] of [Person] objects
      */
-    fun findByFirstName(firstName: String, pageable: Pageable): Page<Person> {
-        val people = findAll(Person::firstName.equal(firstName))
-        return PageImpl<Person>(people, pageable, people.size.toLong())
-    }
+    fun findByFirstName(firstName: String, pageable: Pageable): Page<Person>
 
     /**
      * Query that will take a last name and a [Pageable] object
