@@ -17,7 +17,7 @@
 5. Create example Database
     1. Open the Database tab in IntelliJ
     2. Add New MySQL Datasource and Test Connection
-    3. Open SQL Console (that little terminal icon in the Database Tabe)
+    3. Open SQL Console (that little terminal icon in the Database Tab)
     4. Run the init.sql file
     
 6. Set up the Gradle Wrapper
