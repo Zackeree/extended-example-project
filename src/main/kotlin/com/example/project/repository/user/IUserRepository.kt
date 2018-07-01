@@ -1,6 +1,9 @@
 package com.example.project.repository.user
 
+import au.com.console.jpaspecificationdsl.equal
+import au.com.console.jpaspecificationdsl.or
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
+import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Repository
 
@@ -22,6 +25,9 @@ interface IUserRepository : PagingAndSortingRepository<User, Long>, JpaSpecifica
     fun findByUsername(username: String): User?
 
     fun findByEmail(email: String): User?
+
+    @Query(value = "SELECT u FROM User u WHERE u.email=?1 or u.username=?1")
+    fun findByUsernameOrEmail(target: String): User?
 
     fun countByUsername(username: String): Int
 

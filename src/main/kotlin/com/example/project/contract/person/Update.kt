@@ -1,5 +1,6 @@
 package com.example.project.contract.person
 
+import com.example.project.contract.BaseUpdateRequest
 import com.example.project.contract.Command
 import com.example.project.contract.responder.UpdateResponder
 import com.example.project.repository.person.IPersonRepository
@@ -19,9 +20,8 @@ class Update(
             return
         }
 
-        val updatedPerson = createUpdatedEntity()
-        personRepo.save(updatedPerson)
-        responder.onSuccess(updatedPerson.id)
+        val person = personRepo.save(request.createUpdatedEntity(personRepo.findById(request.id).get()))
+        responder.onSuccess(person.id)
     }
 
     private fun validateRequest(): Multimap<ErrorTag, String> {
@@ -44,20 +44,13 @@ class Update(
         }
     }
 
-    private fun createUpdatedEntity(): Person{
-        val originalPerson = personRepo.findById(request.id).get()
-        with(request) {
-            originalPerson.firstName = firstName
-            originalPerson.lastName = lastName
-        }
-
-        return originalPerson
-
-    }
-
     data class Request(
             val id: Long,
             val firstName: String,
             val lastName: String
-    )
+    ) : BaseUpdateRequest<Person> {
+        override fun createUpdatedEntity(e: Person): Person {
+            return e.copy(firstName = firstName, lastName = lastName)
+        }
+    }
 }

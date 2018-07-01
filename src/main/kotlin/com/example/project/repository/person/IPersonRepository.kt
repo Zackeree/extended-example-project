@@ -1,8 +1,6 @@
 package com.example.project.repository.person
 
-import au.com.console.jpaspecificationdsl.equal
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.repository.PagingAndSortingRepository

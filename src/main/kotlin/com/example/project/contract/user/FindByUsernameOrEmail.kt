@@ -23,10 +23,7 @@ class FindByUsernameOrEmail(
             responder.onFailure("User not found")
             return
         } else {
-            var theUser = userRepo.findByUsername(target)
-            if (theUser == null) {
-                theUser = userRepo.findByEmail(target)
-            }
+            val theUser = userRepo.findByUsernameOrEmail(target)
             if (theUser == null) {
                 responder.onFailure("User not found")
                 return

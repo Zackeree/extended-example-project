@@ -74,10 +74,7 @@ class Update(
             val email: String
     ) : BaseUpdateRequest<User> {
         override fun createUpdatedEntity(e: User): User {
-            e.email = email
-            e.username = username
-
-            return e
+            return e.copy(username = username, email = email)
         }
     }
 }

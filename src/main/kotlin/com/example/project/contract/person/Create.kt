@@ -1,5 +1,6 @@
 package com.example.project.contract.person
 
+import com.example.project.contract.BaseCreateRequest
 import com.example.project.contract.Command
 import com.example.project.contract.responder.CreateResponder
 import com.example.project.repository.person.IPersonRepository
@@ -48,8 +49,8 @@ class Create(
             val userId: Long,
             val firstName: String,
             val lastName: String
-    ) {
-        fun toEntity(): Person {
+    ) : BaseCreateRequest<Person> {
+        override fun toEntity(): Person {
             return Person(
                     firstName,
                     lastName
