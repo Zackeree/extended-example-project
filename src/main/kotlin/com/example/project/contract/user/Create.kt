@@ -3,6 +3,8 @@ package com.example.project.contract.user
 import com.example.project.contract.BaseCreateRequest
 import com.example.project.contract.Command
 import com.example.project.contract.responder.CreateResponder
+import com.example.project.repository.role.IUserRoleRepository
+import com.example.project.repository.role.UserRole
 import com.example.project.repository.user.IUserRepository
 import com.example.project.repository.user.User
 import com.google.common.collect.HashMultimap
@@ -17,7 +19,8 @@ import com.google.common.collect.Multimap
 class Create(
         private val request: Request,
         private val responder: CreateResponder<ErrorTag>,
-        private val userRepo: IUserRepository
+        private val userRepo: IUserRepository,
+        private val userRoleRepo: IUserRoleRepository
 ) : Command {
     /**
      * Override of the [Command] execute method. Calls the [validateRequest] method
@@ -31,6 +34,7 @@ class Create(
             responder.onFailure(errors)
         } else {
             val newUser = userRepo.save(request.toEntity())
+            generateUserRole(newUser)
             responder.onSuccess(newUser.id)
         }
     }
@@ -62,6 +66,13 @@ class Create(
         return errors
     }
 
+    private fun generateUserRole(user: User) {
+        val role = UserRole(role = "USER")
+        role.user = user
+        userRoleRepo.save(role)
+        user.roles += role
+        userRepo.save(user)
+    }
 
     /**
      * Data class containing all fields necessary for user creation. Has a helper method to adapt the

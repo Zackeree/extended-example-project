@@ -4,6 +4,7 @@ import com.example.project.contract.responder.CreateResponder
 import com.example.project.contract.responder.DeleteResponder
 import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.contract.responder.UpdateResponder
+import com.example.project.repository.role.IUserRoleRepository
 import com.example.project.repository.user.IUserRepository
 import com.google.common.collect.Multimap
 import org.junit.Assert.*
@@ -22,11 +23,15 @@ class BaseUserFactoryTest {
 
     @Autowired
     private lateinit var userRepo: IUserRepository
+
+    @Autowired
+    private lateinit var userRoleRepo: IUserRoleRepository
+
     lateinit var factory: BaseUserFactory
 
     @Before
     fun init() {
-        factory = BaseUserFactory(userRepo)
+        factory = BaseUserFactory(userRepo, userRoleRepo)
     }
 
     @Test

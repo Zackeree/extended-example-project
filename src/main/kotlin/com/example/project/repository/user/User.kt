@@ -1,5 +1,6 @@
 package com.example.project.repository.user
 
+import com.example.project.repository.role.UserRole
 import javax.persistence.*
 
 /**
@@ -23,6 +24,9 @@ data class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     var id: Long = 0
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    var roles: List<UserRole> = arrayListOf()
 
     constructor(id: Long, username: String, email: String, password: String) : this(username, email, password) {
         this.id = id

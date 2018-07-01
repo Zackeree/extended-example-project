@@ -9,13 +9,14 @@ import com.example.project.contract.responder.CreateResponder
 import com.example.project.contract.responder.DeleteResponder
 import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.contract.responder.UpdateResponder
+import com.example.project.repository.role.IUserRoleRepository
 import com.example.project.repository.user.IUserRepository
 import com.example.project.repository.user.User
 
 /**
  * Base concrete implementation on the [UserFactory] interface
  */
-class BaseUserFactory(private val userRepo: IUserRepository) : UserFactory {
+class BaseUserFactory(private val userRepo: IUserRepository, private val userRoleRepo: IUserRoleRepository) : UserFactory {
     /**
      * Override of the [UserFactory.retrieve] method that will return a [Retrieve] command object
      */
@@ -34,7 +35,7 @@ class BaseUserFactory(private val userRepo: IUserRepository) : UserFactory {
      * Override of the [UserFactory.create] method that will return a [Create] command object
      */
     override fun create(request: Create.Request, responder: CreateResponder<ErrorTag>): Command {
-        return Create(request, responder, userRepo)
+        return Create(request, responder, userRepo, userRoleRepo)
     }
 
     /**

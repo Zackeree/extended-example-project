@@ -6,6 +6,7 @@ import com.example.project.contract.responder.DeleteResponder
 import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.contract.responder.UpdateResponder
 import com.example.project.contract.security.FakeUserContext
+import com.example.project.repository.role.IUserRoleRepository
 import com.example.project.repository.user.IUserRepository
 import com.google.common.collect.Multimap
 import org.junit.After
@@ -25,6 +26,9 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
     @Autowired
     private lateinit var userRepo: IUserRepository
 
+    @Autowired
+    private lateinit var userRoleRepo: IUserRoleRepository
+
     private val baseCreateRequest = Create.Request(
             username = "username",
             email = "email@address.com",
@@ -41,7 +45,7 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
     @Test
     fun create_AllRequirements_Success() {
         val context = FakeUserContext()
-        val factory = BaseUserFactory(userRepo)
+        val factory = BaseUserFactory(userRepo, userRoleRepo)
         val wrapper = UserUserWrapper(context, factory, userRepo)
         val responder = object : CreateResponder<ErrorTag> {
             override fun onSuccess(t: Long) {
@@ -62,7 +66,7 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
     @Test
     fun retrieveId_AllRequirements_Success() {
         val context = FakeUserContext()
-        val factory = BaseUserFactory(userRepo)
+        val factory = BaseUserFactory(userRepo, userRoleRepo)
         val wrapper = UserUserWrapper(context, factory, userRepo)
         val user = userRepo.save(baseCreateRequest.toEntity())
         val responder = object : RetrieveResponder<UserInfo> {
@@ -84,7 +88,7 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
     @Test
     fun update_AllRequirements_Success() {
         val context = FakeUserContext()
-        val factory = BaseUserFactory(userRepo)
+        val factory = BaseUserFactory(userRepo, userRoleRepo)
         val wrapper = UserUserWrapper(context, factory, userRepo)
         val user = userRepo.save(baseCreateRequest.toEntity())
         context.login(userId = user.id)
@@ -108,7 +112,7 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
     fun update_NotLoggedIn_Failure() {
         val context = FakeUserContext()
         context.currentRoles = mutableListOf()
-        val factory = BaseUserFactory(userRepo)
+        val factory = BaseUserFactory(userRepo, userRoleRepo)
         val wrapper = UserUserWrapper(context, factory, userRepo)
         val user = userRepo.save(baseCreateRequest.toEntity())
         val responder = object : UpdateResponder<ErrorTag> {
@@ -131,7 +135,7 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
     @Test
     fun delete_AllRequirements_Success() {
         val context = FakeUserContext()
-        val factory = BaseUserFactory(userRepo)
+        val factory = BaseUserFactory(userRepo, userRoleRepo)
         val wrapper = UserUserWrapper(context, factory, userRepo)
         val user = userRepo.save(baseCreateRequest.toEntity())
         context.login(userId = user.id)
@@ -155,7 +159,7 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
     fun delete_NotLoggedIn_Failure() {
         val context = FakeUserContext()
         context.currentRoles = mutableListOf()
-        val factory = BaseUserFactory(userRepo)
+        val factory = BaseUserFactory(userRepo, userRoleRepo)
         val wrapper = UserUserWrapper(context, factory, userRepo)
         val user = userRepo.save(baseCreateRequest.toEntity())
         val responder = object : DeleteResponder {
@@ -180,7 +184,7 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
         val context = FakeUserContext()
         context.currentRoles = mutableListOf()
         userRepo.save(baseCreateRequest.toEntity())
-        val factory = BaseUserFactory(userRepo)
+        val factory = BaseUserFactory(userRepo, userRoleRepo)
         val wrapper = UserUserWrapper(context, factory, userRepo)
         val responder = object : RetrieveResponder<UserInfo> {
             override fun onSuccess(t: UserInfo) {

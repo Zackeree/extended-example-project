@@ -1,6 +1,7 @@
 package com.example.project.contract.user
 
 import com.example.project.contract.responder.CreateResponder
+import com.example.project.repository.role.IUserRoleRepository
 import com.example.project.repository.user.IUserRepository
 import com.google.common.collect.Multimap
 import org.junit.After
@@ -19,6 +20,9 @@ class CreateTest {
 
     @Autowired
     private lateinit var userRepo: IUserRepository
+
+    @Autowired
+    private lateinit var userRoleRepo: IUserRoleRepository
 
     private val baseRequest = Create.Request(
             username = "username",
@@ -44,7 +48,8 @@ class CreateTest {
         Create(
                 request = request,
                 responder = responder,
-                userRepo = userRepo
+                userRepo = userRepo,
+                userRoleRepo = userRoleRepo
         ).execute()
         assertTrue(executed)
     }
@@ -67,7 +72,8 @@ class CreateTest {
         Create(
                 request = baseRequest.copy(email = "michaelscott@dundermifflin.com"),
                 responder = responder,
-                userRepo = userRepo
+                userRepo = userRepo,
+                userRoleRepo = userRoleRepo
         ).execute()
         assertTrue(executed)
     }
@@ -89,7 +95,8 @@ class CreateTest {
         Create(
                 request = baseRequest.copy(username = superName),
                 responder = responder,
-                userRepo = userRepo
+                userRepo = userRepo,
+                userRoleRepo = userRoleRepo
         ).execute()
         assertTrue(executed)
     }
@@ -110,7 +117,8 @@ class CreateTest {
         Create(
                 request = baseRequest.copy(email = ""),
                 responder = responder,
-                userRepo = userRepo
+                userRepo = userRepo,
+                userRoleRepo = userRoleRepo
         ).execute()
         assertTrue(executed)
     }
@@ -133,7 +141,8 @@ class CreateTest {
         Create(
                 request = baseRequest.copy(username = "aDifferentUsername"),
                 responder = responder,
-                userRepo = userRepo
+                userRepo = userRepo,
+                userRoleRepo = userRoleRepo
         ).execute()
         assertTrue(executed)
     }
@@ -155,13 +164,14 @@ class CreateTest {
         Create(
                 request = baseRequest.copy(email = superEmail),
                 responder = responder,
-                userRepo = userRepo
+                userRepo = userRepo,
+                userRoleRepo = userRoleRepo
         ).execute()
         assertTrue(executed)
     }
 
     @Test
-    fun passwordsDoNotMatch_Success() {
+    fun passwordsDoNotMatch_Failure() {
         var executed = false
         val responder = object : CreateResponder<ErrorTag> {
             override fun onSuccess(t: Long) {
@@ -176,7 +186,8 @@ class CreateTest {
         Create(
                 request = baseRequest.copy(password = "passwrod", passwordConfirm = "password"),
                 responder = responder,
-                userRepo = userRepo
+                userRepo = userRepo,
+                userRoleRepo = userRoleRepo
         ).execute()
         assertTrue(executed)
     }
@@ -196,10 +207,12 @@ class CreateTest {
         Create(
                 request = baseRequest,
                 responder = responder,
-                userRepo = userRepo
+                userRepo = userRepo,
+                userRoleRepo = userRoleRepo
         ).execute()
         assertTrue(executed)
         assertEquals(userRepo.count(), 1)
+
     }
 
 }
