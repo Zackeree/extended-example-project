@@ -27,4 +27,4 @@
 * The "contract" layer refers to the business logic of the application. 
 
 8. Kotlin
-* The server code for this application is written using the kotlin programming language made by the folks at JetBrains. It compiles to java and runs on the JVM. For information regarding kotlin, it is highly recommended to check out https://kotlinlang.org/docs/reference/ and https://try.kotlinlang.org/#/Examples/Hello,%20world!/Simplest%20version/Simplest%20version.kt to help familiarize yourself with the language
+* The server code for this application is written using the kotlin programming language made by the folks at JetBrains. It compiles to java and runs on the JVM. For information regarding kotlin, it is highly recommended to check out https://kotlinlang.org/docs/reference/ and https://try.kotlinlang.org/ to help familiarize yourself with the language
