@@ -16,9 +16,9 @@ import javax.persistence.*
 @Table(name = "person")
 data class Person(
         @Column(name = "first_name")
-        var firstName: String = "",
+        var firstName: String,
         @Column(name = "last_name")
-        var lastName: String = ""
+        var lastName: String
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

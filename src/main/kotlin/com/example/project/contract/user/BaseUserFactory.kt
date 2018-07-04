@@ -1,9 +1,5 @@
 package com.example.project.contract.user
 
-import au.com.console.jpaspecificationdsl.and
-import au.com.console.jpaspecificationdsl.equal
-import au.com.console.jpaspecificationdsl.join
-import au.com.console.jpaspecificationdsl.where
 import com.example.project.contract.Command
 import com.example.project.contract.responder.CreateResponder
 import com.example.project.contract.responder.DeleteResponder
@@ -11,10 +7,9 @@ import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.contract.responder.UpdateResponder
 import com.example.project.repository.role.IUserRoleRepository
 import com.example.project.repository.user.IUserRepository
-import com.example.project.repository.user.User
 
 /**
- * Base concrete implementation on the [UserFactory] interface
+ * Base concrete implementation of the [UserFactory] interface
  */
 class BaseUserFactory(private val userRepo: IUserRepository, private val userRoleRepo: IUserRoleRepository) : UserFactory {
     /**

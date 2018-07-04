@@ -2,6 +2,9 @@ package com.example.project.contract.person
 
 import com.example.project.repository.person.Person
 
+/**
+ * View class for the [Person] entity
+ */
 data class PersonInfo constructor(
         val id: Long,
         val firstName: String,

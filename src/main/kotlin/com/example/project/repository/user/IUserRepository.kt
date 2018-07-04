@@ -8,7 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Repository
 
 /**
- * Spring ORM Repository that acts as an interface between the business logic and the database for the
+ * Spring ORM Repository that acts as an interface between the business logic and the database's
  * user table. Extends the [PagingAndSortingRepository] interface which allows for easy integration
  * with returning paged data from the database. See [org.springframework.data.domain.Page] and
  * [org.springframework.data.domain.Pageable] for more information

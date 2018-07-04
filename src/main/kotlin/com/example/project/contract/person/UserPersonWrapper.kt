@@ -10,14 +10,29 @@ import com.example.project.repository.person.IPersonRepository
 import com.example.project.repository.user.IUserRepository
 import org.springframework.data.domain.Pageable
 
+/**
+ * Concrete implementation of the [UserPersonWrapper] that takes a [PersonFactory]
+ * and will return an extended factory based off of the [BasePersonFactory]
+ * @property context the [UserContext]
+ * @property factory the [PersonFactory]
+ * @property personRepo the [IPersonRepository]
+ * @property userRepo the [IUserRepository]
+ */
 class UserPersonWrapper(
         private val context: UserContext,
         private val factory: PersonFactory,
         private val personRepo: IPersonRepository,
         private val userRepo: IUserRepository
 ): UserContextWrapper<PersonFactory> {
+    /**
+     * Override of the factory method that creates a [PersonFactory] object that will handle
+     * roles and permission checking
+     */
     override fun factory(userPreconditionFailure: UserPreconditionFailure): PersonFactory {
         return object : PersonFactory {
+            /**
+             * Returns private retrieve method that handles roles and permissions checking
+             */
             override fun retrieve(id: Long, responder: RetrieveResponder<PersonInfo>): Command {
                 return retrieve(
                         id = id,
@@ -26,6 +41,9 @@ class UserPersonWrapper(
                 )
             }
 
+            /**
+             * Returns private create method that handles roles and permissions checking
+             */
             override fun create(request: Create.Request, responder: CreateResponder<ErrorTag>): Command {
                 return create(
                         request = request,
@@ -34,6 +52,9 @@ class UserPersonWrapper(
                 )
             }
 
+            /**
+             * Returns private update method that handles roles and permissions checking
+             */
             override fun update(request: Update.Request, responder: UpdateResponder<ErrorTag>): Command {
                 return update(
                         request = request,
@@ -42,6 +63,9 @@ class UserPersonWrapper(
                 )
             }
 
+            /**
+             * Returns private delete method that handles roles and permissions checking
+             */
             override fun delete(id: Long, responder: DeleteResponder): Command {
                 return delete(
                         id = id,
@@ -50,6 +74,9 @@ class UserPersonWrapper(
                 )
             }
 
+            /**
+             * Returns private findByFirstName method that handles roles and permissions checking
+             */
             override fun findByFirstName(firstName: String, pageable: Pageable, responder: PageResponder<PersonInfo, ErrorTag>): Command {
                 return findByFirstName(
                         firstName = firstName,
@@ -59,6 +86,9 @@ class UserPersonWrapper(
                 )
             }
 
+            /**
+             * Returns private findByLastName method that handles roles and permissions checking
+             */
             override fun findByLastName(lastName: String, pageable: Pageable, responder: PageResponder<PersonInfo, ErrorTag>): Command {
                 return findByLastName(
                         lastName = lastName,
@@ -70,6 +100,11 @@ class UserPersonWrapper(
         }
     }
 
+    /**
+     * Private retrieve implementation of the factory retrieve method that handles roles
+     * and permissions checking. It makes sure the id of the owner of the person object
+     * we wish to retrieve matches the id of the currently logged in user
+     */
     private fun retrieve(id: Long, responder: RetrieveResponder<PersonInfo>, failure: UserPreconditionFailure): Command {
         val theUser = personRepo.findById(id).get().user
         return if (theUser?.id == context.currentUserId()) {
@@ -83,6 +118,11 @@ class UserPersonWrapper(
         }
     }
 
+    /**
+     * Private create implementation of the factory create method that handles roles and
+     * permissions checking. It makes sure the id of the currently logged in user matches
+     * the id in the request object. It also makes sure the user has a role of "USER"
+     */
     private fun create(request: Create.Request, responder: CreateResponder<ErrorTag>, failure: UserPreconditionFailure): Command {
         val theUser = userRepo.findById(request.userId).get()
         return if (theUser.id == context.currentUserId()) {
@@ -96,6 +136,12 @@ class UserPersonWrapper(
         }
     }
 
+    /**
+     * Private update implementation of the factory update method that handles roles
+     * and permissions checking. It checks to make sure the id of the owner of the person
+     * object we wish to update matches the id of the currently logged in user.
+     * It also requires that a user has a role of "USER"
+     */
     private fun update(request: Update.Request, responder: UpdateResponder<ErrorTag>, failure: UserPreconditionFailure): Command {
         val theUser = personRepo.findById(request.id).get().user
         return if (theUser?.id == context.currentUserId()) {
@@ -109,6 +155,12 @@ class UserPersonWrapper(
         }
     }
 
+    /**
+     * Private delete implementation of the factory delete method that handles roles
+     * and permissions checking. It checks to make sure the id of the owner of the person
+     * we wish to delete matches the id of the currently logged in user. It also requires
+     * that a user has a role of "USER"
+     */
     private fun delete(id: Long, responder: DeleteResponder, failure: UserPreconditionFailure): Command {
         val theUser = personRepo.findById(id).get().user
         return if (theUser?.id == context.currentUserId()) {
@@ -122,6 +174,11 @@ class UserPersonWrapper(
         }
     }
 
+    /**
+     * Private findByFirstName implementation of the factory findByFirstName method
+     * that handles roles and permissions checking. It requires that the logged in user
+     * has a role of "ADMIN"
+     */
     private fun findByFirstName(firstName: String, pageable: Pageable, responder: PageResponder<PersonInfo, ErrorTag>, failure: UserPreconditionFailure): Command {
         return context.require(
                 requiredRoles = listOf(UserRole.ADMIN),
@@ -130,6 +187,11 @@ class UserPersonWrapper(
         )
     }
 
+    /**
+     * Private findByLastName implementation of the factory findByLastName method
+     * that handles roles and permissions checking. It requires that the logged in user
+     * has a role of "ADMIN"
+     */
     private fun findByLastName(lastName: String, pageable: Pageable, responder: PageResponder<PersonInfo, ErrorTag>, failure: UserPreconditionFailure): Command {
         return context.require(
                 requiredRoles = listOf(UserRole.ADMIN),

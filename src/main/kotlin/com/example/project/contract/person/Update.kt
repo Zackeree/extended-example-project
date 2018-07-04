@@ -8,11 +8,23 @@ import com.example.project.repository.person.Person
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 
+/**
+ * Person Update command. Extends the [Command] object
+ * @property request the [Update.Request] data class
+ * @property responder the [UpdateResponder]
+ * @property personRepo the [IPersonRepository]
+ */
 class Update(
         private val request: Update.Request,
         private val responder: UpdateResponder<ErrorTag>,
         private val personRepo: IPersonRepository
 ) : Command {
+    /**
+     * Override of the [Command] object execute method.
+     * If the [validateRequest] method returns any errors,
+     * respond with the errors. Otherwise, grab and update
+     * the person entity and persist the changes
+     */
     override fun execute() {
         val errors = validateRequest()
         if (!errors.isEmpty) {
@@ -24,6 +36,10 @@ class Update(
         responder.onSuccess(person.id)
     }
 
+    /**
+     * Method responsible for the constraint checking and validation
+     * for the person update request
+     */
     private fun validateRequest(): Multimap<ErrorTag, String> {
         with(request) {
             val errors = HashMultimap.create<ErrorTag, String>()

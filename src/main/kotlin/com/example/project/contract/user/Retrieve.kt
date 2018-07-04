@@ -7,7 +7,7 @@ import com.example.project.repository.user.IUserRepository
 /**
  * User Retrieve command. Extends the [Command] object.
  * @property id the user id
- * @property responder the [RetrieveResponder]
+ * @property responder the [RetrieveResponder] interface
  * @property userRepo the [IUserRepository] interface
  */
 class Retrieve(

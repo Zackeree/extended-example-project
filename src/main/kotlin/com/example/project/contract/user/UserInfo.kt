@@ -4,7 +4,7 @@ import com.example.project.repository.user.User
 
 
 /**
- * View class for the User entity
+ * View class for the [User] entity
  */
 data class UserInfo(
         val id: Long,

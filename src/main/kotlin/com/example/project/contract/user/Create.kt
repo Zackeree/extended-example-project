@@ -15,6 +15,7 @@ import com.google.common.collect.Multimap
  * @property request the [Request] data class
  * @property responder the [CreateResponder] interface
  * @property userRepo the [IUserRepository] interface
+ * @property userRoleRepo the [IUserRoleRepository] interface
  */
 class Create(
         private val request: Request,
@@ -41,7 +42,9 @@ class Create(
 
     /**
      * Method responsible for constraint checking and validations for the user
-     * create request
+     * create request. It will ensure the username is not blank, does not already
+     * exist in the database, and is under the max length. It then checks the same
+     * constraints for the email, and finally makes sure the passwords match
      */
     private fun validateRequest(): Multimap<ErrorTag, String> {
         val errors = HashMultimap.create<ErrorTag, String>()
@@ -52,7 +55,7 @@ class Create(
                 errors.put(ErrorTag.USERNAME, "Username is already in use.")
             if (username.length > 100)
                 errors.put(ErrorTag.USERNAME, "Username must be less than 100 characters.")
-            if (email.isBlank())
+            if (email.isEmpty())
                 errors.put(ErrorTag.EMAIL_ADDRESS, "Email Address may not be blank.")
             if (userRepo.countByEmail(email) > 0)
                 errors.put(ErrorTag.EMAIL_ADDRESS, "Email Address is already in use.")
@@ -66,6 +69,9 @@ class Create(
         return errors
     }
 
+    /**
+     * Private method to generate and save a [UserRole]
+     */
     private fun generateUserRole(user: User) {
         val role = UserRole(role = "USER")
         role.user = user
@@ -75,8 +81,8 @@ class Create(
     }
 
     /**
-     * Data class containing all fields necessary for user creation. Has a helper method to adapt the
-     * class into a [User] object to persist it easily
+     * Data class containing all fields necessary for user creation. Implements the
+     * [BaseCreateRequest] interface and overrides the [BaseCreateRequest.toEntity] method
      */
     data class Request(
             val username: String,
@@ -86,9 +92,9 @@ class Create(
     ) : BaseCreateRequest<User> {
         override fun toEntity(): User {
             return User(
-                    username,
-                    email,
-                    password
+                    username = username,
+                    email = email,
+                    password = password
             )
         }
     }

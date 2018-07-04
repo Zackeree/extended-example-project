@@ -10,13 +10,28 @@ import com.google.common.collect.Multimap
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
+import org.springframework.stereotype.Service
 
+/**
+ * Person find by first name command. Extends the [Command] object.
+ * @property firstName the target [String]
+ * @property pageable the [Pageable] object
+ * @property responder the [PageResponder] interface
+ * @property personRepo the [IPersonRepository]
+ */
 class FindByFirstName(
         private val firstName: String,
         private val pageable: Pageable,
         private val responder: PageResponder<PersonInfo, ErrorTag>,
         private val personRepo: IPersonRepository
 ) : Command {
+    /**
+     * Override the [Command] object execute method. It calls the
+     * [validateRequest] method which handles all constraint checking and
+     * validation. If the validation passes, grab the [Page] of [Person]
+     * objects, adapt it to a page of [PersonInfo] objects and respond with it.
+     * Otherwise, respond with a list of the errors
+     */
     override fun execute() {
         val errors = validateRequest()
         if (errors.isEmpty) {
@@ -28,6 +43,11 @@ class FindByFirstName(
         }
     }
 
+    /**
+     * Method responsible for constraint checking and validations for the [Person]
+     * find by first name method. It will ensure the first name is not blank and
+     * is under the max length.
+     */
     private fun validateRequest(): Multimap<ErrorTag, String> {
         val errors = HashMultimap.create<ErrorTag, String>()
         if (firstName.isBlank())
@@ -38,6 +58,10 @@ class FindByFirstName(
         return errors
     }
 
+    /**
+     * Private method to adapt a list of [Person] objects into a [Page] of [PersonInfo]
+     * objects
+     */
     private fun toPersonInfoList(personList: List<Person>): Page<PersonInfo> {
         val infoList = ArrayList<PersonInfo>()
         personList.forEach {

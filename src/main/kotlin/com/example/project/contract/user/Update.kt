@@ -66,7 +66,8 @@ class Update(
     }
 
     /**
-     * Update request data class
+     * Update request data class that implements the [BaseUpdateRequest] interface
+     * and overrides the [BaseUpdateRequest.createUpdatedEntity] method
      */
     data class Request(
             val id: Long,
