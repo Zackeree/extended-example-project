@@ -2,6 +2,7 @@ package com.example.project.repository.user
 
 import au.com.console.jpaspecificationdsl.equal
 import au.com.console.jpaspecificationdsl.or
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.PagingAndSortingRepository
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository
  * [org.springframework.data.domain.Pageable] for more information
  */
 @Repository
+@Qualifier(value = "userRepo")
 interface IUserRepository : PagingAndSortingRepository<User, Long>, JpaSpecificationExecutor<User> {
 
     /**
