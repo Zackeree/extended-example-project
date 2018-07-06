@@ -62,6 +62,14 @@ class UserUserWrapper(
                 )
             }
 
+            override fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo>): Command {
+                return retrieve(
+                        request = request,
+                        responder = responder,
+                        failure = userPreconditionFailure
+                )
+            }
+
             /**
              * Return private update method that actually handles the roles and permissions checking
              */
@@ -106,6 +114,18 @@ class UserUserWrapper(
         return context.require(
                 requiredRoles = listOf(),
                 successCommand = factory.retrieve(username, responder),
+                failureCommand = failure
+        )
+    }
+
+    /**
+     * Private retrieve implementation of the factory retrieve method (handles logins) that handles role and permission checking.
+     * It does not actually require any roles/permissions
+     */
+    private fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo>, failure: UserPreconditionFailure): Command {
+        return context.require(
+                requiredRoles = listOf(),
+                successCommand = factory.retrieve(request, responder),
                 failureCommand = failure
         )
     }
