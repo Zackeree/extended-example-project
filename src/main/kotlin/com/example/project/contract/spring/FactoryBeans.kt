@@ -5,12 +5,19 @@ import com.example.project.contract.person.UserPersonWrapper
 import com.example.project.contract.security.UserContextImpl
 import com.example.project.contract.user.BaseUserFactory
 import com.example.project.contract.user.UserUserWrapper
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 
-class FactoryBeans : FactoryProvider {
-    private val repositories = RepositoryBeans()
-    private val userContext = UserContextImpl()
+@Configuration
+class FactoryBeans(
+        private var repositories: RepositoryBeans
+) : FactoryProvider {
 
-    override fun getUser(): UserUserWrapper {
+    private val userContext = UserContextImpl(repositories.userRepo)
+
+
+    @Bean
+    override fun getUserWrapper(): UserUserWrapper {
         return UserUserWrapper(
                 context = userContext,
                 factory = BaseUserFactory(
@@ -21,7 +28,8 @@ class FactoryBeans : FactoryProvider {
         )
     }
 
-    override fun getPerson(): UserPersonWrapper {
+    @Bean
+    override fun getPersonWrapper(): UserPersonWrapper {
         return UserPersonWrapper(
                 context = userContext,
                 factory = BasePersonFactory(

@@ -1,7 +1,5 @@
 package com.example.project.repository.user
 
-import au.com.console.jpaspecificationdsl.equal
-import au.com.console.jpaspecificationdsl.or
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.PagingAndSortingRepository
