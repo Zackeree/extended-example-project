@@ -9,6 +9,7 @@ import com.example.project.repository.user.IUserRepository
 import com.example.project.repository.user.User
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 /**
  * [User] Create command. Extends from [Command] object
@@ -91,10 +92,12 @@ class Create(
             val passwordConfirm: String
     ) : BaseCreateRequest<User> {
         override fun toEntity(): User {
+            val passwordEncoder = BCryptPasswordEncoder()
+            val encryptedPassword = passwordEncoder.encode(password)
             return User(
                     username = username,
                     email = email,
-                    password = password
+                    password = encryptedPassword
             )
         }
     }
