@@ -6,5 +6,4 @@ import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-@Qualifier(value = "userRoleRepo")
 interface IUserRoleRepository : PagingAndSortingRepository<UserRole, Long>, JpaSpecificationExecutor<UserRole>

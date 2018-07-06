@@ -2,11 +2,14 @@ package com.example.project.contract.security
 
 import com.example.project.contract.Command
 import com.example.project.contract.spring.RepositoryBeans
+import com.example.project.repository.user.IUserRepository
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 
-class UserContextImpl : UserContext {
-    private val userRepo = RepositoryBeans().userRepo
+class UserContextImpl(
+        var userRepo: IUserRepository
+) : UserContext {
+
     private val authentication = SecurityContextHolder.getContext().authentication
 
     override fun require(requiredRoles: List<UserRole>, successCommand: Command, failureCommand: UserPreconditionFailure): Command {

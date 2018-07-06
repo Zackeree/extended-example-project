@@ -1,6 +1,5 @@
 package com.example.project.repository.person
 
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Repository
  * [org.springframework.data.domain.Pageable] for more information
  */
 @Repository
-@Qualifier(value = "personRepo")
 interface IPersonRepository : PagingAndSortingRepository<Person, Long>, JpaSpecificationExecutor<Person> {
     /**
      * Query that will take a first name and a [Pageable] object
