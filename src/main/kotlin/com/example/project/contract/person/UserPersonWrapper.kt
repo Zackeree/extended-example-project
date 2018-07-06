@@ -2,10 +2,10 @@ package com.example.project.contract.person
 
 import com.example.project.contract.Command
 import com.example.project.contract.responder.*
-import com.example.project.contract.security.UserContext
-import com.example.project.contract.security.UserContextWrapper
-import com.example.project.contract.security.UserPreconditionFailure
-import com.example.project.contract.security.UserRole
+import com.example.project.controller.security.UserContext
+import com.example.project.controller.security.UserContextWrapper
+import com.example.project.controller.security.UserPreconditionFailure
+import com.example.project.controller.security.UserRole
 import com.example.project.repository.person.IPersonRepository
 import com.example.project.repository.user.IUserRepository
 import org.springframework.data.domain.Pageable

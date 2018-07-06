@@ -1,4 +1,4 @@
-package com.example.project.contract.spring
+package com.example.project.controller.spring
 
 import com.example.project.repository.person.IPersonRepository
 import com.example.project.repository.role.IUserRoleRepository

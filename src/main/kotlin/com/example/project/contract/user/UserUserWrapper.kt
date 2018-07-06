@@ -5,10 +5,10 @@ import com.example.project.contract.responder.CreateResponder
 import com.example.project.contract.responder.DeleteResponder
 import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.contract.responder.UpdateResponder
-import com.example.project.contract.security.UserContext
-import com.example.project.contract.security.UserContextWrapper
-import com.example.project.contract.security.UserPreconditionFailure
-import com.example.project.contract.security.UserRole
+import com.example.project.controller.security.UserContext
+import com.example.project.controller.security.UserContextWrapper
+import com.example.project.controller.security.UserPreconditionFailure
+import com.example.project.controller.security.UserRole
 import com.example.project.repository.user.IUserRepository
 
 /**

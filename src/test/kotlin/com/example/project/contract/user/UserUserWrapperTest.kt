@@ -5,11 +5,10 @@ import com.example.project.contract.responder.CreateResponder
 import com.example.project.contract.responder.DeleteResponder
 import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.contract.responder.UpdateResponder
-import com.example.project.contract.security.FakeUserContext
+import com.example.project.controller.security.FakeUserContext
 import com.example.project.repository.role.IUserRoleRepository
 import com.example.project.repository.user.IUserRepository
 import com.google.common.collect.Multimap
-import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith

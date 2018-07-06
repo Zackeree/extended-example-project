@@ -1,7 +1,6 @@
-package com.example.project.contract.security
+package com.example.project.controller.security
 
 import com.example.project.contract.Command
-import com.example.project.contract.spring.RepositoryBeans
 import com.example.project.repository.user.IUserRepository
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder

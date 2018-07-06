@@ -1,8 +1,8 @@
 package com.example.project.contract
 
-import com.example.project.contract.security.UserPreconditionFailure
-import com.example.project.contract.security.UserPreconditionFailureResponder
-import com.example.project.contract.security.UserPreconditionFailureTag
+import com.example.project.controller.security.UserPreconditionFailure
+import com.example.project.controller.security.UserPreconditionFailureResponder
+import com.example.project.controller.security.UserPreconditionFailureTag
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import org.junit.Assert
