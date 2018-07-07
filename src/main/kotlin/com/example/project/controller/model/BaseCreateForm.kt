@@ -1,5 +1,5 @@
 package com.example.project.controller.model
 
-interface BaseCreateRequest<REQUEST> {
+interface BaseCreateForm<REQUEST> {
     fun toCreateRequest(): REQUEST
 }

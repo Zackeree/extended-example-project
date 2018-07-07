@@ -28,7 +28,7 @@ interface PersonFactory {
     /**
      * Abstract [Person] [Delete] method
      */
-    fun delete(id: Long, responder: DeleteResponder): Command
+    fun delete(id: Long, responder: DeleteResponder<ErrorTag>): Command
 
     /**
      * Abstract [Person] [FindByFirstName] method

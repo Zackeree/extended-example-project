@@ -41,5 +41,5 @@ interface UserFactory {
     /**
      * Abstract [User] [Delete] method
      */
-    fun delete(id: Long, responder: DeleteResponder): Command
+    fun delete(id: Long, responder: DeleteResponder<ErrorTag>): Command
 }

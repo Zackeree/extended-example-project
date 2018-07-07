@@ -2,7 +2,9 @@ package com.example.project.contract.user
 
 import com.example.project.contract.Command
 import com.example.project.contract.responder.RetrieveResponder
+import com.example.project.contract.user.ErrorTag
 import com.example.project.repository.user.IUserRepository
+import com.google.common.collect.HashMultimap
 
 /**
  * User Retrieve command. Extends the [Command] object.
@@ -23,7 +25,9 @@ class Retrieve(
      */
     override fun execute() {
         if (!userRepo.existsById(id)) {
-            responder.onFailure("User#$id not found.")
+            val errors = HashMultimap.create<ErrorTag, String>()
+            errors.put(ErrorTag.ID, "User Id $id not found")
+            responder.onFailure(errors)
             return
         }
         val theUser = userRepo.findById(id).get()

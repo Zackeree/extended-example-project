@@ -3,6 +3,7 @@ package com.example.project.contract.user
 import com.example.project.contract.Command
 import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.repository.user.IUserRepository
+import com.google.common.collect.HashMultimap
 
 /**
  * User FindByUsernameOrEmail command. Extends the [Command] object
@@ -20,12 +21,15 @@ class FindByUsernameOrEmail(
      */
     override fun execute() {
         if (userRepo.countByUsername(target) == 0 && userRepo.countByEmail(target) == 0) {
-            responder.onFailure("User not found")
+            val errors = HashMultimap.create<ErrorTag, String>()
+            errors.put(ErrorTag.ID, "User not found")
+            responder.onFailure(errors)
             return
         } else {
             val theUser = userRepo.findByUsernameOrEmail(target)
             if (theUser == null) {
-                responder.onFailure("User not found")
+                val errors = HashMultimap.create<ErrorTag, String>()
+                errors.put(ErrorTag.ID, "User not found")
                 return
             }
             val theInfo = UserInfo(theUser)

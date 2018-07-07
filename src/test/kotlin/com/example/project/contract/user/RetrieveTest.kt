@@ -2,6 +2,7 @@ package com.example.project.contract.user
 
 import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.repository.user.IUserRepository
+import com.google.common.collect.Multimap
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -47,7 +48,7 @@ class RetrieveTest {
                 fail("Should not work")
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: Multimap<ErrorTag, String>) {
                 executed = true
             }
         }
@@ -67,8 +68,9 @@ class RetrieveTest {
                 executed = true
                 assertEquals(validId, t.id)
             }
-            override fun onFailure(e: String) {
-                fail("Should not fail.")
+
+            override fun onFailure(e: Multimap<ErrorTag, String>) {
+                fail("Should not fail")
             }
         }
         Retrieve(

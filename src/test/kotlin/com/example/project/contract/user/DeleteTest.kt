@@ -2,6 +2,7 @@ package com.example.project.contract.user
 
 import com.example.project.contract.responder.DeleteResponder
 import com.example.project.repository.user.IUserRepository
+import com.google.common.collect.HashMultimap
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -37,12 +38,12 @@ class DeleteTest {
     @Test
     fun idDoesNotExist_Failure() {
         var executed = false
-        val responder = object : DeleteResponder {
+        val responder = object : DeleteResponder<ErrorTag> {
             override fun onSuccess(t: Long) {
                 fail("Should not succeed")
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: HashMultimap<ErrorTag, String>) {
                 executed = true
             }
         }
@@ -58,13 +59,13 @@ class DeleteTest {
     @Test
     fun delete_Success() {
         var executed = false
-        val responder = object : DeleteResponder {
+        val responder = object : DeleteResponder<ErrorTag> {
             override fun onSuccess(t: Long) {
                 executed = true
                 assertEquals(existingId, t)
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: HashMultimap<ErrorTag, String>) {
                 fail("Should not fail")
             }
         }

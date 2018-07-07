@@ -37,7 +37,7 @@ class BasePersonFactory(
     /**
      * Override of the [PersonFactory.delete] method that will return a [Delete] command object
      */
-    override fun delete(id: Long, responder: DeleteResponder): Command {
+    override fun delete(id: Long, responder: DeleteResponder<ErrorTag>): Command {
         return Delete(id, responder, personRepo)
     }
 

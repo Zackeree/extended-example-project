@@ -8,6 +8,7 @@ import com.example.project.contract.responder.UpdateResponder
 import com.example.project.controller.security.FakeUserContext
 import com.example.project.repository.role.IUserRoleRepository
 import com.example.project.repository.user.IUserRepository
+import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import org.junit.Assert.*
 import org.junit.Test
@@ -74,7 +75,7 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
                 executed = true
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: Multimap<ErrorTag, String>) {
                 fail("Should not fail")
             }
         }
@@ -139,12 +140,12 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
         val wrapper = UserUserWrapper(context, factory, userRepo)
         val user = userRepo.save(baseCreateRequest.toEntity())
         context.login(userId = user.id)
-        val responder = object : DeleteResponder {
+        val responder = object : DeleteResponder<ErrorTag> {
             override fun onSuccess(t: Long) {
                 executed = true
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: HashMultimap<ErrorTag, String>) {
                 fail("Should not fail")
             }
         }
@@ -162,12 +163,12 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
         val factory = BaseUserFactory(userRepo, userRoleRepo)
         val wrapper = UserUserWrapper(context, factory, userRepo)
         val user = userRepo.save(baseCreateRequest.toEntity())
-        val responder = object : DeleteResponder {
+        val responder = object : DeleteResponder<ErrorTag> {
             override fun onSuccess(t: Long) {
                 fail("Should fail on precondition")
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: HashMultimap<ErrorTag, String>) {
                 fail("Should fail on precondition")
             }
         }
@@ -191,7 +192,7 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
                 executed = true
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: Multimap<ErrorTag, String>) {
                 fail("Should not fail")
             }
         }
@@ -214,7 +215,7 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
                 executed = true
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: Multimap<ErrorTag, String>) {
                 fail("Should not fail")
             }
         }

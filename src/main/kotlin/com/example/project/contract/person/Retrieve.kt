@@ -2,7 +2,9 @@ package com.example.project.contract.person
 
 import com.example.project.contract.Command
 import com.example.project.contract.responder.RetrieveResponder
+import com.example.project.contract.user.ErrorTag
 import com.example.project.repository.person.IPersonRepository
+import com.google.common.collect.HashMultimap
 import org.springframework.stereotype.Service
 
 /**
@@ -24,7 +26,9 @@ class Retrieve(
      */
     override fun execute() {
         if (!personRepo.existsById(id)) {
-            responder.onFailure("Person#$id not found")
+            val errors = HashMultimap.create<ErrorTag, String>()
+            errors.put(ErrorTag.ID, "Person#$id not found")
+            responder.onFailure(errors)
             return
         }
         val thePerson = personRepo.findById(id)

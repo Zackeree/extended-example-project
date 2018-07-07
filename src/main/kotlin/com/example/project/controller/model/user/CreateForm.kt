@@ -1,14 +1,14 @@
 package com.example.project.controller.model.user
 
 import com.example.project.contract.user.Create
-import com.example.project.controller.model.BaseCreateRequest
+import com.example.project.controller.model.BaseCreateForm
 
-data class CreateRequest(
+data class CreateForm(
         val username: String,
         val email: String,
         val password: String,
         val passwordConfirm: String
-) : BaseCreateRequest<Create.Request> {
+) : BaseCreateForm<Create.Request> {
     override fun toCreateRequest(): Create.Request {
         return Create.Request(
                 username = username,

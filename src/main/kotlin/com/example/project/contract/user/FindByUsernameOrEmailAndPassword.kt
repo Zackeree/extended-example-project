@@ -3,6 +3,7 @@ package com.example.project.contract.user
 import com.example.project.contract.Command
 import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.repository.user.IUserRepository
+import com.google.common.collect.HashMultimap
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 class FindByUsernameOrEmailAndPassword(
@@ -12,16 +13,22 @@ class FindByUsernameOrEmailAndPassword(
 ) : Command {
     override fun execute() {
         if (userRepo.countByEmail(request.usernameOrEmail) == 0 && userRepo.countByUsername(request.usernameOrEmail) == 0) {
-            responder.onFailure("Invalid login credentials")
+            val errors = HashMultimap.create<ErrorTag, String>()
+            errors.put(ErrorTag.ID, "Invalid login credentials")
+            responder.onFailure(errors)
         } else {
             val theUser = userRepo.findByUsernameOrEmail(request.usernameOrEmail)
             if (theUser == null) {
-                responder.onFailure("Invalid login credentials")
+                val errors = HashMultimap.create<ErrorTag, String>()
+                errors.put(ErrorTag.ID, "Invalid login credentials")
+                responder.onFailure(errors)
                 return
             }
             val passwordEncoder = BCryptPasswordEncoder()
             if (!passwordEncoder.matches(request.password, theUser.password)) {
-                responder.onFailure("Invalid login credentials")
+                val errors = HashMultimap.create<ErrorTag, String>()
+                errors.put(ErrorTag.ID, "Invalid login credentials")
+                responder.onFailure(errors)
                 return
             }
             val theInfo = UserInfo(theUser)

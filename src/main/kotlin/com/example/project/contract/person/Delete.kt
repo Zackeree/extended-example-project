@@ -4,6 +4,7 @@ import com.example.project.contract.Command
 import com.example.project.contract.responder.DeleteResponder
 import com.example.project.repository.person.IPersonRepository
 import com.example.project.repository.person.Person
+import com.google.common.collect.HashMultimap
 
 /**
  * User Delete Command. Extends the [Command] object
@@ -11,7 +12,7 @@ import com.example.project.repository.person.Person
  */
 class Delete(
         private val id: Long,
-        private val responder: DeleteResponder,
+        private val responder: DeleteResponder<ErrorTag>,
         private val personRepo: IPersonRepository
 ): Command {
     /**
@@ -21,7 +22,9 @@ class Delete(
      */
     override fun execute() {
         if (!personRepo.existsById(id)) {
-            responder.onFailure("Person#$id does not exist")
+            val errors = HashMultimap.create<ErrorTag, String>()
+            errors.put(ErrorTag.ID, "Person#$id does not exist")
+            responder.onFailure(errors)
             return
         }
         val thePerson = personRepo.findById(id).get()

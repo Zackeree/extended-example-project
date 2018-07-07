@@ -8,6 +8,7 @@ import com.example.project.repository.person.IPersonRepository
 import com.example.project.repository.person.Person
 import com.example.project.repository.user.IUserRepository
 import com.example.project.repository.user.User
+import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import org.junit.Assert.*
 import org.junit.Before
@@ -205,8 +206,8 @@ class UserPersonWrapperTest : BaseUserWrapperTest() {
                 assertEquals(t.id, existingPersonId)
             }
 
-            override fun onFailure(e: String) {
-                fail("Should not fail")
+            override fun onFailure(e: Multimap<com.example.project.contract.user.ErrorTag, String>) {
+                fail("Should")
             }
         }
         wrapper.factory(failure).retrieve(
@@ -227,8 +228,8 @@ class UserPersonWrapperTest : BaseUserWrapperTest() {
                 fail("Should fail on precondition")
             }
 
-            override fun onFailure(e: String) {
-                fail("Should fail on precondition")
+            override fun onFailure(e: Multimap<com.example.project.contract.user.ErrorTag, String>) {
+                fail("Should")
             }
 
         }
@@ -252,8 +253,8 @@ class UserPersonWrapperTest : BaseUserWrapperTest() {
                 fail("Should fail on precondition")
             }
 
-            override fun onFailure(e: String) {
-                fail("Should fail on precondition")
+            override fun onFailure(e: Multimap<com.example.project.contract.user.ErrorTag, String>) {
+                fail("Should")
             }
         }
         shouldFailOnPrecondition = true
@@ -270,13 +271,13 @@ class UserPersonWrapperTest : BaseUserWrapperTest() {
         context.login(existingUserId)
         val factory = BasePersonFactory(personRepo, userRepo)
         val wrapper = UserPersonWrapper(context, factory, personRepo, userRepo)
-        val responder = object : DeleteResponder {
+        val responder = object : DeleteResponder<ErrorTag> {
             override fun onSuccess(t: Long) {
                 executed = true
                 assertEquals(t, existingPersonId)
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: HashMultimap<ErrorTag, String>) {
                 fail("Should not fail")
             }
         }
@@ -293,12 +294,12 @@ class UserPersonWrapperTest : BaseUserWrapperTest() {
         context.currentRoles = mutableListOf()
         val factory = BasePersonFactory(personRepo, userRepo)
         val wrapper = UserPersonWrapper(context, factory, personRepo, userRepo)
-        val responder = object : DeleteResponder {
+        val responder = object : DeleteResponder<ErrorTag> {
             override fun onSuccess(t: Long) {
                 fail("Should fail on precondition")
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: HashMultimap<ErrorTag, String>) {
                 fail("Should fail on precondition")
             }
         }
@@ -316,12 +317,12 @@ class UserPersonWrapperTest : BaseUserWrapperTest() {
         context.login(existingUserId + 1)
         val factory = BasePersonFactory(personRepo, userRepo)
         val wrapper = UserPersonWrapper(context, factory, personRepo, userRepo)
-        val responder = object : DeleteResponder {
+        val responder = object : DeleteResponder<ErrorTag> {
             override fun onSuccess(t: Long) {
                 fail("Should fail on precondition")
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: HashMultimap<ErrorTag, String>) {
                 fail("Should fail on precondition")
             }
         }

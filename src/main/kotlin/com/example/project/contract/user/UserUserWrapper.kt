@@ -84,7 +84,7 @@ class UserUserWrapper(
             /**
              * Return private delete method that actually handles the roles and permissions checking
              */
-            override fun delete(id: Long, responder: DeleteResponder): Command {
+            override fun delete(id: Long, responder: DeleteResponder<ErrorTag>): Command {
                 return delete(
                         id = id,
                         responder = responder,
@@ -166,7 +166,7 @@ class UserUserWrapper(
      * It checks to make sure the id of the user that is going to be deleted matches the id of the currently
      * logged in user. It also requires that a user has a role of "USER"
      */
-    private fun delete(id: Long, responder: DeleteResponder, failure: UserPreconditionFailure): Command {
+    private fun delete(id: Long, responder: DeleteResponder<ErrorTag>, failure: UserPreconditionFailure): Command {
         val theUser = userRepo.findById(id).get()
         return if (theUser.id == context.currentUserId()) {
             context.require(

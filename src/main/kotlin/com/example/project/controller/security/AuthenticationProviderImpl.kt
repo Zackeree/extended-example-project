@@ -1,10 +1,12 @@
 package com.example.project.controller.security
 
 import com.example.project.contract.responder.RetrieveResponder
+import com.example.project.contract.user.ErrorTag
 import com.example.project.contract.user.FindByUsernameOrEmailAndPassword
 import com.example.project.contract.user.UserInfo
 import com.example.project.service.security.UserDetailsImpl
 import com.example.project.repository.user.IUserRepository
+import com.google.common.collect.Multimap
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -57,7 +59,7 @@ class AuthenticationProviderImpl(
                         verified = true
                     }
 
-                    override fun onFailure(e: String) {
+                    override fun onFailure(e: Multimap<ErrorTag, String>) {
                         verified = false
                     }
                 },

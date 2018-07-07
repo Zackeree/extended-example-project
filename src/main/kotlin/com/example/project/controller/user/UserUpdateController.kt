@@ -1,22 +1,22 @@
 package com.example.project.controller.user
 
-import com.example.project.contract.responder.CreateResponder
+import com.example.project.contract.responder.UpdateResponder
 import com.example.project.contract.user.ErrorTag
 import com.example.project.contract.user.UserUserWrapper
 import com.example.project.controller.BaseRestController
 import com.example.project.controller.model.Result
-import com.example.project.controller.model.user.CreateForm
+import com.example.project.controller.model.user.UpdateForm
 import com.example.project.toStringMap
 import com.google.common.collect.Multimap
-import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class UserCreateController(
+class UserUpdateController(
         private val userWrapper: UserUserWrapper
-) : BaseRestController<CreateForm>(){
-    private val responder = object : CreateResponder<ErrorTag> {
+) : BaseRestController<UpdateForm>() {
+    private val responder = object : UpdateResponder<ErrorTag> {
         override fun onSuccess(t: Long) {
             result = Result(
                     data = t,
@@ -32,14 +32,13 @@ class UserCreateController(
         }
     }
 
-    @PostMapping(value = ["/users"])
-    override fun execute(@RequestBody model: CreateForm): Result {
-        userWrapper.factory(userPreconditionFailure).create(
-                request = model.toCreateRequest(),
+    @PutMapping(value = ["/users/{userId}"])
+    override fun execute(@RequestBody model: UpdateForm): Result {
+        userWrapper.factory(userPreconditionFailure).update(
+                request = model.toUpdateRequest(),
                 responder = responder
         ).execute()
 
         return result
     }
-
 }

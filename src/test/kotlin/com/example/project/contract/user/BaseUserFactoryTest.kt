@@ -6,6 +6,7 @@ import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.contract.responder.UpdateResponder
 import com.example.project.repository.role.IUserRoleRepository
 import com.example.project.repository.user.IUserRepository
+import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import org.junit.Assert.*
 import org.junit.Before
@@ -40,7 +41,7 @@ class BaseUserFactoryTest {
                 id = 0,
                 responder = object : RetrieveResponder<UserInfo> {
                     override fun onSuccess(t: UserInfo) { }
-                    override fun onFailure(e: String) { }
+                    override fun onFailure(e: Multimap<ErrorTag, String>) { }
                 }
         )
         assertTrue(cmd is Retrieve)
@@ -52,7 +53,7 @@ class BaseUserFactoryTest {
                 username = "username",
                 responder = object : RetrieveResponder<UserInfo> {
                     override fun onSuccess(t: UserInfo) { }
-                    override fun onFailure(e: String) { }
+                    override fun onFailure(e: Multimap<ErrorTag, String>) { }
                 }
         )
         assertTrue(cmd is FindByUsernameOrEmail)
@@ -67,7 +68,7 @@ class BaseUserFactoryTest {
                 ),
                 responder = object : RetrieveResponder<UserInfo> {
                     override fun onSuccess(t: UserInfo) { }
-                    override fun onFailure(e: String) { }
+                    override fun onFailure(e: Multimap<ErrorTag, String>) { }
                 }
         )
         assertTrue(cmd is FindByUsernameOrEmailAndPassword)
@@ -110,9 +111,9 @@ class BaseUserFactoryTest {
     fun delete() {
         val cmd = factory.delete(
                 id = 1,
-                responder = object : DeleteResponder {
+                responder = object : DeleteResponder<ErrorTag> {
                     override fun onSuccess(t: Long) { }
-                    override fun onFailure(e: String) { }
+                    override fun onFailure(e: HashMultimap<ErrorTag, String>) { }
                 }
         )
         assertTrue(cmd is Delete)

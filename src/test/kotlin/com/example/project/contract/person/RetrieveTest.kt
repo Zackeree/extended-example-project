@@ -2,10 +2,12 @@ package com.example.project.contract.person
 
 import com.example.project.contract.BaseCRUDTest
 import com.example.project.contract.responder.RetrieveResponder
+import com.example.project.contract.user.ErrorTag
 import com.example.project.repository.person.IPersonRepository
 import com.example.project.repository.person.Person
 import com.example.project.repository.user.IUserRepository
 import com.example.project.repository.user.User
+import com.google.common.collect.Multimap
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -45,7 +47,7 @@ class RetrieveTest : BaseCRUDTest() {
                 fail("Should not succeed")
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: Multimap<ErrorTag, String>) {
                 executed = true
             }
         }
@@ -66,7 +68,7 @@ class RetrieveTest : BaseCRUDTest() {
                 assertEquals(validId, t.id)
             }
 
-            override fun onFailure(e: String) {
+            override fun onFailure(e: Multimap<ErrorTag, String>) {
                 fail("Should not fail")
             }
         }

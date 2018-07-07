@@ -6,6 +6,7 @@ import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.contract.responder.UpdateResponder
 import com.example.project.repository.person.IPersonRepository
 import com.example.project.repository.user.IUserRepository
+import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import org.junit.Assert.*
 import org.junit.Test
@@ -33,7 +34,7 @@ class BasePersonFactoryTest {
                 id = 0,
                 responder = object : RetrieveResponder<PersonInfo> {
                     override fun onSuccess(t: PersonInfo) { }
-                    override fun onFailure(e: String) { }
+                    override fun onFailure(e: Multimap<com.example.project.contract.user.ErrorTag, String>) { }
                 }
         )
         assertTrue(cmd is Retrieve)
@@ -78,9 +79,9 @@ class BasePersonFactoryTest {
         val factory = BasePersonFactory(personRepo, userRepo)
         val cmd = factory.delete(
                 id = 0,
-                responder = object : DeleteResponder {
+                responder = object : DeleteResponder<ErrorTag> {
                     override fun onSuccess(t: Long) { }
-                    override fun onFailure(e: String) { }
+                    override fun onFailure(e: HashMultimap<ErrorTag, String>) { }
                 }
         )
         assertTrue(cmd is Delete)
