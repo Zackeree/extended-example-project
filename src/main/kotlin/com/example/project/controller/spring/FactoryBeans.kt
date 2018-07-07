@@ -24,7 +24,8 @@ class FactoryBeans(
                         userRepo = repositories.userRepo,
                         userRoleRepo = repositories.userRoleRepo
                 ),
-                userRepo = repositories.userRepo
+                userRepo = repositories.userRepo,
+                userRoleRepo = repositories.userRoleRepo
         )
     }
 

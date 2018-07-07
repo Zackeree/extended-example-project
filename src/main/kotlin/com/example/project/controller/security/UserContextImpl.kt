@@ -12,10 +12,10 @@ class UserContextImpl(
     private val authentication = SecurityContextHolder.getContext().authentication
 
     override fun require(requiredRoles: List<UserRole>, successCommand: Command, failureCommand: UserPreconditionFailure): Command {
-        val authorities = arrayListOf<SimpleGrantedAuthority>()
-        authentication.authorities.forEach { authorities.add(SimpleGrantedAuthority(it.authority)) }
 
-        if (authentication is AuthenticatedUserToken) {
+        if (authentication != null && authentication is AuthenticatedUserToken) {
+            val authorities = arrayListOf<SimpleGrantedAuthority>()
+            authentication.authorities.forEach { authorities.add(SimpleGrantedAuthority(it.authority)) }
             val token = authentication
             if (token.userId == null || !userRepo.existsById(token.userId)) {
                 failureCommand.addError(Pair(UserPreconditionFailureTag.MISSING_ROLE, "User is not Logged in."))

@@ -9,6 +9,7 @@ import com.example.project.controller.security.UserContext
 import com.example.project.controller.security.UserContextWrapper
 import com.example.project.controller.security.UserPreconditionFailure
 import com.example.project.controller.security.UserRole
+import com.example.project.repository.role.IUserRoleRepository
 import com.example.project.repository.user.IUserRepository
 
 /**
@@ -21,7 +22,8 @@ import com.example.project.repository.user.IUserRepository
 class UserUserWrapper(
         private val context: UserContext,
         private val factory: UserFactory,
-        private val userRepo: IUserRepository
+        private val userRepo: IUserRepository,
+        private val userRoleRepo: IUserRoleRepository
 ): UserContextWrapper<UserFactory> {
     /**
      * Override of factory method the creates a [UserFactory] object that will handle
@@ -33,10 +35,11 @@ class UserUserWrapper(
              * Returns private create method that actually handles the roles and permissions checking
              */
             override fun create(request: Create.Request, responder: CreateResponder<ErrorTag>): Command {
-                return create(
+                return Create(
                         request = request,
                         responder = responder,
-                        failure = userPreconditionFailure
+                        userRepo = userRepo,
+                        userRoleRepo = userRoleRepo
                 )
             }
 
@@ -126,18 +129,6 @@ class UserUserWrapper(
         return context.require(
                 requiredRoles = listOf(),
                 successCommand = factory.retrieve(request, responder),
-                failureCommand = failure
-        )
-    }
-
-    /**
-     * Private create implementation of the factory create method that handles role and permission checking.
-     * It does not actually require any roles/permissions
-     */
-    private fun create(request: Create.Request, responder: CreateResponder<ErrorTag>, failure: UserPreconditionFailure): Command {
-        return context.require(
-                requiredRoles = listOf(),
-                successCommand = factory.create(request, responder),
                 failureCommand = failure
         )
     }

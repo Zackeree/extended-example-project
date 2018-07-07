@@ -7,6 +7,7 @@ import com.example.project.controller.model.Result
 import com.example.project.toStringMap
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
+import org.springframework.http.HttpStatus
 
 abstract class BaseRestController<VIEWMODEL> {
     var result = Result()
@@ -29,7 +30,11 @@ abstract class BaseRestController<VIEWMODEL> {
         override val responder: UserPreconditionFailureResponder
             get() = object : UserPreconditionFailureResponder {
                 override fun onFailure(errors: Multimap<UserPreconditionFailureTag, String>) {
-                    result = Result(data = null, errors = errors.toStringMap())
+                    result = Result(
+                            data = null,
+                            errors = errors.toStringMap(),
+                            status = HttpStatus.FORBIDDEN
+                    )
                 }
             }
 
