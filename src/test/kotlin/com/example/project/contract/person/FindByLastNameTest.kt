@@ -19,27 +19,43 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
 
+// Any tests that requires saving and persisting entities needs
+// each of the below annotations
 @DataJpaTest
 @Transactional
 @RunWith(SpringRunner::class)
 class FindByLastNameTest : BaseCRUDTest() {
 
+    // Each Command object should have a test case that covers
+    // one of every possible logic scenario in the execute method
+    // Method names should explain to some degree the scenario they
+    // are testing
+
+    // Each Spring Repository must be declared an Autowired
+    // lateinit var since spring creates the interfaces
+    // during runtime. That way, the test class can wait to
+    // populate the repository objects until they have been
+    // instantiated by Spring
     @Autowired
     private lateinit var userRepo: IUserRepository
 
     @Autowired
     private lateinit var personRepo: IPersonRepository
 
+    // Set up a user object
     private val user = User("username", "email@address.com", "password123")
 
     @Before
     fun init() {
+        // Save the user object
         userRepo.save(user)
 
+        // Save the first person object
         val person1 = Person("Cody", "Spath")
         person1.user = user
         personRepo.save(person1)
 
+        // Save the second person object
         val person2 = Person("Charles", "Spath")
         person2.user = user
         personRepo.save(person2)
@@ -48,10 +64,15 @@ class FindByLastNameTest : BaseCRUDTest() {
     @Test
     fun testValidConstraints_Success() {
         var executed = false
+        // Declare our search parameter
         val lastName = "Spath"
+        // Declare a pageable object
         val pageable = PageRequest.of(0, 5)
+        // Instantiate a concrete responder
         val responder = object : PageResponder<PersonInfo, ErrorTag> {
             override fun onSuccess(t: Page<PersonInfo>) {
+                // Mark exectued as true. We should also make
+                // sure the size of the page object is
                 executed = true
                 assertTrue(t.content.size == 2)
             }
@@ -60,6 +81,7 @@ class FindByLastNameTest : BaseCRUDTest() {
                 fail("Should not fail")
             }
         }
+        // Execute the command
         FindByLastName(
                 lastName = lastName,
                 pageable = pageable,
@@ -72,48 +94,63 @@ class FindByLastNameTest : BaseCRUDTest() {
     @Test
     fun testBlankLastName_Failure() {
         var executed = false
+        // Declare our bad search parameter
         val lastName = ""
+        // Declare the page request
         val pageable = PageRequest.of(0, 5)
+        // Instantiate a concrete responder
         val responder = object : PageResponder<PersonInfo, ErrorTag> {
             override fun onSuccess(t: Page<PersonInfo>) {
                 fail("Should not succeed")
             }
 
             override fun onFailure(e: Multimap<ErrorTag, String>) {
+                // Mark executed as true. We should also check
+                // to make sure it failed for the reason we
+                // thought it did (empty last name)
                 executed = true
                 assertTrue(e[ErrorTag.LAST_NAME].isNotEmpty())
             }
         }
+        // Execute the command
         FindByLastName(
                 lastName = lastName,
                 pageable = pageable,
                 responder = responder,
                 personRepo = personRepo
         ).execute()
+        // Make sure the correct scenario occurred
         assertTrue(executed)
     }
 
     @Test
     fun testLastNameTooLong_Failure() {
         var executed = false
+        // Declare our bad search parameter
         val lastName = "hello".repeat(16)
+        // Declare the page request
         val pageable = PageRequest.of(0, 5)
+        // Instantiate a concrete responder
         val responder = object : PageResponder<PersonInfo, ErrorTag> {
             override fun onSuccess(t: Page<PersonInfo>) {
                 fail("Should not succeed")
             }
 
             override fun onFailure(e: Multimap<ErrorTag, String>) {
+                // Mark executed as true. Also make sure the command
+                // failed for the reason we thought it was
                 executed = true
                 assertTrue(e[ErrorTag.LAST_NAME].isNotEmpty())
             }
         }
+        // Execute the command
         FindByLastName(
                 lastName = lastName,
                 pageable = pageable,
                 responder = responder,
                 personRepo = personRepo
         ).execute()
+        // Make sure the correct scenario occurred
         assertTrue(executed)
     }
 }
