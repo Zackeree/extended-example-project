@@ -1,4 +1,4 @@
-package com.example.project.contract.security
+package com.example.project.controller.security
 
 import com.example.project.contract.Command
 

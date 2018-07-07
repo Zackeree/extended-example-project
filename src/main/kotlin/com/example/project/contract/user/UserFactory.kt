@@ -24,6 +24,11 @@ interface UserFactory {
     fun retrieve(username: String, responder: RetrieveResponder<UserInfo>): Command
 
     /**
+     * Abstract [User] [FindByUsernameOrEmailAndPassword] method
+     */
+    fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo>): Command
+
+    /**
      * Abstract [User] [Create] method
      */
     fun create(request: Create.Request, responder: CreateResponder<ErrorTag>): Command

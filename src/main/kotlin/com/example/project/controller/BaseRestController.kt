@@ -1,8 +1,8 @@
 package com.example.project.controller
 
-import com.example.project.contract.security.UserPreconditionFailure
-import com.example.project.contract.security.UserPreconditionFailureResponder
-import com.example.project.contract.security.UserPreconditionFailureTag
+import com.example.project.controller.security.UserPreconditionFailure
+import com.example.project.controller.security.UserPreconditionFailureResponder
+import com.example.project.controller.security.UserPreconditionFailureTag
 import com.example.project.controller.model.Result
 import com.example.project.toStringMap
 import com.google.common.collect.HashMultimap

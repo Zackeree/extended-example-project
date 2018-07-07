@@ -35,7 +35,7 @@ class BaseUserFactoryTest {
     }
 
     @Test
-    fun retrieve() {
+    fun retrieveId() {
         val cmd = factory.retrieve(
                 id = 0,
                 responder = object : RetrieveResponder<UserInfo> {
@@ -44,6 +44,33 @@ class BaseUserFactoryTest {
                 }
         )
         assertTrue(cmd is Retrieve)
+    }
+
+    @Test
+    fun retrieveUserNameOrEmail() {
+        val cmd = factory.retrieve(
+                username = "username",
+                responder = object : RetrieveResponder<UserInfo> {
+                    override fun onSuccess(t: UserInfo) { }
+                    override fun onFailure(e: String) { }
+                }
+        )
+        assertTrue(cmd is FindByUsernameOrEmail)
+    }
+
+    @Test
+    fun retrieveUserNameOrEmailAndPassword() {
+        val cmd = factory.retrieve(
+                request = FindByUsernameOrEmailAndPassword.Request(
+                        usernameOrEmail = "username",
+                        password = "password"
+                ),
+                responder = object : RetrieveResponder<UserInfo> {
+                    override fun onSuccess(t: UserInfo) { }
+                    override fun onFailure(e: String) { }
+                }
+        )
+        assertTrue(cmd is FindByUsernameOrEmailAndPassword)
     }
 
     @Test

@@ -27,6 +27,13 @@ class BaseUserFactory(private val userRepo: IUserRepository, private val userRol
     }
 
     /**
+     * Override of the [UserFactory.retrieve] method that will return a [FindByUsernameOrEmailAndPassword] command object
+     */
+    override fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo>): Command {
+        return FindByUsernameOrEmailAndPassword(request, responder, userRepo)
+    }
+
+    /**
      * Override of the [UserFactory.create] method that will return a [Create] command object
      */
     override fun create(request: Create.Request, responder: CreateResponder<ErrorTag>): Command {

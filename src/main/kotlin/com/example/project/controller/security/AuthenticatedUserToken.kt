@@ -1,12 +1,12 @@
-package com.example.project.contract.security
+package com.example.project.controller.security
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.GrantedAuthority
 
 class AuthenticatedUserToken(
-        email: String,
+        emailOrUsername: String,
         password: String,
         authorities: Collection<GrantedAuthority>,
         val userId: Long?
-) : UsernamePasswordAuthenticationToken(email, password, authorities)
+) : UsernamePasswordAuthenticationToken(emailOrUsername, password, authorities)
 

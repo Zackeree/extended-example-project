@@ -2,8 +2,8 @@ package com.example.project.contract.person
 
 import com.example.project.contract.BaseUserWrapperTest
 import com.example.project.contract.responder.*
-import com.example.project.contract.security.FakeUserContext
-import com.example.project.contract.security.UserRole
+import com.example.project.controller.security.FakeUserContext
+import com.example.project.controller.security.UserRole
 import com.example.project.repository.person.IPersonRepository
 import com.example.project.repository.person.Person
 import com.example.project.repository.user.IUserRepository

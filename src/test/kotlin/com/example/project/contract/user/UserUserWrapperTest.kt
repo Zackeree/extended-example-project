@@ -5,17 +5,17 @@ import com.example.project.contract.responder.CreateResponder
 import com.example.project.contract.responder.DeleteResponder
 import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.contract.responder.UpdateResponder
-import com.example.project.contract.security.FakeUserContext
+import com.example.project.controller.security.FakeUserContext
 import com.example.project.repository.role.IUserRoleRepository
 import com.example.project.repository.user.IUserRepository
 import com.google.common.collect.Multimap
-import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.test.context.junit4.SpringRunner
 
 @DataJpaTest
@@ -180,7 +180,7 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
     }
 
     @Test
-    fun retrieve_AllRequirements_Success() {
+    fun retrieveUsernameOrEmail_AllRequirements_Success() {
         val context = FakeUserContext()
         context.currentRoles = mutableListOf()
         userRepo.save(baseCreateRequest.toEntity())
@@ -197,6 +197,32 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
         }
         wrapper.factory(failure).retrieve(
                 username = baseCreateRequest.username,
+                responder = responder
+        ).execute()
+        assertTrue(executed)
+    }
+
+    @Test
+    fun retrieveUsernameOrEmailAndPassword_AllRequirements_Success() {
+        val context = FakeUserContext()
+        context.currentRoles = mutableListOf()
+        userRepo.save(baseCreateRequest.toEntity())
+        val factory = BaseUserFactory(userRepo, userRoleRepo)
+        val wrapper = UserUserWrapper(context, factory, userRepo)
+        val responder = object : RetrieveResponder<UserInfo> {
+            override fun onSuccess(t: UserInfo) {
+                executed = true
+            }
+
+            override fun onFailure(e: String) {
+                fail("Should not fail")
+            }
+        }
+        wrapper.factory(failure).retrieve(
+                request = FindByUsernameOrEmailAndPassword.Request(
+                        usernameOrEmail = baseCreateRequest.username,
+                        password = "password123"
+                ),
                 responder = responder
         ).execute()
         assertTrue(executed)

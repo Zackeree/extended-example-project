@@ -1,8 +1,8 @@
-package com.example.project.contract.spring
+package com.example.project.controller.spring
 
 import com.example.project.contract.person.BasePersonFactory
 import com.example.project.contract.person.UserPersonWrapper
-import com.example.project.contract.security.UserContextImpl
+import com.example.project.controller.security.UserContextImpl
 import com.example.project.contract.user.BaseUserFactory
 import com.example.project.contract.user.UserUserWrapper
 import org.springframework.context.annotation.Bean
