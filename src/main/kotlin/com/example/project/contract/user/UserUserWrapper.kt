@@ -66,10 +66,10 @@ class UserUserWrapper(
             }
 
             override fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo>): Command {
-                return retrieve(
+                return FindByUsernameOrEmailAndPassword(
                         request = request,
                         responder = responder,
-                        failure = userPreconditionFailure
+                        userRepo = userRepo
                 )
             }
 
@@ -98,6 +98,9 @@ class UserUserWrapper(
 
     }
 
+    //PRIVATE IMPLEMENTATIONS ONLY NEEDED FOR COMMANDS THAT REQUIRE SPRING SECURITY ROLES/PERMISSIONS CHECKING.
+    //ANY COMMANDS THAT DO NOT NEED A USER LOGGED IN IN ORDER TO EXECUTE SHOULD RETURN THE BASE COMMAND OBJECT
+
     /**
      * Private retrieve implementation of the factory retrieve method that handles role and permission checking
      */
@@ -117,18 +120,6 @@ class UserUserWrapper(
         return context.require(
                 requiredRoles = listOf(),
                 successCommand = factory.retrieve(username, responder),
-                failureCommand = failure
-        )
-    }
-
-    /**
-     * Private retrieve implementation of the factory retrieve method (handles logins) that handles role and permission checking.
-     * It does not actually require any roles/permissions
-     */
-    private fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo>, failure: UserPreconditionFailure): Command {
-        return context.require(
-                requiredRoles = listOf(),
-                successCommand = factory.retrieve(request, responder),
                 failureCommand = failure
         )
     }

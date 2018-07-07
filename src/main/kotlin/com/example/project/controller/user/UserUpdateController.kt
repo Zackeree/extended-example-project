@@ -35,7 +35,7 @@ class UserUpdateController(
     @PutMapping(value = ["/users/{userId}"])
     override fun execute(@RequestBody model: UpdateForm): Result {
         userWrapper.factory(userPreconditionFailure).update(
-                request = model.toUpdateRequest(),
+                request = model.toRequest(),
                 responder = responder
         ).execute()
 

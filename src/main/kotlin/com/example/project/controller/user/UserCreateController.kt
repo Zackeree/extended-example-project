@@ -35,7 +35,7 @@ class UserCreateController(
     @PostMapping(value = ["/users"])
     override fun execute(@RequestBody model: CreateForm): Result {
         userWrapper.factory(userPreconditionFailure).create(
-                request = model.toCreateRequest(),
+                request = model.toRequest(),
                 responder = responder
         ).execute()
 

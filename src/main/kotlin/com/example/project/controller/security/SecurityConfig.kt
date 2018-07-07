@@ -29,13 +29,13 @@ class SecurityConfig(
 
             http.cors().and()
                     .formLogin()
-                    .usernameParameter("email")
+                    .usernameParameter("username")
                     .passwordParameter("password")
                     .loginPage("/login").permitAll()
                     .loginProcessingUrl("/login")
                     .successHandler(LoginHandlerImpl())
                     .failureHandler { request, response, exception ->
-                        request.setAttribute("lastEnteredEmail", request.getParameter("email"))
+                        request.setAttribute("lastEnteredEmail", request.getParameter("username"))
                         response.sendRedirect("/login")
                     }
 
