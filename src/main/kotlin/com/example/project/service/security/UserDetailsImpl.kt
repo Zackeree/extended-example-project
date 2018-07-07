@@ -1,14 +1,14 @@
-package com.example.project.controller.security.service
+package com.example.project.service.security
 
 import com.example.project.repository.user.User
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class UserDetailsImpl(
-        private var user: User,
+        user: User,
         private var grantedAuths: Set<GrantedAuthority>
 ) : UserDetails {
-    private var id = user.id
+    var id = user.id
     private var username = user.username
     private var password = user.password
 

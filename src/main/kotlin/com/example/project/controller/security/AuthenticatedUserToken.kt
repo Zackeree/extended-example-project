@@ -4,9 +4,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority
 
 class AuthenticatedUserToken(
-        email: String,
+        emailOrUsername: String,
         password: String,
         authorities: Collection<GrantedAuthority>,
         val userId: Long?
-) : UsernamePasswordAuthenticationToken(email, password, authorities)
+) : UsernamePasswordAuthenticationToken(emailOrUsername, password, authorities)
 

@@ -1,4 +1,4 @@
-package com.example.project.controller.security.service
+package com.example.project.service.security
 
 import com.example.project.repository.user.IUserRepository
 import org.springframework.security.core.GrantedAuthority

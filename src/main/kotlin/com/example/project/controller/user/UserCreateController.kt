@@ -10,13 +10,13 @@ import com.example.project.toStringMap
 import com.google.common.collect.Multimap
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class UserCreateController : BaseRestController<CreateRequest>(){
-    @Autowired
-    private lateinit var userWrapper: UserUserWrapper
-
+class UserCreateController(
+        private val userWrapper: UserUserWrapper
+) : BaseRestController<CreateRequest>(){
     private val responder = object : CreateResponder<ErrorTag> {
         override fun onSuccess(t: Long) {
             result = Result(
@@ -34,7 +34,7 @@ class UserCreateController : BaseRestController<CreateRequest>(){
     }
 
     @PostMapping(value = ["/users"])
-    override fun execute(model: CreateRequest): Result {
+    override fun execute(@RequestBody model: CreateRequest): Result {
         userWrapper.factory(userPreconditionFailure).create(
                 request = model.toCreateRequest(),
                 responder = responder
