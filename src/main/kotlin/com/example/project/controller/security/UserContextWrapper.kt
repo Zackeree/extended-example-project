@@ -2,10 +2,11 @@ package com.example.project.controller.security
 
 import com.example.project.contract.Command
 import com.google.common.collect.Multimap
+import com.example.project.contract.person.UserPersonWrapper
 
 /**
  * Define a factory method which needs to be implemented by all
- * user wrappers (i.e [com.example.contract.person.UserPersonWrapper]).
+ * user wrappers (i.e [UserPersonWrapper]).
  */
 interface UserContextWrapper<out T> {
     /**

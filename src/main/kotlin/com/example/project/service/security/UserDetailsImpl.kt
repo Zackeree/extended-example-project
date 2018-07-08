@@ -4,6 +4,10 @@ import com.example.project.repository.user.User
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
+/**
+ * Implicit implementation of the [UserDetails] interface that
+ * lets us store some additional information in Spring Security
+ */
 class UserDetailsImpl(
         user: User,
         private var grantedAuths: Set<GrantedAuthority>
