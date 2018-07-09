@@ -3,7 +3,7 @@ package com.example.project.controller.model
 /**
  * Interface that all forms inherit from
  */
-interface BaseForm<REQUEST> {
+interface BaseCreateForm<REQUEST> {
     /**
      * Used to adapt form into contracts request
      */

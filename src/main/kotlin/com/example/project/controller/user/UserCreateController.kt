@@ -4,9 +4,8 @@ import com.example.project.contract.responder.CreateResponder
 import com.example.project.contract.user.ErrorTag
 import com.example.project.contract.user.UserUserWrapper
 import com.example.project.controller.BaseCreateController
-import com.example.project.controller.BaseRestController
 import com.example.project.controller.model.Result
-import com.example.project.controller.model.user.CreateForm
+import com.example.project.controller.model.user.CreateCreateForm
 import com.example.project.toStringMap
 import com.google.common.collect.Multimap
 import org.springframework.web.bind.annotation.PostMapping
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class UserCreateController(
         private val userWrapper: UserUserWrapper
-) : BaseCreateController<CreateForm>(){
+) : BaseCreateController<CreateCreateForm>(){
     private val responder = object : CreateResponder<ErrorTag> {
         override fun onSuccess(t: Long) {
             result = Result(
@@ -34,7 +33,7 @@ class UserCreateController(
     }
 
     @PostMapping(value = ["/users"])
-    override fun execute(@RequestBody model: CreateForm): Result {
+    override fun execute(@RequestBody model: CreateCreateForm): Result {
         userWrapper.factory(userPreconditionFailure()).create(
                 request = model.toRequest(),
                 responder = responder

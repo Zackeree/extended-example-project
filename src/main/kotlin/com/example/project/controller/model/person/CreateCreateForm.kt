@@ -1,19 +1,19 @@
 package com.example.project.controller.model.person
 
 import com.example.project.contract.person.Create
-import com.example.project.controller.model.BaseForm
+import com.example.project.controller.model.BaseCreateForm
 
 /**
  * Class used to encapsulate data from the client.
- * Implements the [BaseForm] interface
+ * Implements the [BaseCreateForm] interface
  */
-data class CreateForm(
+data class CreateCreateForm(
         val userId: Long,
         val firstName: String,
         val lastName: String
-) : BaseForm<Create.Request> {
+) : BaseCreateForm<Create.Request> {
     /**
-     * Converts the [CreateForm] into a [Create.Request] object
+     * Converts the [CreateCreateForm] into a [Create.Request] object
      */
     override fun toRequest(): Create.Request {
         return Create.Request(

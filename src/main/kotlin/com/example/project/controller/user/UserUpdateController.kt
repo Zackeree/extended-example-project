@@ -38,7 +38,9 @@ class UserUpdateController(
     override fun execute(@PathVariable("userId") id: Long,
                          @RequestBody model: UpdateForm): Result {
         userWrapper.factory(userPreconditionFailure()).update(
-                request = model.toRequest(),
+                request = model.toRequest(
+                        id = id
+                ),
                 responder = responder
         ).execute()
 
