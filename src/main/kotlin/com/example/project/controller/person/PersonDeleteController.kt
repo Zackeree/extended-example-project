@@ -3,6 +3,7 @@ package com.example.project.controller.person
 import com.example.project.contract.person.ErrorTag
 import com.example.project.contract.person.UserPersonWrapper
 import com.example.project.contract.responder.DeleteResponder
+import com.example.project.controller.BaseDeleteController
 import com.example.project.controller.BaseRestController
 import com.example.project.controller.model.Result
 import com.example.project.toStringMap
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class PersonDeleteController(
         private var personWrapper: UserPersonWrapper
-) : BaseRestController<Long>() {
+) : BaseDeleteController() {
     private val responder = object : DeleteResponder<ErrorTag> {
         override fun onSuccess(t: Long) {
             result = Result(
@@ -32,9 +33,9 @@ class PersonDeleteController(
     }
 
     @DeleteMapping(value = ["/users/persons/{personId}"])
-    override fun execute(@PathVariable model: Long): Result {
-        personWrapper.factory(userPreconditionFailure).delete(
-                id = model,
+    override fun execute(@PathVariable("personId") id: Long): Result {
+        personWrapper.factory(userPreconditionFailure()).delete(
+                id = id,
                 responder = responder
         ).execute()
 

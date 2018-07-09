@@ -4,6 +4,7 @@ import com.example.project.contract.person.ErrorTag
 import com.example.project.contract.person.PersonInfo
 import com.example.project.contract.person.UserPersonWrapper
 import com.example.project.contract.responder.PageResponder
+import com.example.project.controller.BasePageController
 import com.example.project.controller.BaseRestController
 import com.example.project.controller.model.Result
 import com.example.project.toStringMap
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class PersonFindByFirstNameController(
         private val personWrapper: UserPersonWrapper
-) : BaseRestController<String>() {
+) : BasePageController<String>() {
     private val responder = object : PageResponder<PersonInfo, ErrorTag> {
         override fun onSuccess(t: Page<PersonInfo>) {
             result = Result(
@@ -34,9 +35,11 @@ class PersonFindByFirstNameController(
         }
     }
 
-    @GetMapping(value = ["/users/persons/firstName/{firstName}"])
-    override fun execute(@PathVariable("firstName") model: String): Result {
-        personWrapper.factory(userPreconditionFailure).findByFirstName(
+    @GetMapping(value = ["/users/persons/firstName/{firstName}/{pageSize}/{pageNumber}"])
+    override fun execute(@PathVariable("firstName") model: String,
+                         @PathVariable("pageSize") pageSize: Int,
+                         @PathVariable("pageNumber") pageNumber: Int): Result {
+        personWrapper.factory(userPreconditionFailure()).findByFirstName(
                 firstName = model,
                 pageable = PageRequest.of(0, 25),
                 responder = responder

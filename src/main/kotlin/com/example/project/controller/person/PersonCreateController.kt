@@ -3,6 +3,7 @@ package com.example.project.controller.person
 import com.example.project.contract.person.ErrorTag
 import com.example.project.contract.person.UserPersonWrapper
 import com.example.project.contract.responder.CreateResponder
+import com.example.project.controller.BaseCreateController
 import com.example.project.controller.BaseRestController
 import com.example.project.controller.model.Result
 import com.example.project.controller.model.person.CreateForm
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class PersonCreateController(
         private var personWrapper: UserPersonWrapper
-) : BaseRestController<CreateForm>() {
+) : BaseCreateController<CreateForm>() {
     private val responder = object : CreateResponder<ErrorTag> {
         override fun onSuccess(t: Long) {
             result = Result(
@@ -32,9 +33,9 @@ class PersonCreateController(
         }
     }
 
-    @PostMapping
+    @PostMapping(value = ["/users/persons"])
     override fun execute(@RequestBody model: CreateForm): Result {
-        personWrapper.factory(userPreconditionFailure).create(
+        personWrapper.factory(userPreconditionFailure()).create(
                 request = model.toRequest(),
                 responder = responder
         ).execute()
