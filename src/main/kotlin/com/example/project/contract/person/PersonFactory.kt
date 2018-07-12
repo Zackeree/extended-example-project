@@ -2,6 +2,7 @@ package com.example.project.contract.person
 
 import com.example.project.repository.person.Person
 import com.example.project.contract.Command
+import com.example.project.contract.crud.*
 import com.example.project.contract.responder.*
 import org.springframework.data.domain.Pageable
 
@@ -13,7 +14,7 @@ interface PersonFactory {
     /**
      * Abstract [Person] [Retrieve] method
      */
-    fun retrieve(id: Long, responder: RetrieveResponder<PersonInfo>): Command
+    fun retrieve(id: Long, responder: RetrieveResponder<PersonInfo, ErrorTag>): Command
 
     /**
      * Abstract [Person] [Create] method
@@ -29,6 +30,11 @@ interface PersonFactory {
      * Abstract [Person] [Delete] method
      */
     fun delete(id: Long, responder: DeleteResponder<ErrorTag>): Command
+
+    /**
+     * Abstract [Person] [UserList] method
+     */
+    fun list(userId: Long, responder: ListResponder<PersonInfo, ErrorTag>): Command
 
     /**
      * Abstract [Person] [FindByFirstName] method

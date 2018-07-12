@@ -34,7 +34,7 @@ class SecurityConfig(
                     .loginPage("/login").permitAll()
                     .loginProcessingUrl("/login")
                     .successHandler(LoginHandlerImpl())
-                    .failureHandler { request, response, exception ->
+                    .failureHandler { request, response, _ ->
                         request.setAttribute("lastEnteredEmail", request.getParameter("username"))
                         response.sendRedirect("/login")
                     }

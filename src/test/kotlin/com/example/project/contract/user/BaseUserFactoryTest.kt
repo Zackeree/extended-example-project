@@ -39,24 +39,12 @@ class BaseUserFactoryTest {
     fun retrieveId() {
         val cmd = factory.retrieve(
                 id = 0,
-                responder = object : RetrieveResponder<UserInfo> {
+                responder = object : RetrieveResponder<UserInfo, ErrorTag> {
                     override fun onSuccess(t: UserInfo) { }
                     override fun onFailure(e: Multimap<ErrorTag, String>) { }
                 }
         )
         assertTrue(cmd is Retrieve)
-    }
-
-    @Test
-    fun retrieveUserNameOrEmail() {
-        val cmd = factory.retrieve(
-                username = "username",
-                responder = object : RetrieveResponder<UserInfo> {
-                    override fun onSuccess(t: UserInfo) { }
-                    override fun onFailure(e: Multimap<ErrorTag, String>) { }
-                }
-        )
-        assertTrue(cmd is FindByUsernameOrEmail)
     }
 
     @Test
@@ -66,7 +54,7 @@ class BaseUserFactoryTest {
                         usernameOrEmail = "username",
                         password = "password"
                 ),
-                responder = object : RetrieveResponder<UserInfo> {
+                responder = object : RetrieveResponder<UserInfo, ErrorTag> {
                     override fun onSuccess(t: UserInfo) { }
                     override fun onFailure(e: Multimap<ErrorTag, String>) { }
                 }

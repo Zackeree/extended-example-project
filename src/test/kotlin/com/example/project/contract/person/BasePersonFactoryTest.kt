@@ -44,9 +44,9 @@ class BasePersonFactoryTest {
         // Call the factory method so it returns the command object
         val cmd = factory.retrieve(
                 id = 0,
-                responder = object : RetrieveResponder<PersonInfo> {
+                responder = object : RetrieveResponder<PersonInfo, ErrorTag> {
                     override fun onSuccess(t: PersonInfo) { }
-                    override fun onFailure(e: Multimap<com.example.project.contract.user.ErrorTag, String>) { }
+                    override fun onFailure(e: Multimap<ErrorTag, String>) { }
                 }
         )
         // Make sure the command returned is a Retrieve command
@@ -107,6 +107,22 @@ class BasePersonFactoryTest {
         )
         // Make sure the command returned is a Delete command
         assertTrue(cmd is Delete)
+    }
+
+    @Test
+    fun list() {
+        // Instantiate the factory object
+        val factory = BasePersonFactory(personRepo, userRepo)
+        // Call te factory method so it returns the command object
+        val cmd = factory.list(
+                userId = 1L,
+                responder = object : ListResponder<PersonInfo, ErrorTag> {
+                    override fun onSuccess(t: List<PersonInfo>) {}
+                    override fun onFailure(e: Multimap<ErrorTag, String>) { }
+                }
+        )
+        // Make sure the command returned is a UserList command object
+        assertTrue(cmd is UserList)
     }
 
     @Test

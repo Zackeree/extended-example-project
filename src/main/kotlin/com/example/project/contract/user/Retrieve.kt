@@ -14,7 +14,7 @@ import com.google.common.collect.HashMultimap
  */
 class Retrieve(
         private val id: Long,
-        private val responder: RetrieveResponder<UserInfo>,
+        private val responder: RetrieveResponder<UserInfo, ErrorTag>,
         private val userRepo: IUserRepository
 ) : Command {
     /**

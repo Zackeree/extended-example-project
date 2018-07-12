@@ -16,4 +16,14 @@ data class PersonInfo constructor(
             lastName = person.lastName
     )
 
+    companion object {
+        fun infoList(persons: List<Person>): List<PersonInfo> {
+            val infoList = mutableListOf<PersonInfo>()
+            persons.forEach { person->
+                infoList.add(PersonInfo(person))
+            }
+
+            return infoList
+        }
+    }
 }

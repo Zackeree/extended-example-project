@@ -2,7 +2,6 @@ package com.example.project.contract.person
 
 import com.example.project.contract.Command
 import com.example.project.contract.responder.RetrieveResponder
-import com.example.project.contract.user.ErrorTag
 import com.example.project.repository.person.IPersonRepository
 import com.google.common.collect.HashMultimap
 import org.springframework.stereotype.Service
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service
  */
 class Retrieve(
         private val id: Long,
-        private val responder: RetrieveResponder<PersonInfo>,
+        private val responder: RetrieveResponder<PersonInfo, ErrorTag>,
         private val personRepo: IPersonRepository
 ) : Command {
     /**
