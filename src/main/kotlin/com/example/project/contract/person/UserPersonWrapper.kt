@@ -33,7 +33,7 @@ class UserPersonWrapper(
             /**
              * Returns private retrieve method that handles roles and permissions checking
              */
-            override fun retrieve(id: Long, responder: RetrieveResponder<PersonInfo>): Command {
+            override fun retrieve(id: Long, responder: RetrieveResponder<PersonInfo, ErrorTag>): Command {
                 return retrieve(
                         id = id,
                         responder = responder,
@@ -74,6 +74,14 @@ class UserPersonWrapper(
                 )
             }
 
+            override fun list(userId: Long, responder: ListResponder<PersonInfo, ErrorTag>): Command {
+                return list(
+                        userId = userId,
+                        responder = responder,
+                        failure = userPreconditionFailure
+                )
+            }
+
             /**
              * Returns private findByFirstName method that handles roles and permissions checking
              */
@@ -105,7 +113,7 @@ class UserPersonWrapper(
      * and permissions checking. It makes sure the id of the owner of the person object
      * we wish to retrieve matches the id of the currently logged in user
      */
-    private fun retrieve(id: Long, responder: RetrieveResponder<PersonInfo>, failure: UserPreconditionFailure): Command {
+    private fun retrieve(id: Long, responder: RetrieveResponder<PersonInfo, ErrorTag>, failure: UserPreconditionFailure): Command {
         val theUser = personRepo.findById(id).get().user
         return if (theUser?.id == context.currentUserId()) {
             context.require(
@@ -167,6 +175,25 @@ class UserPersonWrapper(
             context.require(
                     requiredRoles = listOf(UserRole.USER),
                     successCommand = factory.delete(id, responder),
+                    failureCommand = failure
+            )
+        } else {
+            return failure
+        }
+    }
+
+    /**
+     * Private delete implementation of the factory delete method that handles roles
+     * and permissions checking. It checks to make sure the id of the owner of the list
+     * of people matches the id of the currently logged in user. It also requires
+     * that a user has a role of "USER"
+     */
+    private fun list(userId: Long, responder: ListResponder<PersonInfo, ErrorTag>, failure: UserPreconditionFailure): Command {
+        val theUser = userRepo.findById(userId)
+        return if (theUser.isPresent && theUser.get().id == context.currentUserId()) {
+            context.require(
+                    requiredRoles = listOf(UserRole.USER),
+                    successCommand = factory.list(userId, responder),
                     failureCommand = failure
             )
         } else {

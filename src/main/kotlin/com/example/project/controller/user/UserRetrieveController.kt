@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 class UserRetrieveController(
         private val userWrapper: UserUserWrapper
 ) : BaseRetrieveController() {
-    private val responder = object : RetrieveResponder<UserInfo> {
+    private val responder = object : RetrieveResponder<UserInfo, ErrorTag> {
         override fun onSuccess(t: UserInfo) {
             result = Result(
                     data = t,

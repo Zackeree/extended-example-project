@@ -11,25 +11,21 @@ import com.example.project.repository.user.IUserRepository
 /**
  * Base concrete implementation of the [UserFactory] interface
  */
-class BaseUserFactory(private val userRepo: IUserRepository, private val userRoleRepo: IUserRoleRepository) : UserFactory {
+class BaseUserFactory(
+        private val userRepo: IUserRepository,
+        private val userRoleRepo: IUserRoleRepository
+) : UserFactory {
     /**
      * Override of the [UserFactory.retrieve] method that will return a [Retrieve] command object
      */
-    override fun retrieve(id: Long, responder: RetrieveResponder<UserInfo>): Command {
+    override fun retrieve(id: Long, responder: RetrieveResponder<UserInfo, ErrorTag>): Command {
         return Retrieve(id, responder, userRepo)
-    }
-
-    /**
-     * Override of the [UserFactory.retrieve] method that will return a [FindByUsernameOrEmail] command object
-     */
-    override fun retrieve(username: String, responder: RetrieveResponder<UserInfo>): Command {
-        return FindByUsernameOrEmail(username, responder, userRepo)
     }
 
     /**
      * Override of the [UserFactory.retrieve] method that will return a [FindByUsernameOrEmailAndPassword] command object
      */
-    override fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo>): Command {
+    override fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo, ErrorTag>): Command {
         return FindByUsernameOrEmailAndPassword(request, responder, userRepo)
     }
 

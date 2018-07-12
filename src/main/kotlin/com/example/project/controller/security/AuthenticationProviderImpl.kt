@@ -56,7 +56,7 @@ class AuthenticationProviderImpl(
                         usernameOrEmail = username,
                         password = password
                 ),
-                responder = object : RetrieveResponder<UserInfo> {
+                responder = object : RetrieveResponder<UserInfo, ErrorTag> {
                     override fun onSuccess(t: UserInfo) {
                         verified = true
                     }

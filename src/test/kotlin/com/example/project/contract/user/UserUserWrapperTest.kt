@@ -70,7 +70,7 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
         val factory = BaseUserFactory(userRepo, userRoleRepo)
         val wrapper = UserUserWrapper(context, factory, userRepo, userRoleRepo)
         val user = userRepo.save(baseCreateRequest.toEntity())
-        val responder = object : RetrieveResponder<UserInfo> {
+        val responder = object : RetrieveResponder<UserInfo, ErrorTag> {
             override fun onSuccess(t: UserInfo) {
                 executed = true
             }
@@ -181,36 +181,13 @@ class UserUserWrapperTest : BaseUserWrapperTest() {
     }
 
     @Test
-    fun retrieveUsernameOrEmail_AllRequirements_Success() {
-        val context = FakeUserContext()
-        context.currentRoles = mutableListOf()
-        userRepo.save(baseCreateRequest.toEntity())
-        val factory = BaseUserFactory(userRepo, userRoleRepo)
-        val wrapper = UserUserWrapper(context, factory, userRepo, userRoleRepo)
-        val responder = object : RetrieveResponder<UserInfo> {
-            override fun onSuccess(t: UserInfo) {
-                executed = true
-            }
-
-            override fun onFailure(e: Multimap<ErrorTag, String>) {
-                fail("Should not fail")
-            }
-        }
-        wrapper.factory(failure).retrieve(
-                username = baseCreateRequest.username,
-                responder = responder
-        ).execute()
-        assertTrue(executed)
-    }
-
-    @Test
     fun retrieveUsernameOrEmailAndPassword_AllRequirements_Success() {
         val context = FakeUserContext()
         context.currentRoles = mutableListOf()
         userRepo.save(baseCreateRequest.toEntity())
         val factory = BaseUserFactory(userRepo, userRoleRepo)
         val wrapper = UserUserWrapper(context, factory, userRepo, userRoleRepo)
-        val responder = object : RetrieveResponder<UserInfo> {
+        val responder = object : RetrieveResponder<UserInfo, ErrorTag> {
             override fun onSuccess(t: UserInfo) {
                 executed = true
             }

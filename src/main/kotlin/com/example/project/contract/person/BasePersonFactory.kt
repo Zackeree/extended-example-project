@@ -23,7 +23,7 @@ class BasePersonFactory(
     /**
      * Override of the [PersonFactory.retrieve] method that will return a [Retrieve] command object
      */
-    override fun retrieve(id: Long, responder: RetrieveResponder<PersonInfo>): Command {
+    override fun retrieve(id: Long, responder: RetrieveResponder<PersonInfo, ErrorTag>): Command {
         return Retrieve(id, responder, personRepo)
     }
 
@@ -39,6 +39,13 @@ class BasePersonFactory(
      */
     override fun delete(id: Long, responder: DeleteResponder<ErrorTag>): Command {
         return Delete(id, responder, personRepo)
+    }
+
+    /**
+     * Override of the [PersonFactory.list] method that will return a [UserList] command object
+     */
+    override fun list(userId: Long, responder: ListResponder<PersonInfo, ErrorTag>): Command {
+        return UserList(userId, responder, userRepo, personRepo)
     }
 
     /**

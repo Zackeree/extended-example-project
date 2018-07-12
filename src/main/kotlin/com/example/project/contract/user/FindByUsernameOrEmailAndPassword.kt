@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 class FindByUsernameOrEmailAndPassword(
         private val request: Request,
-        private val responder: RetrieveResponder<UserInfo>,
+        private val responder: RetrieveResponder<UserInfo, ErrorTag>,
         private val userRepo: IUserRepository
 ) : Command {
     override fun execute() {

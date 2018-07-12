@@ -16,17 +16,12 @@ interface UserFactory {
     /**
      * Abstract [User] [Retrieve] method
      */
-    fun retrieve(id: Long, responder: RetrieveResponder<UserInfo>): Command
-
-    /**
-     * Abstract [User] [FindByUsernameOrEmail] method
-     */
-    fun retrieve(username: String, responder: RetrieveResponder<UserInfo>): Command
+    fun retrieve(id: Long, responder: RetrieveResponder<UserInfo, ErrorTag>): Command
 
     /**
      * Abstract [User] [FindByUsernameOrEmailAndPassword] method
      */
-    fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo>): Command
+    fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo, ErrorTag>): Command
 
     /**
      * Abstract [User] [Create] method

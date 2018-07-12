@@ -261,13 +261,13 @@ class UserPersonWrapperTest : BaseUserWrapperTest() {
         // Instantiate the wrapper object
         val wrapper = UserPersonWrapper(context, factory, personRepo, userRepo)
         // Instantiate a concrete retrieve responder
-        val responder = object : RetrieveResponder<PersonInfo> {
+        val responder = object : RetrieveResponder<PersonInfo, ErrorTag> {
             override fun onSuccess(t: PersonInfo) {
                 executed = true
                 assertEquals(t.id, existingPersonId)
             }
 
-            override fun onFailure(e: Multimap<com.example.project.contract.user.ErrorTag, String>) {
+            override fun onFailure(e: Multimap<ErrorTag, String>) {
                 fail("Should")
             }
         }
@@ -289,12 +289,12 @@ class UserPersonWrapperTest : BaseUserWrapperTest() {
         // Instantiate the wrapper object
         val wrapper = UserPersonWrapper(context, factory, personRepo, userRepo)
         // Instantiate a concrete responder
-        val responder = object : RetrieveResponder<PersonInfo> {
+        val responder = object : RetrieveResponder<PersonInfo, ErrorTag> {
             override fun onSuccess(t: PersonInfo) {
                 fail("Should fail on precondition")
             }
 
-            override fun onFailure(e: Multimap<com.example.project.contract.user.ErrorTag, String>) {
+            override fun onFailure(e: Multimap<ErrorTag, String>) {
                 fail("Should fail on precondition")
             }
 
@@ -321,12 +321,12 @@ class UserPersonWrapperTest : BaseUserWrapperTest() {
         // Instantiate the wrapper object
         val wrapper = UserPersonWrapper(context, factory, personRepo, userRepo)
         // Instantiate a concrete responder
-        val responder = object : RetrieveResponder<PersonInfo> {
+        val responder = object : RetrieveResponder<PersonInfo, ErrorTag> {
             override fun onSuccess(t: PersonInfo) {
                 fail("Should fail on precondition")
             }
 
-            override fun onFailure(e: Multimap<com.example.project.contract.user.ErrorTag, String>) {
+            override fun onFailure(e: Multimap<ErrorTag, String>) {
                 fail("Should fail on precondition")
             }
         }
@@ -423,6 +423,62 @@ class UserPersonWrapperTest : BaseUserWrapperTest() {
         // Call the wrapper factory method and execute the command
         wrapper.factory(failure).delete(
                 id = existingPersonId,
+                responder = responder
+        ).execute()
+        // Make sure the correct scenario occurred
+        assertTrue(executed)
+    }
+
+    @Test
+    fun userList_AllConstraints_Success() {
+        // Update the context to have an id that is valid
+        context.login(existingUserId)
+        // Instantiate the factory object
+        val factory = BasePersonFactory(personRepo, userRepo)
+        // Instantiate the wrapper object
+        val wrapper = UserPersonWrapper(context, factory, personRepo, userRepo)
+        // Instantiate a concrete responder
+        val responder = object : ListResponder<PersonInfo, ErrorTag> {
+            override fun onSuccess(t: List<PersonInfo>) {
+                executed = true
+            }
+
+            override fun onFailure(e: Multimap<ErrorTag, String>) {
+                fail("Should not fail")
+            }
+        }
+        // Call the wrapper factory method and execute the command
+        wrapper.factory(failure).list(
+                userId = existingUserId,
+                responder = responder
+        ).execute()
+        // Make sure the correct scenario occurred
+        assertTrue(executed)
+    }
+
+    @Test
+    fun userList_UserNotOwner_Failure() {
+        // Login the user to an id that is not the owners
+        context.login(existingUserId + 1L)
+        // Instantiate the factory object
+        val factory = BasePersonFactory(personRepo, userRepo)
+        // Instantiate the wrapper object
+        val wrapper = UserPersonWrapper(context, factory, personRepo, userRepo)
+        // Instantiate a concrete responder
+        val responder = object : ListResponder<PersonInfo, ErrorTag> {
+            override fun onFailure(e: Multimap<ErrorTag, String>) {
+                fail("Should fail on precondition")
+            }
+
+            override fun onSuccess(t: List<PersonInfo>) {
+                fail("Should fail on precondition")
+            }
+        }
+        // This should fail on precondition, so mark the flag
+        shouldFailOnPrecondition = true
+        // Call the wrapper factory method and execute the command
+        wrapper.factory(failure).list(
+                userId = context.currentUserId()!!,
                 responder = responder
         ).execute()
         // Make sure the correct scenario occurred

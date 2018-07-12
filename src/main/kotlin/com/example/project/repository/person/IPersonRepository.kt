@@ -29,4 +29,7 @@ interface IPersonRepository : PagingAndSortingRepository<Person, Long>, JpaSpeci
      * @return a [Page] of [Person] objects
      */
     fun findByLastName(lastName: String, pageable: Pageable): Page<Person>
+
+    fun findByUserId(userId: Long): List<Person>
+
 }

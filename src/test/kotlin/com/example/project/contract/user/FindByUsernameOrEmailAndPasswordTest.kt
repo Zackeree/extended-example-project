@@ -41,7 +41,7 @@ class FindByUsernameOrEmailAndPasswordTest {
     @Test
     fun retrieveUserByEmailAndPassword_Success() {
         var executed = false
-        val responder = object : RetrieveResponder<UserInfo> {
+        val responder = object : RetrieveResponder<UserInfo, ErrorTag> {
             override fun onSuccess(t: UserInfo) {
                 executed = true
                 assertEquals(t.id, id)
@@ -63,7 +63,7 @@ class FindByUsernameOrEmailAndPasswordTest {
     fun retrieveUserByUsernameAndPassword_Success() {
         var executed = false
         val request = baseRequest.copy(usernameOrEmail = "username")
-        val responder = object : RetrieveResponder<UserInfo> {
+        val responder = object : RetrieveResponder<UserInfo, ErrorTag> {
             override fun onSuccess(t: UserInfo) {
                 executed = true
                 assertEquals(t.id, id)
@@ -85,7 +85,7 @@ class FindByUsernameOrEmailAndPasswordTest {
     fun blankUsernameOrEmail_Failure() {
         var executed = false
         val request = baseRequest.copy(usernameOrEmail = "")
-        val responder = object : RetrieveResponder<UserInfo> {
+        val responder = object : RetrieveResponder<UserInfo, ErrorTag> {
             override fun onSuccess(t: UserInfo) {
                 fail("Should not succeed")
             }
@@ -106,7 +106,7 @@ class FindByUsernameOrEmailAndPasswordTest {
     fun wrongPassword_Failure() {
         var executed = false
         val request = baseRequest.copy(password = "passwrod")
-        val responder = object : RetrieveResponder<UserInfo> {
+        val responder = object : RetrieveResponder<UserInfo, ErrorTag> {
             override fun onSuccess(t: UserInfo) {
                 fail("Should not succeed")
             }

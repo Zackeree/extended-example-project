@@ -1,10 +1,9 @@
 package com.example.project.controller.person
 
+import com.example.project.contract.person.ErrorTag
 import com.example.project.contract.person.PersonInfo
 import com.example.project.contract.person.UserPersonWrapper
 import com.example.project.contract.responder.RetrieveResponder
-import com.example.project.contract.user.ErrorTag
-import com.example.project.controller.BaseRestController
 import com.example.project.controller.BaseRetrieveController
 import com.example.project.controller.model.Result
 import com.example.project.toStringMap
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 class PersonRetrieveController(
         private val personWrapper: UserPersonWrapper
 ) : BaseRetrieveController() {
-    private val responder = object : RetrieveResponder<PersonInfo> {
+    private val responder = object : RetrieveResponder<PersonInfo, ErrorTag> {
         override fun onSuccess(t: PersonInfo) {
             result = Result(
                     data = t,

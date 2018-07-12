@@ -46,7 +46,7 @@ class UserUserWrapper(
             /**
              * Returns private retrieve method that actuall handles the roles and permissions checking
              */
-            override fun retrieve(id: Long, responder: RetrieveResponder<UserInfo>): Command {
+            override fun retrieve(id: Long, responder: RetrieveResponder<UserInfo, ErrorTag>): Command {
                 return retrieve(
                         id = id,
                         responder = responder,
@@ -54,18 +54,7 @@ class UserUserWrapper(
                 )
             }
 
-            /**
-             * Return private retrieve method that actually handles the roles and permissions checking
-             */
-            override fun retrieve(username: String, responder: RetrieveResponder<UserInfo>): Command {
-                return retrieve(
-                        username = username,
-                        responder = responder,
-                        failure = userPreconditionFailure
-                )
-            }
-
-            override fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo>): Command {
+            override fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo, ErrorTag>): Command {
                 return FindByUsernameOrEmailAndPassword(
                         request = request,
                         responder = responder,
@@ -104,22 +93,10 @@ class UserUserWrapper(
     /**
      * Private retrieve implementation of the factory retrieve method that handles role and permission checking
      */
-    private fun retrieve(id: Long, responder: RetrieveResponder<UserInfo>, failure: UserPreconditionFailure): Command {
+    private fun retrieve(id: Long, responder: RetrieveResponder<UserInfo, ErrorTag>, failure: UserPreconditionFailure): Command {
         return context.require(
                 requiredRoles = listOf(),
                 successCommand = factory.retrieve(id, responder),
-                failureCommand = failure
-        )
-    }
-
-    /**
-     * Private retrieve implementation of the factory retrieve method that handles role and permission checking.
-     * It does not actually require any roles/permissions,
-     */
-    private fun retrieve(username: String, responder: RetrieveResponder<UserInfo>, failure: UserPreconditionFailure): Command {
-        return context.require(
-                requiredRoles = listOf(),
-                successCommand = factory.retrieve(username, responder),
                 failureCommand = failure
         )
     }

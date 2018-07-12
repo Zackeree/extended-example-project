@@ -43,7 +43,7 @@ class RetrieveTest {
     @Test
     fun retrieve_idNotFound_Failure() {
         var executed = false
-        val responder = object : RetrieveResponder<UserInfo> {
+        val responder = object : RetrieveResponder<UserInfo, ErrorTag> {
             override fun onSuccess(t: UserInfo) {
                 fail("Should not work")
             }
@@ -63,7 +63,7 @@ class RetrieveTest {
     @Test
     fun retrieve_Success() {
         var executed = false
-        val responder = object : RetrieveResponder<UserInfo> {
+        val responder = object : RetrieveResponder<UserInfo, ErrorTag> {
             override fun onSuccess(t: UserInfo) {
                 executed = true
                 assertEquals(validId, t.id)
