@@ -12,7 +12,7 @@ import com.example.project.repository.user.User
 /**
  * Abstract factory wrapper to all user CRUD operations. Each factory interface needs to
  * have a method for each command object for a given entity. For the [User] entity, we have
- * the [Create], [Retrieve], [Update], [Delete], and [FindByUsernameOrEmail] command objects
+ * the [Create], [Retrieve], [Update], [Delete], and [FindByUsernameOrEmailAndPassword] command objects
  */
 interface UserFactory : Creatable<Create.Request, ErrorTag>,
                     RetrievableById<UserInfo, ErrorTag>,
