@@ -8,21 +8,12 @@ import com.example.project.controller.model.BaseCreateForm
  * Extends from the [BaseCreateForm] interface
  */
 data class CreateCreateForm(
-        val username: String,
-        val email: String,
-        val password: String,
-        val passwordConfirm: String
+        val username: String?,
+        val email: String?,
+        val password: String?,
+        val passwordConfirm: String?
 ) : BaseCreateForm<Create.Request> {
-    /**
-     * Method that converts the [CreateCreateForm] into a
-     * [Create.Request] object
-     */
     override fun toRequest(): Create.Request {
-        return Create.Request(
-                username = username,
-                email = email,
-                password = password,
-                passwordConfirm = passwordConfirm
-        )
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
