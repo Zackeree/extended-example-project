@@ -8,6 +8,7 @@ import com.example.project.repository.user.User
 import com.example.project.contract.user.Retrieve
 import com.example.project.controller.BaseRetrieveController
 import com.example.project.controller.model.Result
+import com.example.project.controller.spring.FactoryBeans
 import com.example.project.toStringMap
 import com.google.common.collect.Multimap
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,11 +21,11 @@ import org.springframework.web.bind.annotation.RestController
  * onFailure and onSuccess scenarios. It also implements the [BaseRetrieveController.execute]
  * method, which handles creating and calling the [UserUserWrapper.factory] retrieve method.
  * This method is in charge of creating and executing the [Retrieve] command object
- * @property userWrapper the [UserUserWrapper] factory implementation
+ * @property factoryBeans the [FactoryBeans] factory implementation
  */
 @RestController
 class UserRetrieveController(
-        private val userWrapper: UserUserWrapper
+        private val factoryBeans: FactoryBeans
 ) : BaseRetrieveController() {
     /**
      * Concrete [RetrieveResponder] object that handles onSuccess and onFailure.
@@ -57,7 +58,7 @@ class UserRetrieveController(
      */
     @GetMapping(value = ["/users/{userId}"])
     override fun execute(@PathVariable(value = "userId") id: Long): Result {
-        userWrapper.factory(userPreconditionFailure()).retrieve(
+        factoryBeans.getUserWrapper().factory(userPreconditionFailure()).retrieve(
                 id = id,
                 responder = responder
         ).execute()

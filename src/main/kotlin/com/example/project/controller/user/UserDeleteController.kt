@@ -7,6 +7,7 @@ import com.example.project.contract.user.Delete
 import com.example.project.controller.BaseDeleteController
 import com.example.project.repository.user.User
 import com.example.project.controller.model.Result
+import com.example.project.controller.spring.FactoryBeans
 import com.example.project.toStringMap
 import com.google.common.collect.HashMultimap
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -19,10 +20,11 @@ import org.springframework.web.bind.annotation.RestController
  * onFailure and onSuccess scenarios. It also implements the [BaseDeleteController.execute]
  * method, which handles creating and calling the [UserUserWrapper.factory] delete method.
  * This method is in charge of creating and executing the [Delete] command object
+ * @property factoryBeans the [FactoryBeans]
  */
 @RestController
 class UserDeleteController(
-        private var userWrapper: UserUserWrapper
+        private val factoryBeans: FactoryBeans
 ) : BaseDeleteController() {
     /**
      * Concrete [DeleteResponder] object that handles onSuccess and onFailure.
@@ -56,7 +58,7 @@ class UserDeleteController(
      */
     @DeleteMapping(value = ["/users/{userId}"])
     override fun execute(@PathVariable("userId") id: Long): Result {
-        userWrapper.factory(userPreconditionFailure()).delete(
+        factoryBeans.getUserWrapper().factory(userPreconditionFailure()).delete(
                 id = id,
                 responder = responder
         ).execute()

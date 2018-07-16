@@ -7,6 +7,7 @@ import com.example.project.contract.user.Create
 import com.example.project.controller.BaseCreateController
 import com.example.project.controller.model.Result
 import com.example.project.controller.model.user.CreateCreateForm
+import com.example.project.controller.spring.FactoryBeans
 import com.example.project.toStringMap
 import com.example.project.repository.user.User
 import com.google.common.collect.Multimap
@@ -20,11 +21,11 @@ import org.springframework.web.bind.annotation.RestController
  * onFailure and onSuccess scenarios. It also implements the [BaseCreateController.execute]
  * method, which handles creating and calling the [UserUserWrapper.factory] create method.
  * This method is in charge of creating and executing the [Create] command object
- * @property userWrapper the [UserUserWrapper] factory implementation
+ * @property factoryBeans the [FactoryBeans] bean
  */
 @RestController
 class UserCreateController(
-        private val userWrapper: UserUserWrapper
+        private val factoryBeans: FactoryBeans
 ) : BaseCreateController<CreateCreateForm>(){
     /**
      * Concrete [CreateResponder] object that handles onSuccess and onFailure.
@@ -57,7 +58,7 @@ class UserCreateController(
      */
     @PostMapping(value = ["/users"])
     override fun execute(@RequestBody model: CreateCreateForm): Result {
-        userWrapper.factory(userPreconditionFailure()).create(
+        factoryBeans.getUserWrapper().factory(userPreconditionFailure()).create(
                 request = model.toRequest(),
                 responder = responder
         ).execute()

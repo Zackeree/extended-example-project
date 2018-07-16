@@ -8,6 +8,7 @@ import com.example.project.contract.user.Update
 import com.example.project.controller.BaseUpdateController
 import com.example.project.controller.model.Result
 import com.example.project.controller.model.user.UpdateForm
+import com.example.project.controller.spring.FactoryBeans
 import com.example.project.toStringMap
 import com.google.common.collect.Multimap
 import org.springframework.web.bind.annotation.PathVariable
@@ -21,11 +22,11 @@ import org.springframework.web.bind.annotation.RestController
  * onFailure and onSuccess scenarios. It also implements the [BaseUpdateController.execute]
  * method, which handles creating and calling the [UserUserWrapper.factory] update method.
  * This method is in charge of creating and executing the [Update] command object.
- * @property userWrapper the [UserUserWrapper] factory implementation
+ * @property factoryBeans the [FactoryBeans] factory implementation
  */
 @RestController
 class UserUpdateController(
-        private val userWrapper: UserUserWrapper
+        private val factoryBeans: FactoryBeans
 ) : BaseUpdateController<UpdateForm>() {
     /**
      * Concrete [UpdateResponder] object that handles onSuccess and onFailure.
@@ -60,7 +61,7 @@ class UserUpdateController(
     @PutMapping(value = ["/users/{userId}"])
     override fun execute(@PathVariable("userId") id: Long,
                          @RequestBody model: UpdateForm): Result {
-        userWrapper.factory(userPreconditionFailure()).update(
+        factoryBeans.getUserWrapper().factory(userPreconditionFailure()).update(
                 request = model.toRequest(
                         id = id
                 ),

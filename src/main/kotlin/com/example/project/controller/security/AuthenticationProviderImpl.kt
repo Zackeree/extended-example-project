@@ -2,7 +2,7 @@ package com.example.project.controller.security
 
 import com.example.project.contract.responder.RetrieveResponder
 import com.example.project.contract.user.ErrorTag
-import com.example.project.contract.user.FindByUsernameOrEmailAndPassword
+import com.example.project.contract.user.Validate
 import com.example.project.contract.user.UserInfo
 import com.example.project.service.security.UserDetailsImpl
 import com.example.project.repository.user.IUserRepository
@@ -51,8 +51,8 @@ class AuthenticationProviderImpl(
 
     private fun execute(username: String, password: String): Boolean {
         var verified = false
-        FindByUsernameOrEmailAndPassword(
-                request = FindByUsernameOrEmailAndPassword.Request(
+        Validate(
+                request = Validate.Request(
                         usernameOrEmail = username,
                         password = password
                 ),
