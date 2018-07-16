@@ -8,13 +8,13 @@ import com.google.common.collect.HashMultimap
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 /**
- * [User] FindByUsernameOrEmailAndPassword command. Extends the [Command] object
+ * [User] Validate command. Extends the [Command] object
  * This command object is used as the user login command.
  * @property request the [Request] data class
  * @property responder the [RetrieveResponder] interface
  * @property userRepo the [IUserRepository] interface
  */
-class FindByUsernameOrEmailAndPassword(
+class Validate(
         private val request: Request,
         private val responder: RetrieveResponder<UserInfo, ErrorTag>,
         private val userRepo: IUserRepository

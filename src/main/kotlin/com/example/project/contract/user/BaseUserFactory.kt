@@ -23,10 +23,10 @@ class BaseUserFactory(
     }
 
     /**
-     * Override of the [UserFactory.retrieve] method that will return a [FindByUsernameOrEmailAndPassword] command object
+     * Override of the [UserFactory.retrieve] method that will return a [Validate] command object
      */
-    override fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo, ErrorTag>): Command {
-        return FindByUsernameOrEmailAndPassword(request, responder, userRepo)
+    override fun retrieve(request: Validate.Request, responder: RetrieveResponder<UserInfo, ErrorTag>): Command {
+        return Validate(request, responder, userRepo)
     }
 
     /**

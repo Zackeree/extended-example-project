@@ -17,14 +17,14 @@ import org.springframework.transaction.annotation.Transactional
 @DataJpaTest
 @Transactional
 @RunWith(SpringRunner::class)
-class FindByUsernameOrEmailAndPasswordTest {
+class ValidateTest {
 
     @Autowired
     private lateinit var userRepo: IUserRepository
 
     private val passwordEncoder = BCryptPasswordEncoder()
 
-    private val baseRequest = FindByUsernameOrEmailAndPassword.Request(
+    private val baseRequest = Validate.Request(
             usernameOrEmail = "cspath1@ycp.edu",
             password = "password"
     )
@@ -51,7 +51,7 @@ class FindByUsernameOrEmailAndPasswordTest {
                 fail("Should not fail")
             }
         }
-        FindByUsernameOrEmailAndPassword(
+        Validate(
                 request = baseRequest,
                 responder = responder,
                 userRepo = userRepo
@@ -73,7 +73,7 @@ class FindByUsernameOrEmailAndPasswordTest {
                 fail("Should not fail")
             }
         }
-        FindByUsernameOrEmailAndPassword(
+        Validate(
                 request = request,
                 responder = responder,
                 userRepo = userRepo
@@ -94,7 +94,7 @@ class FindByUsernameOrEmailAndPasswordTest {
                 executed = true
             }
         }
-        FindByUsernameOrEmailAndPassword(
+        Validate(
                 request = request,
                 responder = responder,
                 userRepo = userRepo
@@ -115,7 +115,7 @@ class FindByUsernameOrEmailAndPasswordTest {
                 executed = true
             }
         }
-        FindByUsernameOrEmailAndPassword(
+        Validate(
                 request = request,
                 responder = responder,
                 userRepo = userRepo

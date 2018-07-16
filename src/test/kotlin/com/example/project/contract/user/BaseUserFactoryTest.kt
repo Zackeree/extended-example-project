@@ -50,7 +50,7 @@ class BaseUserFactoryTest {
     @Test
     fun retrieveUserNameOrEmailAndPassword() {
         val cmd = factory.retrieve(
-                request = FindByUsernameOrEmailAndPassword.Request(
+                request = Validate.Request(
                         usernameOrEmail = "username",
                         password = "password"
                 ),
@@ -59,7 +59,7 @@ class BaseUserFactoryTest {
                     override fun onFailure(e: Multimap<ErrorTag, String>) { }
                 }
         )
-        assertTrue(cmd is FindByUsernameOrEmailAndPassword)
+        assertTrue(cmd is Validate)
     }
 
     @Test

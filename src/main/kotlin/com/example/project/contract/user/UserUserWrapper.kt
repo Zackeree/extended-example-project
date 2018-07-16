@@ -22,8 +22,7 @@ import com.example.project.repository.user.IUserRepository
 class UserUserWrapper(
         private val context: UserContext,
         private val factory: UserFactory,
-        private val userRepo: IUserRepository,
-        private val userRoleRepo: IUserRoleRepository
+        private val userRepo: IUserRepository
 ): UserContextWrapper<UserFactory> {
     /**
      * Override of factory method the creates a [UserFactory] object that will handle
@@ -35,11 +34,9 @@ class UserUserWrapper(
              * Returns private create method that actually handles the roles and permissions checking
              */
             override fun create(request: Create.Request, responder: CreateResponder<ErrorTag>): Command {
-                return Create(
+                return factory.create(
                         request = request,
-                        responder = responder,
-                        userRepo = userRepo,
-                        userRoleRepo = userRoleRepo
+                        responder = responder
                 )
             }
 
@@ -54,11 +51,10 @@ class UserUserWrapper(
                 )
             }
 
-            override fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo, ErrorTag>): Command {
-                return FindByUsernameOrEmailAndPassword(
+            override fun retrieve(request: Validate.Request, responder: RetrieveResponder<UserInfo, ErrorTag>): Command {
+                return factory.retrieve(
                         request = request,
-                        responder = responder,
-                        userRepo = userRepo
+                        responder = responder
                 )
             }
 

@@ -19,9 +19,9 @@ interface UserFactory {
     fun retrieve(id: Long, responder: RetrieveResponder<UserInfo, ErrorTag>): Command
 
     /**
-     * Abstract [User] [FindByUsernameOrEmailAndPassword] method
+     * Abstract [User] [Validate] method
      */
-    fun retrieve(request: FindByUsernameOrEmailAndPassword.Request, responder: RetrieveResponder<UserInfo, ErrorTag>): Command
+    fun retrieve(request: Validate.Request, responder: RetrieveResponder<UserInfo, ErrorTag>): Command
 
     /**
      * Abstract [User] [Create] method
