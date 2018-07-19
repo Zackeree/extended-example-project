@@ -28,6 +28,12 @@ import org.springframework.web.bind.annotation.RestController
 class PersonUpdateController(
         private var factoryBeans: FactoryBeans
 ) : BaseUpdateController<UpdateForm>() {
+    /**
+     * Concrete [UpdateResponder] object that handles onSuccess and onFailure.
+     * On success, the responder will set the result object to have the id of the
+     * updated record as its data and a null errors map. On failure, it will set the
+     * result's data to null, and return a map of errors
+     */
     private val responder = object : UpdateResponder<ErrorTag> {
         override fun onSuccess(t: Long) {
             result = Result(
@@ -44,6 +50,14 @@ class PersonUpdateController(
         }
     }
 
+    /**
+     * Override of the [BaseUpdateController.execute] method. As with all
+     * Update controllers, the execute method has a put mapping annotation
+     * with a url of "/users/persons/{personId}" where "{personId}" is a path
+     * variable. The method calls and executes the [UserPersonWrapper] update
+     * command, which returns a [Update] command object. The controller then
+     * executes the returned command object and responds with the [Result] object
+     */
     @PutMapping(value = ["/users/persons/{personId}"])
     override fun execute(@PathVariable("personId") id: Long, @RequestBody model: UpdateForm): Result {
         factoryBeans.getPersonWrapper().factory(userPreconditionFailure()).update(
