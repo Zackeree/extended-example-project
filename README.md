@@ -28,3 +28,6 @@
 
 8. Kotlin
 * The server code for this application is written using the kotlin programming language made by the folks at JetBrains. It compiles to java and runs on the JVM. For information regarding kotlin, it is highly recommended to check out https://kotlinlang.org/docs/reference/ and https://try.kotlinlang.org/ to help familiarize yourself with the language
+
+9. Learning Git
+* If you aren't savvy with Git, you should check out https://learngitbranching.js.org/ It's a really useful tool to familiarize yourself with the Git command line interface. It will walk you through the different commands and how to use them, and help show you branching structures as well as the workflow of a team project in Git. Highly recommended.
