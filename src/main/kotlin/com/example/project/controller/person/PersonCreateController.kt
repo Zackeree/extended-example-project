@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController
  * The controller instantiates a concrete [CreateResponder] object to handle
  * onFailure and onSuccess scenarios. It also implements the [BaseCreateController.execute]
  * method, which handles creating and calling the [UserPersonWrapper.factory] create method.
- * This method is in charge of creating and execuring the [Create] command object
+ * This method is in charge of creating and executing the [Create] command object
  * @property factoryBeans the [FactoryBeans] bean
  */
 @RestController

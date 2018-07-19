@@ -26,6 +26,12 @@ import org.springframework.web.bind.annotation.RestController
 class PersonDeleteController(
         private val factoryBeans: FactoryBeans
 ) : BaseDeleteController() {
+    /**
+     * Concrete [DeleteResponder] object that handles onSuccess and onFailure.
+     * On success, the responder will set the result object to have the id of
+     * the deleted record as its data and a null errors map. On failure, it will
+     * set the result's data to null, and return a map of errors
+     */
     private val responder = object : DeleteResponder<ErrorTag> {
         override fun onSuccess(t: Long) {
             result = Result(
@@ -42,6 +48,14 @@ class PersonDeleteController(
         }
     }
 
+    /**
+     * Override of the [BaseDeleteController.execute] method. As with all
+     * Delete controllers, the execute method has a delete mapping annotation
+     * with a url of "/users/person/{personId}" where "{personId}" is a path
+     * variable. The method calls and executes the [UserPersonWrapper] delete
+     * command, which returns a [Delete] command object. The controller then
+     * executes the returned command object and responds with the [Result] object
+     */
     @DeleteMapping(value = ["/users/persons/{personId}"])
     override fun execute(@PathVariable("personId") id: Long): Result {
         factoryBeans.getPersonWrapper().factory(userPreconditionFailure()).delete(

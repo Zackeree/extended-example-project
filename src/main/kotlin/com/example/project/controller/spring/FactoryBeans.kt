@@ -12,9 +12,7 @@ import org.springframework.context.annotation.Configuration
 class FactoryBeans(
         private var repositories: RepositoryBeans
 ) : FactoryProvider {
-
     private val userContext = UserContextImpl(repositories.userRepo)
-
 
     @Bean
     override fun getUserWrapper(): UserUserWrapper {

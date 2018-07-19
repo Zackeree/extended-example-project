@@ -16,5 +16,4 @@ data class UserInfo(
             username = user.username,
             email = user.email
     )
-
 }
