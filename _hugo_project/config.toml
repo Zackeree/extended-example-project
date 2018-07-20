@@ -1,5 +1,5 @@
 baseURL = "http://example.org/"
 languageCode = "en-us"
 title = "YCP Radio Telescope Knowledge Base"
-theme = "learn"
+theme = "hugo-theme-learn"
 publishDir = "../"
