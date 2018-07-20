@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "cspath1.github.io/example-project/"
 languageCode = "en-us"
 title = "YCP Radio Telescope Knowledge Base"
 theme = "hugo-theme-learn"
