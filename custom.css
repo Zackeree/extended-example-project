@@ -1,0 +1,16 @@
+div#header-wrapper {
+  background-color:#74b559; /* Background color of menu header */
+  border-color:#9cd484; /*Color of menu header border */ 
+}
+
+body {
+  background-color: #232323;
+}
+
+h1, h2, h3, h4, h5, h6, p, span.links {
+  color: white;
+}
+
+div#top-bar {
+  background-color: #262c31;
+}

@@ -12,7 +12,7 @@ This is an info callout.
 ## This is a Subsection
 This is some informational text. Take a look at the following code snippet.
 
-```js
+```
 <template>
   <h1>Hello {{ name }}</h1>
 </template>
