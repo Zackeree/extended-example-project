@@ -1,13 +1,15 @@
 package com.example.project.contract.person
 
 import com.example.project.contract.Command
+import com.example.project.contract.Executable
+import com.example.project.contract.crud.SimpleResult
 import com.example.project.contract.responder.*
-import com.example.project.controller.security.UserContext
-import com.example.project.controller.security.UserContextWrapper
-import com.example.project.controller.security.UserPreconditionFailure
-import com.example.project.controller.security.UserRole
+import com.example.project.controller.security.*
+import com.example.project.controller.security.crud.UserCreatable
 import com.example.project.repository.person.IPersonRepository
 import com.example.project.repository.user.IUserRepository
+import com.google.common.collect.Multimap
+import com.sun.org.apache.xpath.internal.operations.Mult
 import org.springframework.data.domain.Pageable
 
 /**
@@ -23,30 +25,32 @@ class UserPersonWrapper(
         private val factory: PersonFactory,
         private val personRepo: IPersonRepository,
         private val userRepo: IUserRepository
-): UserContextWrapper<PersonFactory> {
+): UserContextWrapper<PersonFactory>,
+    UserCreatable<Create.Request, SimpleResult<Long, Multimap<ErrorTag, String>>> {
+
+    override fun create(request: Create.Request, withAccess: (result: SimpleResult<Long, Multimap<ErrorTag, String>>)->Unit): AccessReport? {
+        return context.require(
+            requiredRoles = listOf(UserRole.USER),
+            successCommand = factory.create(request)
+        ).execute(withAccess)
+    }
+
     /**
      * Override of the factory method that creates a [PersonFactory] object that will handle
      * roles and permission checking
      */
     override fun factory(userPreconditionFailure: UserPreconditionFailure): PersonFactory {
         return object : PersonFactory {
+            override fun create(request: Create.Request): Executable<Long, Multimap<ErrorTag, String>> {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
             /**
              * Returns private retrieve method that handles roles and permissions checking
              */
             override fun retrieve(id: Long, responder: RetrieveResponder<PersonInfo, ErrorTag>): Command {
                 return retrieve(
                         id = id,
-                        responder = responder,
-                        failure = userPreconditionFailure
-                )
-            }
-
-            /**
-             * Returns private create method that handles roles and permissions checking
-             */
-            override fun create(request: Create.Request, responder: CreateResponder<ErrorTag>): Command {
-                return create(
-                        request = request,
                         responder = responder,
                         failure = userPreconditionFailure
                 )
@@ -119,24 +123,6 @@ class UserPersonWrapper(
             context.require(
                     requiredRoles = listOf(),
                     successCommand = factory.retrieve(id = id, responder = responder),
-                    failureCommand = failure
-            )
-        } else {
-            return failure
-        }
-    }
-
-    /**
-     * Private create implementation of the factory create method that handles roles and
-     * permissions checking. It makes sure the id of the currently logged in user matches
-     * the id in the request object. It also makes sure the user has a role of "USER"
-     */
-    private fun create(request: Create.Request, responder: CreateResponder<ErrorTag>, failure: UserPreconditionFailure): Command {
-        val theUser = userRepo.findById(request.userId).get()
-        return if (theUser.id == context.currentUserId()) {
-            context.require(
-                    requiredRoles = listOf(UserRole.USER),
-                    successCommand = factory.create(request, responder),
                     failureCommand = failure
             )
         } else {

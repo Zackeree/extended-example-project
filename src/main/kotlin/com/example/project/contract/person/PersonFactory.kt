@@ -2,8 +2,10 @@ package com.example.project.contract.person
 
 import com.example.project.repository.person.Person
 import com.example.project.contract.Command
+import com.example.project.contract.Executable
 import com.example.project.contract.crud.*
 import com.example.project.contract.responder.*
+import com.google.common.collect.Multimap
 import org.springframework.data.domain.Pageable
 
 /**
@@ -19,7 +21,7 @@ interface PersonFactory {
     /**
      * Abstract [Person] [Create] method
      */
-    fun create(request: Create.Request, responder: CreateResponder<ErrorTag>): Command
+    fun create(request: Create.Request): Executable<Long, Multimap<ErrorTag, String>>
 
     /**
      * Abstract [Person] [Update] method

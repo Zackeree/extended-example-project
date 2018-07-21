@@ -1,9 +1,12 @@
 package com.example.project.contract.person
 
 import com.example.project.contract.Command
+import com.example.project.contract.Executable
+import com.example.project.contract.crud.SimpleResult
 import com.example.project.contract.responder.*
 import com.example.project.repository.person.IPersonRepository
 import com.example.project.repository.user.IUserRepository
+import com.google.common.collect.Multimap
 import org.springframework.data.domain.Pageable
 
 /**
@@ -16,8 +19,8 @@ class BasePersonFactory(
     /**
      * Override of the [PersonFactory.create] method that will return a [Create] command object
      */
-    override fun create(request: Create.Request, responder: CreateResponder<ErrorTag>): Command {
-        return Create(request, responder, personRepo, userRepo)
+    override fun create(request: Create.Request): Executable<Long, Multimap<ErrorTag, String>> {
+        return Create(request, personRepo, userRepo)
     }
 
     /**

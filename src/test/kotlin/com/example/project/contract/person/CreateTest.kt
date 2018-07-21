@@ -62,29 +62,15 @@ class CreateTest : BaseCRUDTest() {
         // The base request already has an invalid id, so
         // we can just use it
         val request = baseRequest
-        // Instantiate a concrete responder
-        val responder = object : CreateResponder<ErrorTag> {
-            override fun onSuccess(t: Long) {
-                fail("Should not succeed")
-            }
-
-            override fun onFailure(e: Multimap<ErrorTag, String>) {
-                // Mark executed as true since the scenario expectedly
-                // failed. We should also check to make sure it failed
-                // for the reason we thought it did (invalid user id)
-                executed = true
-                assertTrue(e[ErrorTag.USER].isNotEmpty())
-            }
-        }
-        // Execute the create command
-        Create(
-                request = request,
-                responder = responder,
-                personRepo = personRepo,
-                userRepo = userRepo
+        val (id, error) = Create(
+            request = request,
+            personRepo = personRepo,
+            userRepo = userRepo
         ).execute()
-        // Make sure the correct scenario occurred
-        assertTrue(executed)
+        assertNull(id)
+        assertNotNull(error)
+        error!!
+        assertTrue(error[ErrorTag.USER].isNotEmpty())
     }
 
     @Test
@@ -92,61 +78,31 @@ class CreateTest : BaseCRUDTest() {
         var executed = false
         // Copy the base request with the bad parameter
         val request = baseRequest.copy(firstName = "", userId = user.id)
-        // Instantiate a concrete responder
-        val responder = object : CreateResponder<ErrorTag> {
-            override fun onSuccess(t: Long) {
-                fail("Should not succeed")
-            }
-
-            override fun onFailure(e: Multimap<ErrorTag, String>) {
-                // Mark executed as true since the scenario expectedly
-                // failed. We should also check to make sure it failed
-                // for the reason we thought it did (first name blank)
-                executed = true
-                assertTrue(e[ErrorTag.FIRST_NAME].isNotEmpty())
-            }
-        }
-        // Execute the command
-        Create(
-                request = request,
-                responder = responder,
-                personRepo = personRepo,
-                userRepo = userRepo
+        val (id, error) = Create(
+            request = request,
+            personRepo = personRepo,
+            userRepo = userRepo
         ).execute()
-        // Make sure the correct scenario happened
-        assertTrue(executed)
+        assertNull(id)
+        assertNotNull(error)
+        error!!
+        assertTrue(error[ErrorTag.FIRST_NAME].isNotEmpty())
     }
 
     @Test
     fun firstNameTooLong_Failure() {
-        var executed = false
         val newFirstName = "Cody".repeat(15)
         // Copy the base request with the bad parameter
         val request = baseRequest.copy(firstName = newFirstName, userId = user.id)
-        // Instantiate a concrete responder
-        val responder = object : CreateResponder<ErrorTag> {
-            override fun onSuccess(t: Long) {
-                fail("Should not succeed")
-            }
-
-            override fun onFailure(e: Multimap<ErrorTag, String>) {
-                // Mark executed as true since the scenario expectedly
-                // failed. We should also check to make sure it failed
-                // for the reason we thought it did (first name too long)
-                executed = true
-                assertTrue(e[ErrorTag.FIRST_NAME].isNotEmpty())
-            }
-        }
-        // Execute the command
-        Create(
-                request = request,
-                responder = responder,
-                personRepo = personRepo,
-                userRepo = userRepo
+        val (id, error) = Create(
+            request = request,
+            personRepo = personRepo,
+            userRepo = userRepo
         ).execute()
-
-        // Make sure the correct scenario occurred
-        assertTrue(executed)
+        assertNull(id)
+        assertNotNull(error)
+        error!!
+        assertTrue(error[ErrorTag.FIRST_NAME].isNotEmpty())
     }
 
     @Test
@@ -154,29 +110,15 @@ class CreateTest : BaseCRUDTest() {
         var executed = false
         // Copy the base request with the bad parameter
         val request = baseRequest.copy(userId = user.id, lastName = "")
-        // Instantiate a concrete responder
-        val responder = object : CreateResponder<ErrorTag> {
-            override fun onSuccess(t: Long) {
-                fail("Should not succeed")
-            }
-
-            override fun onFailure(e: Multimap<ErrorTag, String>) {
-                // Mark executed as true since the scenario expectedly
-                // failed. We should also check to make sure it failed
-                // for the reason we thought it did (last name blank)
-                executed = true
-                assertTrue(e[ErrorTag.LAST_NAME].isNotEmpty())
-            }
-        }
-        // Execute the command
-        Create(
-                request = request,
-                responder = responder,
-                personRepo = personRepo,
-                userRepo = userRepo
+        val (id, error) = Create(
+            request = request,
+            personRepo = personRepo,
+            userRepo = userRepo
         ).execute()
-        // Make sure the correct scenario occurred
-        assertTrue(executed)
+        assertNull(id)
+        assertNotNull(error)
+        error!!
+        assertTrue(error[ErrorTag.LAST_NAME].isNotEmpty())
     }
 
     @Test
@@ -185,29 +127,15 @@ class CreateTest : BaseCRUDTest() {
         val newLastName = "Spath".repeat(15)
         // Copy the base request with the bad parameter
         val request = baseRequest.copy(lastName = newLastName, userId = user.id)
-        // Instantiate a concrete responder
-        val responder = object : CreateResponder<ErrorTag> {
-            override fun onSuccess(t: Long) {
-                fail("Should not succeed")
-            }
-
-            override fun onFailure(e: Multimap<ErrorTag, String>) {
-                // Mark executed as true since the scenario expectedly
-                // failed. We should also check to make sure it failed
-                // for the reason we thought it did (last name too long)
-
-                executed = true
-                assertTrue(e[ErrorTag.LAST_NAME].isNotEmpty())
-            }
-        }
-        // Execute the command
-        Create(
-                request = request,
-                responder = responder,
-                personRepo = personRepo,
-                userRepo = userRepo
+        val (id, e) = Create(
+            request = request,
+            personRepo = personRepo,
+            userRepo = userRepo
         ).execute()
-        assertTrue(executed)
+        assertNull(id)
+        assertNotNull(e)
+        e!!
+        assertTrue(e[ErrorTag.LAST_NAME].isNotEmpty())
     }
 
     @Test
@@ -215,25 +143,13 @@ class CreateTest : BaseCRUDTest() {
         var executed = false
         // Copy the base request with the correct user id
         val request = baseRequest.copy(userId = user.id)
-        // Instantiate a concrete responder
-        val responder = object : CreateResponder<ErrorTag> {
-            override fun onSuccess(t: Long) {
-                // Mark executed true
-                executed = true
-            }
-
-            override fun onFailure(e: Multimap<ErrorTag, String>) {
-                fail("Should not fail")
-            }
-        }
-        // Execute the command
-        Create(
-                request = request,
-                responder = responder,
-                personRepo = personRepo,
-                userRepo = userRepo
+        val (id, e) = Create(
+            request = request,
+            personRepo = personRepo,
+            userRepo = userRepo
         ).execute()
-        // Make sure the correct scenario occurred
-        assertTrue(executed)
+        assertNull(e)
+        assertNotNull(id)
+        assertTrue(id!! >= 0)
     }
 }

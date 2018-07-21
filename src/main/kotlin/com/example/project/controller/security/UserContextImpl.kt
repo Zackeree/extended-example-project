@@ -1,6 +1,9 @@
 package com.example.project.controller.security
 
 import com.example.project.contract.Command
+import com.example.project.contract.Executable
+import com.example.project.contract.SecuredAction
+import com.example.project.contract.crud.SimpleResult
 import com.example.project.repository.user.IUserRepository
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
@@ -8,6 +11,35 @@ import org.springframework.security.core.context.SecurityContextHolder
 class UserContextImpl(
         var userRepo: IUserRepository
 ) : UserContext {
+    override fun <S, E> require(requiredRoles: List<UserRole>, successCommand: Executable<S, E>): SecuredAction<S, E> {
+        var missingRoles: MutableList<UserRole>? = mutableListOf()
+        if (authentication != null && authentication is AuthenticatedUserToken) {
+            val authorities = arrayListOf<SimpleGrantedAuthority>()
+            authentication.authorities.forEach { authorities.add(SimpleGrantedAuthority(it.authority)) }
+            val token = authentication
+            if (token.userId == null || !userRepo.existsById(token.userId)) missingRoles?.add(UserRole.USER)
+            else {
+                val user = userRepo.findById(token.userId).get()
+                if (!requiredRoles.isEmpty()) {
+                    requiredRoles.forEach { role ->
+                        val hasThisRole = user.roles.any { it.role == role.name }
+                        if (!hasThisRole) {
+                            missingRoles?.add(role)
+                        }
+                    }
+                }
+            }
+        } else missingRoles?.add(UserRole.USER)
+        if (missingRoles?.isEmpty() == true) missingRoles = null
+        return object : SecuredAction<S, E> {
+            override fun execute(withAccess: (result: SimpleResult<S, E>) -> Unit): AccessReport? {
+                return missingRoles?.let { AccessReport(it) } ?: let {
+                    successCommand.execute()
+                null
+                }
+            }
+        }
+    }
 
     private val authentication = SecurityContextHolder.getContext().authentication
 

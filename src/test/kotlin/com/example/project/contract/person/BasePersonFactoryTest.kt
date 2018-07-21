@@ -63,11 +63,7 @@ class BasePersonFactoryTest {
                         userId = 0,
                         firstName = "Cody",
                         lastName = "Spath"
-                ),
-                responder = object : CreateResponder<ErrorTag> {
-                    override fun onSuccess(t: Long) { }
-                    override fun onFailure(e: Multimap<ErrorTag, String>) { }
-                }
+                )
         )
         // Make sure the command returned is a Create command
         assertTrue(cmd is Create)

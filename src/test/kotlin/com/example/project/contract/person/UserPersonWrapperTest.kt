@@ -89,52 +89,30 @@ class UserPersonWrapperTest : BaseUserWrapperTest() {
         val factory = BasePersonFactory(personRepo, userRepo)
         // Instantiate the wrapper
         val wrapper = UserPersonWrapper(context, factory, personRepo, userRepo)
-        // Instantiate a concrete responder object
-        val responder = object : CreateResponder<ErrorTag> {
-            override fun onSuccess(t: Long) {
-                executed = true
-            }
-
-            override fun onFailure(e: Multimap<ErrorTag, String>) {
-                fail("Should not fail")
-            }
-        }
         // Call the wrapper factory method and execute the command
-        wrapper.factory(failure).create(
-                request = baseCreateRequest.copy(userId = existingUserId),
-                responder = responder
-        ).execute()
-        // Make sure the expected scenario occurred
+        val error = wrapper.create(baseCreateRequest.copy(userId = existingUserId)) {
+            executed = true
+        }
+        assertNull(error)
         assertTrue(executed)
     }
 
     @Test
     fun create_UserNotOwner_Failure() {
         // Update our context to have a user id that is not the owner's
-        context.login(existingUserId + 1L)
+        context.logout()
         // Instantiate the factory object
         val factory = BasePersonFactory(personRepo, userRepo)
         // Instantiate the wrapper object
         val wrapper  = UserPersonWrapper(context, factory, personRepo, userRepo)
-        // Instantiate a concrete responder
-        val responder = object : CreateResponder<ErrorTag> {
-            override fun onSuccess(t: Long) {
-                fail("Should fail on precondition")
-            }
-
-            override fun onFailure(e: Multimap<ErrorTag, String>) {
-                fail("Should fail on precondition")
-            }
-        }
         // This should fail on precondition, so mark the flag
         shouldFailOnPrecondition = true
         // Call the wrapper factory method and execute the command
-        wrapper.factory(failure).create(
-                request = baseCreateRequest.copy(userId = existingUserId),
-                responder = responder
-        ).execute()
+        val error = wrapper.create(baseCreateRequest.copy(userId = existingUserId)) {
+            fail("Should fail on precondition")
+        }
         // Make sure the expected scenario occurred
-        assertTrue(executed)
+        assertNotNull(error)
     }
 
     @Test
@@ -145,25 +123,13 @@ class UserPersonWrapperTest : BaseUserWrapperTest() {
         val factory = BasePersonFactory(personRepo, userRepo)
         // Instantiate a wrapper object
         val wrapper = UserPersonWrapper(context, factory, personRepo, userRepo)
-        // Instantiate a concrete responder
-        val responder = object : CreateResponder<ErrorTag> {
-            override fun onFailure(e: Multimap<ErrorTag, String>) {
-                fail("Should fail on precondition")
-            }
-
-            override fun onSuccess(t: Long) {
-                fail("Should fail on precondition")
-            }
-        }
         // This should fail on precondition, so set the flag
         shouldFailOnPrecondition = true
         // Call the wrapper factory method and execute the command
-        wrapper.factory(failure).create(
-                request = baseCreateRequest.copy(userId = existingUserId),
-                responder = responder
-        ).execute()
-        // Make sure the expected scenario occurred
-        assertTrue(executed)
+        val error = wrapper.create(baseCreateRequest.copy(userId = existingUserId)) {
+            fail("Should fail on precondition")
+        }
+        assertNotNull(error)
     }
 
     @Test
