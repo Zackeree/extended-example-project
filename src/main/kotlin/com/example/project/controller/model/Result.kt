@@ -16,11 +16,19 @@ class Result(
         var errors: Map<String, Collection<String>>?=null,
         var status: HttpStatus? = null
 ) : JsonSerializable {
+    /**
+     * Adds logic to our constructor. If status is null, set it
+     * to OK if errors is null or BAD_REQUEST if errors is not null
+     */
     init {
         if (status == null) status = if (errors == null) HttpStatus.OK
         else HttpStatus.BAD_REQUEST
     }
 
+    /**
+     * Allows us to customize how we serialize our object when we respond to
+     * the client with it
+     */
     override fun serialize(gen: JsonGenerator?, serializers: SerializerProvider?) {
         gen?.writeStartObject();
 
@@ -38,6 +46,9 @@ class Result(
         gen?.writeEndObject()
     }
 
+    /**
+     * Calls our other serialize method above
+     */
     override fun serializeWithType(gen: JsonGenerator?, serializers: SerializerProvider?, typeSer: TypeSerializer?) {
         serialize(gen, serializers)
     }

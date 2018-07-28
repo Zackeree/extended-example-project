@@ -52,9 +52,11 @@ class PersonCreateController(
     /**
      * Override of the [BaseCreateController.execute] method. As with all
      * Create controllers, the execute method has a post mapping annotation
-     * with a url of "/users/persons". The method calls and executes the [UserPersonWrapper]
-     * create command, which returns a [Create] command object. The controller
-     * then executes the returned command object and responds with the [Result] object
+     * with a url of "/users/persons". It will first make sure the request does not
+     * have any null values (and other basic validations). If it does not, the
+     * method calls and executes the [UserPersonWrapper]create command, which
+     * returns a [Create] command object. The controller then executes the
+     * returned command object and responds with the [Result] object
      */
     @PostMapping(value = ["/users/persons"])
     override fun execute(@RequestBody model: CreateForm): Result {

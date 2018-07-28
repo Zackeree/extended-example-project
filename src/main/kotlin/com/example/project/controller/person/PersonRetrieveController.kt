@@ -54,9 +54,10 @@ class PersonRetrieveController(
      * Override of the [BaseRetrieveController.execute] method. As with all
      * Retrieve Controllers, the execute method has a get mapping annotation
      * with a url of "/users/persons/{personId}" where "{personId}" is a path
-     * variable. The method calls and executes the [UserPersonWrapper] retrieve
-     * command, which returns a [Retrieve] command object. The controller then executes
-     * the returned command object and responds with the [Result] object.
+     * variable. It first calls the [validateRequest] method to see if the id is
+     * null or not. If it is not, he method calls and executes the [UserPersonWrapper]
+     * retrieve command, which returns a [Retrieve] command object. The controller then
+     * executes the returned command object and responds with the [Result] object.
      */
     @GetMapping(value = ["/users/persons/{personId}"])
     override fun execute(@PathVariable id: Long?): Result {
@@ -70,6 +71,10 @@ class PersonRetrieveController(
         return result
     }
 
+    /**
+     * Checks to see if the given id is null or not. If it is, it returns a
+     * [HashMultimap]. If it is not, it returns null
+     */
     private fun validateRequest(id: Long?): Multimap<ErrorTag, String>? {
         val errors = HashMultimap.create<ErrorTag, String>()
         if (id == null)

@@ -53,9 +53,10 @@ class UserRetrieveController(
      * Override of the [BaseRetrieveController.execute] method. As with all
      * Retrieve Controllers, the execute method has a get mapping annotation
      * with a url of "/users/{userId}" where "{userId}" is a path variable.
-     * The method calls and executes the [UserUserWrapper] retrieve command,
-     * which returns a [Retrieve] command object. The controller then executes
-     * the returned command object and responds with the [Result] object.
+     * It will first call the [validateRequest] method to make sure the id is
+     * not null. If it is not, the method calls and executes the [UserUserWrapper]
+     * retrieve command,which returns a [Retrieve] command object. The controller
+     * then executesthe returned command object and responds with the [Result] object.
      */
     @GetMapping(value = ["/users/{userId}"])
     override fun execute(@PathVariable(value = "userId") id: Long?): Result {

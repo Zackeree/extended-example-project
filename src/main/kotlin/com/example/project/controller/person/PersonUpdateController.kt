@@ -54,7 +54,8 @@ class PersonUpdateController(
      * Override of the [BaseUpdateController.execute] method. As with all
      * Update controllers, the execute method has a put mapping annotation
      * with a url of "/users/persons/{personId}" where "{personId}" is a path
-     * variable. The method calls and executes the [UserPersonWrapper] update
+     * variable. It will first make sure the request contains no null values,
+     * and if it does, the method calls and executes the [UserPersonWrapper] update
      * command, which returns a [Update] command object. The controller then
      * executes the returned command object and responds with the [Result] object
      */

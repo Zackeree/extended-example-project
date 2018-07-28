@@ -57,9 +57,9 @@ class PersonFindByFirstNameController(
     /**
      * Override of the [BasePageController.execute] method. As with all
      * Page Controllers, the execute method has a get mapping annotation
-     * with a url of "/users/persons/firstName/{firstName}/{pageSize}/{pageNumber}
-     * where "{firstName}", "{pageSize}", and "{pageNumber}" are all path variables.
-     * The method calls and executes the [UserPersonWrapper] findByFirstName command,
+     * with a url of "/users/persons/firstName. It first calls [validateRequest] which
+     * ensures the request does not have any null values. If it does not, the
+     * method calls and executes the [UserPersonWrapper] findByFirstName command,
      * which returns a [FindByFirstName] command object. The controller then executes
      * the returned command object and responds with the [Result] object
      */
@@ -78,6 +78,9 @@ class PersonFindByFirstNameController(
         return result
     }
 
+    /**
+     * Checks to make sure the last name is not null or blank
+     */
     private fun validateRequest(lastName: String?): Multimap<ErrorTag, String>? {
         val errors = HashMultimap.create<ErrorTag, String>()
         if (lastName.isNullOrBlank())

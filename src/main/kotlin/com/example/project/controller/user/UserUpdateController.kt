@@ -54,7 +54,9 @@ class UserUpdateController(
      * Override of the [BaseUpdateController.execute] method. As with all
      * Update Controllers, the execute method has a put mapping annotation
      * with a url of "/users/{userId}" where "{userId}" is a path variable.
-     * The method calls and executes the [UserUserWrapper] update command,
+     * It will first validate that the request does not contain any null values
+     * so it can be adapted to the [Update.Request] object. If it does not have
+     * nulls, the method calls and executes the [UserUserWrapper] update command,
      * which returns a [Update] command object. The controller the executes
      * the returned command object and responds with the [Result] object.
      */

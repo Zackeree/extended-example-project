@@ -52,9 +52,10 @@ class UserDeleteController(
      * Override of the [BaseDeleteController.execute] method. As with all
      * Delete Controllers, the execute method has a delete mapping annotation
      * with a url of "/users/{userId}" where {userId} is a path variable. The
-     * method calls and executes the [UserUserWrapper] delete command, which
-     * returns a [Delete] command object. The controller then executes the
-     * returned command object and responds with the [Result] object.
+     * method first calls the [validateRequest] method to make sure the id is
+     * not null. If it is not, the method calls and executes the [UserUserWrapper]
+     * delete command, which returns a [Delete] command object. The controller
+     * then executes thereturned command object and responds with the [Result] object.
      */
     @DeleteMapping(value = ["/users/{userId}"])
     override fun execute(@PathVariable("userId") id: Long?): Result {
@@ -68,6 +69,11 @@ class UserDeleteController(
         return result
     }
 
+    /**
+     * Method that will check to see if the given id is null or not, and if it is,
+     * it will return a [HashMultimap] of errors. If it is not null, it will return
+     * null
+     */
     private fun validateRequest(id: Long?): HashMultimap<ErrorTag, String>? {
         val errors = HashMultimap.create<ErrorTag, String>()
         if (id == null)
