@@ -9,5 +9,5 @@ import com.example.project.controller.model.Result
  * Extends the [BaseRestController]
  */
 abstract class BaseUpdateController<VIEWMODEL> : BaseRestController() {
-    abstract fun execute(id: Long, model: VIEWMODEL): Result
+    abstract fun execute(id: Long?, model: VIEWMODEL): Result
 }

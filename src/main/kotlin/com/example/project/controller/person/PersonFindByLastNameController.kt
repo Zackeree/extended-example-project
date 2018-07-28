@@ -10,11 +10,13 @@ import com.example.project.controller.model.Result
 import com.example.project.controller.spring.FactoryBeans
 import com.example.project.repository.person.Person
 import com.example.project.toStringMap
+import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 /**
@@ -29,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class PersonFindByLastNameController(
         private val factoryBeans: FactoryBeans
-) : BasePageController<String>() {
+) : BasePageController<String?>() {
     /**
      * Concrete [PageResponder] object that handles onSucces and onFailure.
      * On success, the responder will set the result object to have the [Page]
@@ -61,16 +63,26 @@ class PersonFindByLastNameController(
      * which returns a [FindByLastName] command object. The controller then executes
      * the returned command object and responds with the [Result] object
      */
-    @GetMapping(value = ["/users/persons/lastName/{lastName}/{pageSize}/{pageNumber}"])
-    override fun execute(@PathVariable("lastName") model: String,
-                         @PathVariable("pageSize") pageSize: Int,
-                         @PathVariable("pageNumber") pageNumber: Int): Result {
+    @GetMapping(value = ["/users/persons/lastName"])
+    override fun execute(@RequestParam("lastName") model: String?,
+                         @RequestParam("pageSize") pageSize: Int,
+                         @RequestParam("pageNumber") pageNumber: Int): Result {
+        validateRequest(model)?.let { return Result(null, it.toStringMap()) }
+
         factoryBeans.getPersonWrapper().factory(userPreconditionFailure()).findByLastName(
-                lastName = model,
+                lastName = model!!,
                 pageable = PageRequest.of(0,25),
                 responder = responder
         ).execute()
 
         return result
+    }
+
+    private fun validateRequest(firstName: String?): Multimap<ErrorTag, String>? {
+        val errors = HashMultimap.create<ErrorTag, String>()
+        if (firstName.isNullOrBlank())
+            errors.put(ErrorTag.FIRST_NAME, "Required field")
+
+        return if (errors.isEmpty) null else errors
     }
 }

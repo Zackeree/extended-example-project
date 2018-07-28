@@ -1,25 +1,40 @@
 package com.example.project.controller.model.person
 
+import com.example.project.contract.person.ErrorTag
 import com.example.project.contract.person.Update
 import com.example.project.controller.model.BaseCreateForm
 import com.example.project.controller.model.BaseUpdateForm
+import com.google.common.collect.HashMultimap
+import com.google.common.collect.Multimap
 
 /**
  * Class used to encapsulate data from the client
  * Inherits the [BaseCreateForm] interface
  */
 data class UpdateForm(
-        val firstName: String,
-        val lastName: String
+        val firstName: String?,
+        val lastName: String?
 ) : BaseUpdateForm<Update.Request> {
     /**
      * Converts the [UpdateForm] to a [Update.Request] object
      */
-    override fun toRequest(id: Long): Update.Request {
+    override fun toRequest(id: Long?): Update.Request {
         return Update.Request(
-                id = id,
-                firstName = firstName,
-                lastName = lastName
+                id = id!!,
+                firstName = firstName!!,
+                lastName = lastName!!
         )
+    }
+
+    fun validateRequest(id: Long?): Multimap<ErrorTag, String>? {
+        val errors = HashMultimap.create<ErrorTag, String>()
+        if (id == null)
+            errors.put(ErrorTag.ID, "Invalid id")
+        if (firstName.isNullOrBlank())
+            errors.put(ErrorTag.FIRST_NAME, "Required field")
+        if (lastName.isNullOrBlank())
+            errors.put(ErrorTag.LAST_NAME, "Required field")
+
+        return if (errors.isEmpty) null else errors
     }
 }

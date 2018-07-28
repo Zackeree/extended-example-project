@@ -10,6 +10,7 @@ import com.example.project.controller.spring.FactoryBeans
 import com.example.project.repository.person.Person
 import com.example.project.toStringMap
 import com.google.common.collect.HashMultimap
+import com.google.common.collect.Multimap
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
@@ -57,12 +58,22 @@ class PersonDeleteController(
      * executes the returned command object and responds with the [Result] object
      */
     @DeleteMapping(value = ["/users/persons/{personId}"])
-    override fun execute(@PathVariable("personId") id: Long): Result {
+    override fun execute(@PathVariable("personId") id: Long?): Result {
+        validateRequest(id)?.let { return Result(null, it.toStringMap()) }
+
         factoryBeans.getPersonWrapper().factory(userPreconditionFailure()).delete(
-                id = id,
+                id = id!!,
                 responder = responder
         ).execute()
 
         return result
+    }
+
+    private fun validateRequest(id: Long?): Multimap<ErrorTag, String>? {
+        val errors = HashMultimap.create<ErrorTag, String>()
+        if (id == null)
+            errors.put(ErrorTag.ID, "Invalid id")
+
+        return if (errors.isEmpty) null else errors
     }
 }

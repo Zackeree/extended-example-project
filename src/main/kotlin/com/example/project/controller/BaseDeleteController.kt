@@ -9,5 +9,5 @@ import com.example.project.controller.model.Result
  * the path variable from the api url). Extends the [BaseRestController]
  */
 abstract class BaseDeleteController : BaseRestController() {
-    abstract fun execute(id: Long): Result
+    abstract fun execute(id: Long?): Result
 }

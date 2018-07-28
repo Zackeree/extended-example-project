@@ -6,7 +6,7 @@ import com.example.project.contract.person.Create
 import com.example.project.contract.responder.CreateResponder
 import com.example.project.controller.BaseCreateController
 import com.example.project.controller.model.Result
-import com.example.project.controller.model.person.CreateCreateForm
+import com.example.project.controller.model.person.CreateForm
 import com.example.project.controller.spring.FactoryBeans
 import com.example.project.repository.person.Person
 import com.example.project.toStringMap
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class PersonCreateController(
         private val factoryBeans: FactoryBeans
-) : BaseCreateController<CreateCreateForm>() {
+) : BaseCreateController<CreateForm>() {
     /**
      * Concrete [CreateResponder] object that handles onSuccess and onFailure.
      * On success, the responder will set the result object to have the new id
@@ -57,7 +57,9 @@ class PersonCreateController(
      * then executes the returned command object and responds with the [Result] object
      */
     @PostMapping(value = ["/users/persons"])
-    override fun execute(@RequestBody model: CreateCreateForm): Result {
+    override fun execute(@RequestBody model: CreateForm): Result {
+        model.validateRequest()?.let { return Result(null, it.toStringMap()) }
+
         factoryBeans.getPersonWrapper().factory(userPreconditionFailure()).create(
                 request = model.toRequest(),
                 responder = responder

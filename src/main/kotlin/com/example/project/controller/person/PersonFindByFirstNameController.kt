@@ -10,6 +10,7 @@ import com.example.project.controller.model.Result
 import com.example.project.controller.spring.FactoryBeans
 import com.example.project.repository.person.Person
 import com.example.project.toStringMap
+import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -30,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class PersonFindByFirstNameController(
         private val factoryBeans: FactoryBeans
-) : BasePageController<String>() {
+) : BasePageController<String?>() {
     /**
      * Concrete [PageResponder] object that handles onSuccess and onFailure.
      * On success, the responder will set the result object to have the [Page]
@@ -62,16 +63,26 @@ class PersonFindByFirstNameController(
      * which returns a [FindByFirstName] command object. The controller then executes
      * the returned command object and responds with the [Result] object
      */
-    @GetMapping(value = ["/users/persons/firstName/{firstName}/{pageSize}/{pageNumber}"])
-    override fun execute(@PathVariable("firstName") model: String,
+    @GetMapping(value = ["/users/persons/firstName"])
+    override fun execute(@PathVariable("firstName") model: String?,
                          @PathVariable("pageSize") pageSize: Int,
                          @PathVariable("pageNumber") pageNumber: Int): Result {
+        validateRequest(model)?.let { return Result(null, it.toStringMap()) }
+
         factoryBeans.getPersonWrapper().factory(userPreconditionFailure()).findByFirstName(
-                firstName = model,
+                firstName = model!!,
                 pageable = PageRequest.of(0, 25),
                 responder = responder
         ).execute()
 
         return result
+    }
+
+    private fun validateRequest(lastName: String?): Multimap<ErrorTag, String>? {
+        val errors = HashMultimap.create<ErrorTag, String>()
+        if (lastName.isNullOrBlank())
+            errors.put(ErrorTag.LAST_NAME, "Required field")
+
+        return if (errors.isEmpty) null else errors
     }
 }

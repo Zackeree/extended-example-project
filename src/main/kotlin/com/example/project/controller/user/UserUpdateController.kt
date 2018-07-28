@@ -59,8 +59,10 @@ class UserUpdateController(
      * the returned command object and responds with the [Result] object.
      */
     @PutMapping(value = ["/users/{userId}"])
-    override fun execute(@PathVariable("userId") id: Long,
+    override fun execute(@PathVariable("userId") id: Long?,
                          @RequestBody model: UpdateForm): Result {
+        model.validateRequest(id)?.let { return Result(null, it.toStringMap()) }
+
         factoryBeans.getUserWrapper().factory(userPreconditionFailure()).update(
                 request = model.toRequest(
                         id = id

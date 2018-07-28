@@ -57,12 +57,22 @@ class UserDeleteController(
      * returned command object and responds with the [Result] object.
      */
     @DeleteMapping(value = ["/users/{userId}"])
-    override fun execute(@PathVariable("userId") id: Long): Result {
+    override fun execute(@PathVariable("userId") id: Long?): Result {
+        validateRequest(id)?.let { return Result(null, it.toStringMap()) }
+
         factoryBeans.getUserWrapper().factory(userPreconditionFailure()).delete(
-                id = id,
+                id = id!!,
                 responder = responder
         ).execute()
 
         return result
+    }
+
+    private fun validateRequest(id: Long?): HashMultimap<ErrorTag, String>? {
+        val errors = HashMultimap.create<ErrorTag, String>()
+        if (id == null)
+            errors.put(ErrorTag.ID, "Invalid id")
+
+        return if (errors.isEmpty) null else errors
     }
 }

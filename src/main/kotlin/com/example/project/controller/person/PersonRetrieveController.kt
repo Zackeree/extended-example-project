@@ -10,6 +10,7 @@ import com.example.project.controller.model.Result
 import com.example.project.controller.spring.FactoryBeans
 import com.example.project.repository.person.Person
 import com.example.project.toStringMap
+import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -58,12 +59,22 @@ class PersonRetrieveController(
      * the returned command object and responds with the [Result] object.
      */
     @GetMapping(value = ["/users/persons/{personId}"])
-    override fun execute(@PathVariable id: Long): Result {
+    override fun execute(@PathVariable id: Long?): Result {
+        validateRequest(id)?.let { return Result(null, it.toStringMap()) }
+
         factoryBeans.getPersonWrapper().factory(userPreconditionFailure()).retrieve(
-                id = id,
+                id = id!!,
                 responder = responder
         ).execute()
 
         return result
+    }
+
+    private fun validateRequest(id: Long?): Multimap<ErrorTag, String>? {
+        val errors = HashMultimap.create<ErrorTag, String>()
+        if (id == null)
+            errors.put(ErrorTag.ID, "Invalid id")
+
+        return if (errors.isEmpty) null else errors
     }
 }

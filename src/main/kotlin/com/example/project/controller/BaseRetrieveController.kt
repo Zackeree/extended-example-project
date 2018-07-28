@@ -10,5 +10,5 @@ import com.example.project.controller.model.Result
  * url). Extends the [BaseRestController].
  */
 abstract class BaseRetrieveController : BaseRestController() {
-    abstract fun execute(id: Long): Result
+    abstract fun execute(id: Long?): Result
 }
