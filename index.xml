@@ -20,5 +20,16 @@
 Once you have an account, you can download IntelliJ Idea Ultimate Edition. After you have cloned the GitHub Repository, you can open it up in IntelliJ and import it in. IntelliJ can recognize that this is a gradle project, and will let you import your gradle settings.</description>
     </item>
     
+    <item>
+      <title>NPM</title>
+      <link>/example-project/environment/npm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/example-project/environment/npm/</guid>
+      <description>NPM (Node Package Manager) is a Javascript package manager. If you&amp;rsquo;re running a modern Linux distro, you can likely install it through apt-get: $ sudo apt-get install npm. If you are using Windows, go here for the download.
+Usage npm has lots of commands and features. The few you&amp;rsquo;ll use most often are listed below.
+ npm install --save package-name - add package with name package-name to package.json as a runtime dependency.</description>
+    </item>
+    
   </channel>
 </rss>

@@ -11,6 +11,10 @@
   </url>
   
   <url>
+    <loc>/example-project/environment/npm/</loc>
+  </url>
+  
+  <url>
     <loc>/example-project/categories/</loc>
     <priority>0</priority>
   </url>
