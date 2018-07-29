@@ -3,7 +3,7 @@ title: "Gradle Build System"
 weight: 1
 ---
 
-The Radio Telescope project and the Spring framework are build and deployed using the 
+The Radio Telescope project and the Spring framework are built and deployed using the 
 Gradle build system. The build script has several Gradle tasks set up to streamline the 
 develop->test->publish workflow.
 
