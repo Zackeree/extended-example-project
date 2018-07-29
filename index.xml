@@ -31,5 +31,15 @@ Usage npm has lots of commands and features. The few you&amp;rsquo;ll use most o
  npm install --save package-name - add package with name package-name to package.json as a runtime dependency.</description>
     </item>
     
+    <item>
+      <title>Kotlin Style Guide</title>
+      <link>/example-project/styleguides/kotlin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/example-project/styleguides/kotlin/</guid>
+      <description>General Notes Kotlin has no new operator; to create an instance of a class, you simply call the constructor as a normal function, e.g.
+val userFactory = BaseUserFactory(userRepo)  Kotlin has a useful class definition keyword, the data keyword. Classes defined with the data keywork implicitly have useful helper methods like equals(), hashCode(), and toString() of the form (for example) &amp;quot;User(username=cspath1, email=cspath1@ycp.edu, password=pass1234)&amp;quot;, and copy() The copy() function provides the ability to very easily create a copy of a data class while optionally changing the value for any of the properties in the copy.</description>
+    </item>
+    
   </channel>
 </rss>

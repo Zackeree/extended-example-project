@@ -7,6 +7,10 @@
   </url>
   
   <url>
+    <loc>/example-project/styleguides/</loc>
+  </url>
+  
+  <url>
     <loc>/example-project/design-patterns/</loc>
   </url>
   
@@ -29,6 +33,10 @@
   <url>
     <loc>/example-project/categories/</loc>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/example-project/styleguides/kotlin/</loc>
   </url>
   
   <url>

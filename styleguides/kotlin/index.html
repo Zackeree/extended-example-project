@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/example-project/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/example-project/images/favicon.png" type="image/x-icon" />
-    <title>Learning Resources :: YCP Radio Telescope Knowledge Base</title>
+    <title>Kotlin Style Guide :: YCP Radio Telescope Knowledge Base</title>
     
     
     <link href="/example-project/css/nucleus.css?1532887588" rel="stylesheet">
@@ -34,7 +34,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/example-project/resources/">
+  <body class="" data-url="/example-project/styleguides/kotlin/">
     <nav id="sidebar" class="">
 
 
@@ -145,7 +145,7 @@
   
     
     <li data-nav-id="/example-project/styleguides/" title="Code Style Guides" class="dd-item 
-        
+        parent
         
         
         ">
@@ -169,7 +169,7 @@
  
   
     
-      <li data-nav-id="/example-project/styleguides/kotlin/" title="Kotlin Style Guide" class="dd-item ">
+      <li data-nav-id="/example-project/styleguides/kotlin/" title="Kotlin Style Guide" class="dd-item active">
         <a href="/example-project/styleguides/kotlin/">
         Kotlin Style Guide
         
@@ -240,8 +240,8 @@
   
     
     <li data-nav-id="/example-project/resources/" title="Learning Resources" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/example-project/resources/">
@@ -298,7 +298,13 @@
             
           
           
-            <a href='/example-project/'>YCP Radio Telescope Knowledge Base</a> > Learning Resources
+            
+            
+          
+          
+            <a href='/example-project/'>YCP Radio Telescope Knowledge Base</a> > <a href='/example-project/styleguides/'>Code Style Guides</a> > Kotlin Style Guide
+          
+         
           
          
           
@@ -312,14 +318,18 @@
 <ul>
 <li>
 <ul>
-<li><a href="#javascript">JavaScript</a>
+<li><a href="#general-notes">General Notes</a></li>
+<li><a href="#code-style">Code Style</a>
 <ul>
-<li><a href="#javascript-es6">JavaScript ES6</a></li>
-<li><a href="#es6-module-system">ES6 Module System</a></li>
+<li><a href="#1-colons">1. Colons</a></li>
+<li><a href="#2-lambdas">2. Lambdas</a></li>
+<li><a href="#3-class-header-formatting">3. Class Header Formatting</a></li>
+<li><a href="#4-unit-return-type">4. Unit Return Type</a></li>
+<li><a href="#5-functional-programming">5. Functional Programming</a></li>
+<li><a href="#6-javadoc">6. JavaDoc</a></li>
+<li><a href="#7-access-modifiers">7. Access Modifiers</a></li>
+<li><a href="#8-data-classes">8. Data Classes</a></li>
 </ul></li>
-<li><a href="#rest">REST</a></li>
-<li><a href="#kotlin">Kotlin</a></li>
-<li><a href="#gradle">Gradle</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -334,7 +344,7 @@
         
         <div id="body-inner">
           
-            <h1>Learning Resources</h1>
+            <h1>Kotlin Style Guide</h1>
           
 
         
@@ -342,49 +352,116 @@
 
 
 
-<p>Here you&rsquo;ll find a brief overview of technologies used in the Radio Telescope system.</p>
+<h2 id="general-notes">General Notes</h2>
 
-<h2 id="javascript">JavaScript</h2>
+<p>Kotlin has no <code>new</code> operator; to create an instance of a class, you simply call the constructor as
+a normal function, e.g.</p>
 
-<p>If you have worked with JavaScript in the past and walked away hating it, you&rsquo;re probably
-familiar with the bad parts of JavaScript. Whether you&rsquo;re
-familiar with JavaScript or not, a great resource to improve your language fluency and competence
-is <a href="https://github.com/transidai1705/javascript-ebooks/blob/master/%5BJavaScript%20The%20Good%20Parts%201st%20Edition%20by%20Douglas%20Crockford%20-%202008%5D.pdf">JavaScript: The Good Parts</a>.
-JavaScript has some seriously poorly designed language constructs, but if you know which parts to use
-and which parts to avoid, it can be a very powerful language.</p>
+<pre><code class="language-kotlin">val userFactory = BaseUserFactory(userRepo)
+</code></pre>
 
-<h3 id="javascript-es6">JavaScript ES6</h3>
+<p>Kotlin has a useful class definition keyword, the <code>data</code> keyword. Classes defined with the <code>data</code>
+keywork implicitly have useful helper methods like <code>equals()</code>,
+<code>hashCode()</code>, and <code>toString()</code> of
+the form (for example) <code>&quot;User(username=cspath1, email=cspath1@ycp.edu, password=pass1234)&quot;</code>, and <code>copy()</code>
+The <code>copy()</code> function provides the ability to very easily create a copy of a data class
+while optionally changing the value for any of the properties in the copy. Consider the
+following example:</p>
 
-<p>JavaScript ES6 (also known as ECMAScript 2015) introduces some <strong>serious</strong> improvement to the
-language. If you hate JavaScript, you&rsquo;re probably familiar with the problems and frustrations
-caused by JavaScript&rsquo;s <em>function scope</em> variables. ES6 introduces 2 new variable initializers,
-<code>let</code> and <code>const</code>, which have <em>block scope</em> (this is what you&rsquo;re used to if you come from
-a C/C++/Java background, or nearly any other modern language).</p>
+<pre><code class="language-kotlin">data class User(val username: String, val email: String, val password: String)
+val johnSmith = User(username = &quot;jsmith&quot;, email = &quot;jsmith@gmail.com&quot;, password=&quot;password&quot;)
+val johnSmithButSafePassword - johnSmith.copy(password = &quot;Iw24~dkE@4+&quot;)
+val johnSmithsTwinSteve = johnSmith.copy(username = &quot;ssmith&quot;, email = &quot;ssmith@gmail.com&quot;)
+</code></pre>
 
-<p>Take a look at this <a href="https://github.com/lukehoban/es6features">brief overview of new ES6 features</a>.</p>
+<h2 id="code-style">Code Style</h2>
 
-<h3 id="es6-module-system">ES6 Module System</h3>
+<h3 id="1-colons">1. Colons</h3>
 
-<p>If you&rsquo;re not familiar with the module system introduced by ES6, read about it <a href="https://www.sitepoint.com/understanding-es6-modules/">here</a>.
-Again, this is used extensively in the frontend application.</p>
+<p>There is a space before colon where colon separates type and supertype or interface and there&rsquo;s no
+space where colon separates instance and type:</p>
 
-<h2 id="rest">REST</h2>
+<pre><code class="language-kotlin">interface Foo&lt;out T : Any&gt; : Bar {
+    fun foo(a: Int): T
+}
+</code></pre>
 
-<p>If you&rsquo;re not familiar with at least the basics of REST API design, read <a href="https://restfulapi.net/">here</a>.</p>
+<h3 id="2-lambdas">2. Lambdas</h3>
 
-<h2 id="kotlin">Kotlin</h2>
+<p>In lambda expressions, spaces should be used around the curly braces, as well as around the arrow
+which separates the parameters from the body. Whenever possible, a lambda should be passed outside
+of parentheses.</p>
 
-<p>If you&rsquo;re new to Kotlin, a great way to learn the syntax is <a href="https://try.kotlinlang.org">Kotlin Koans</a>,
-essentially a web-based sandbox environment.</p>
+<pre><code class="language-kotlin">list.filter { it &gt; 10 }.map { element -&gt; element * 2 }
+</code></pre>
 
-<h2 id="gradle">Gradle</h2>
+<p>In lambdas which are short and not nested, it&rsquo;s recommended to use the it convention instead of
+declaring the parameter explicitly. In nested lambdas with parameters, parameters should be always
+declared explicitly.</p>
 
-<p>The backend app is managed with Gradle. If you&rsquo;re not familiar, you can <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html">get started here</a>.</p>
+<h3 id="3-class-header-formatting">3. Class Header Formatting</h3>
+
+<p>Classes with a few arguments can be written in a single line:</p>
+
+<pre><code class="language-kotlin">class Person(firstName: String, lastName: String)
+</code></pre>
+
+<p>Classes with longer headers should be formatted so that each primary constructor argument is in a
+separate line with indentation. Also, the closing parenthesis should be on a new line. If we use
+inheritance, then the superclass constructor call or list of implemented interfaces should be located
+on the same line as the parenthesis:</p>
+
+<pre><code class="language-kotlin">class Person(
+    id: Int,
+    firstName: String,
+    lastName: String,
+    user: User
+) : Human(id, name) {
+    // ...
+}
+</code></pre>
+
+<h3 id="4-unit-return-type">4. Unit Return Type</h3>
+
+<p>Unit  is essentially Kotlin&rsquo;s version of <code>void</code>. If a method or function returns <code>Unit</code>, the return
+type can be omitted.</p>
+
+<pre><code class="language-kotlin">fun foo() { // &quot;: Unit&quot; is omitted here
+    ...
+}
+</code></pre>
+
+<h3 id="5-functional-programming">5. Functional Programming</h3>
+
+<p>When working with iterables, you should prefer functional programming paradigms over traditional
+loops or iterators; Kotlin provides methods like <code>map{}, each{}, find{}, findAll{}, every{}, collect{}, 
+inject{}</code>, and more on any class which implements the <code>Iterable</code> interface.</p>
+
+<h3 id="6-javadoc">6. JavaDoc</h3>
+
+<p>All public API methods should be fully documented with JavaDoc comments; these will be turned into a
+static HTML API documentation website by a Gradle task during build in order to provide an up-to-date
+API reference. JavaDoc comments for private methods is recommended in most cases, but optional
+(since it will not be included in the API doc; its would only be for developer benefit).</p>
+
+<h3 id="7-access-modifiers">7. Access Modifiers</h3>
+
+<p>In Kotlin, everything is <code>public</code> by default; an explicit access modifier should only be used when
+it is something other than <code>public</code>. You should use the most restrictive access modifier that
+makes sense (i.e. things that <em>can</em> be <code>private</code> or <code>protected</code> <em>should</em> be).</p>
+
+<h3 id="8-data-classes">8. Data Classes</h3>
+
+<p>By convention, <code>data</code> classes should be used ONLY for data storage/passing, etc. That is to say,
+in general, <code>data</code> classes should not have any additional methods defined or implemented. All
+manipulation of the data classes in the Episo environment will be performed by elements of an
+Episo Contract element (i.e. <code>UserWrapper</code>, <code>Factory</code>, <code>Command</code>, etc.).</p>
 
 
 <footer class=" footline" >
 	
 </footer>
+
 
         
         </div> 
@@ -468,18 +545,6 @@ essentially a web-based sandbox environment.</p>
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -488,44 +553,6 @@ essentially a web-based sandbox environment.</p>
                     
                     
 
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
                     
                         
             
@@ -546,15 +573,69 @@ essentially a web-based sandbox environment.</p>
                     
             
         
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
         
         
 
 
         
-            <a class="nav nav-prev" href="/example-project/gradle/" title="Gradle Build System"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/example-project/styleguides/" title="Code Style Guides"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/example-project/environment/" title="Development Environment" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/example-project/design-patterns/" title="Design Patterns" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -584,3 +665,4 @@ essentially a web-based sandbox environment.</p>
 
   </body>
 </html>
+
