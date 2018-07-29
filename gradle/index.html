@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/example-project/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/example-project/images/favicon.png" type="image/x-icon" />
-    <title>Development Environment :: YCP Radio Telescope Knowledge Base</title>
+    <title>Gradle Build System :: YCP Radio Telescope Knowledge Base</title>
     
     
     <link href="/example-project/css/nucleus.css?1532885354" rel="stylesheet">
@@ -34,7 +34,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/example-project/environment/">
+  <body class="" data-url="/example-project/gradle/">
     <nav id="sidebar" class="">
 
 
@@ -75,8 +75,8 @@
   
     
     <li data-nav-id="/example-project/environment/" title="Development Environment" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/example-project/environment/">
@@ -167,8 +167,8 @@
   
     
     <li data-nav-id="/example-project/gradle/" title="Gradle Build System" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/example-project/gradle/">
@@ -225,7 +225,7 @@
             
           
           
-            <a href='/example-project/'>YCP Radio Telescope Knowledge Base</a> > Development Environment
+            <a href='/example-project/'>YCP Radio Telescope Knowledge Base</a> > Gradle Build System
           
          
           
@@ -239,7 +239,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#contents">Contents</a></li>
+<li><a href="#gradle-tasks">Gradle Tasks</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -254,7 +254,7 @@
         
         <div id="body-inner">
           
-            <h1>Development Environment</h1>
+            <h1>Gradle Build System</h1>
           
 
         
@@ -262,107 +262,17 @@
 
 
 
-<p>In this section, you&rsquo;ll find documentation on how to set up your development environment to work on the
-Radio Telescope project.</p>
+<p>The Radio Telescope project and the Spring framework are build and deployed using the
+Gradle build system. The build script has several Gradle tasks set up to streamline the
+develop-&gt;test-&gt;publish workflow.</p>
 
-<h2 id="contents">Contents</h2>
+<h2 id="gradle-tasks">Gradle Tasks</h2>
 
+<p>The syntax for running a Gradle task from command line is as follows:</p>
 
-
-
-
-
-
-
-<ul class="children children-li">
-	
-    
-    
-
-	
-		
-	
-		
-  
-
-
-<li>
-<a href="/example-project/environment/idea/" >IntelliJ IDEA Ultimate Edition</a>
-</li>
-
-
-
-
-
-
-			
-		
-
-		
-			
-
-<ul>
-
-	
-    
-    
-
-	
-		
-	
-
-	
-
-</ul>
-
-			
-
-		
-	
-		
-  
-
-
-<li>
-<a href="/example-project/environment/npm/" >NPM</a>
-</li>
-
-
-
-
-
-
-			
-		
-
-		
-			
-
-<ul>
-
-	
-    
-    
-
-	
-		
-	
-
-	
-
-</ul>
-
-			
-
-		
-	
-
-	
-</ul>
-
-
-
-
+<pre><code class="language-bash">gradle taskName # run a single task
+gradle task1 task2 task3 # run multiple tasks one after the other, stopping after first failure
+</code></pre>
 
 
 <footer class=" footline" >
@@ -400,20 +310,6 @@ Radio Telescope project.</p>
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
                         
                         
                     
@@ -424,28 +320,6 @@ Radio Telescope project.</p>
                     
                     
 
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
                     
                         
             
@@ -481,15 +355,51 @@ Radio Telescope project.</p>
                     
             
         
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
         
         
 
 
         
-            <a class="nav nav-prev" href="/example-project/" title="YCP Radio Telescope Knowledge Base"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/example-project/design-patterns/" title="Design Patterns"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/example-project/environment/idea/" title="IntelliJ IDEA Ultimate Edition" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/example-project/environment/" title="Development Environment" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 

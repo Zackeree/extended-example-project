@@ -7,6 +7,14 @@
   </url>
   
   <url>
+    <loc>/example-project/design-patterns/</loc>
+  </url>
+  
+  <url>
+    <loc>/example-project/gradle/</loc>
+  </url>
+  
+  <url>
     <loc>/example-project/environment/idea/</loc>
   </url>
   
