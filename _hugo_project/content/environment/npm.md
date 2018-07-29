@@ -10,5 +10,5 @@ for the download.
 ### Usage
 npm has lots of commands and features. The few you'll use most often are listed below.
 
-`npm install --save package-name` - add package with name `package-name` to `package.json` as a runtime dependency.
-`npm install --save-dev package-name` - add package with name `package-name` to `package.json` as a build dependency.
+1. `npm install --save package-name` - add package with name `package-name` to `package.json` as a runtime dependency.
+2. `npm install --save-dev package-name` - add package with name `package-name` to `package.json` as a build dependency.

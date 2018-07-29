@@ -28,7 +28,7 @@ Once you have an account, you can download IntelliJ Idea Ultimate Edition. After
       <guid>/example-project/environment/npm/</guid>
       <description>NPM (Node Package Manager) is a Javascript package manager. If you&amp;rsquo;re running a modern Linux distro, you can likely install it through apt-get: $ sudo apt-get install npm. If you are using Windows, go here for the download.
 Usage npm has lots of commands and features. The few you&amp;rsquo;ll use most often are listed below.
-npm install --save package-name - add package with name package-name to package.json as a runtime dependency.</description>
+ npm install --save package-name - add package with name package-name to package.json as a runtime dependency.</description>
     </item>
     
   </channel>
