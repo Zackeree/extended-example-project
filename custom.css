@@ -7,7 +7,7 @@ body {
   background-color: #232323;
 }
 
-h1, h2, h3, h4, h5, h6, p, span.links {
+h1, h2, h3, h4, h5, h6, p, span.links, li, ul, ol {
   color: white;
 }
 
