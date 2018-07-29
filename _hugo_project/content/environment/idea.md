@@ -16,7 +16,7 @@ If you do not have Gradle, [go here](https://gradle.org/install/). After all of 
 Plugins can be installed from the settings menu (press `CTRL+ALT+S`), then search for 'plugins', then click 
 'Browse repositories...'. Below is a list of some recommended plugins for IntelliJ
 
-.gitignore - easily add files/directories to the .gitignore file from the right-click menu.
+* .gitignore - easily add files/directories to the .gitignore file from the right-click menu.
 
 ### DataGrip
 It's also recommended that you install JetBrains DataGrip, a database management and query tool. Similar 
