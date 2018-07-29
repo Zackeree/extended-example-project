@@ -23,6 +23,10 @@
   </url>
   
   <url>
+    <loc>/example-project/resources/</loc>
+  </url>
+  
+  <url>
     <loc>/example-project/categories/</loc>
     <priority>0</priority>
   </url>

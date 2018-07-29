@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/example-project/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/example-project/images/favicon.png" type="image/x-icon" />
-    <title>Design Patterns :: YCP Radio Telescope Knowledge Base</title>
+    <title>Learning Resources :: YCP Radio Telescope Knowledge Base</title>
     
     
     <link href="/example-project/css/nucleus.css?1532885955" rel="stylesheet">
@@ -34,7 +34,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/example-project/design-patterns/">
+  <body class="" data-url="/example-project/resources/">
     <nav id="sidebar" class="">
 
 
@@ -145,8 +145,8 @@
   
     
     <li data-nav-id="/example-project/design-patterns/" title="Design Patterns" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/example-project/design-patterns/">
@@ -189,8 +189,8 @@
   
     
     <li data-nav-id="/example-project/resources/" title="Learning Resources" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/example-project/resources/">
@@ -247,7 +247,7 @@
             
           
           
-            <a href='/example-project/'>YCP Radio Telescope Knowledge Base</a> > Design Patterns
+            <a href='/example-project/'>YCP Radio Telescope Knowledge Base</a> > Learning Resources
           
          
           
@@ -257,7 +257,21 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#javascript">JavaScript</a>
+<ul>
+<li><a href="#javascript-es6">JavaScript ES6</a></li>
+<li><a href="#es6-module-system">ES6 Module System</a></li>
+</ul></li>
+<li><a href="#rest">REST</a></li>
+<li><a href="#kotlin">Kotlin</a></li>
+<li><a href="#gradle">Gradle</a></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -269,19 +283,52 @@
         
         <div id="body-inner">
           
-            <h1>Design Patterns</h1>
+            <h1>Learning Resources</h1>
           
 
         
 
 
-<p><a href="https://sourcemaking.com/design_patterns/structural_patterns">Sourcemaking</a> is an excellent reference and guide for maintainable design patterns. It is strongly recommended that you look over this, especially the Structural Patterns and Creational Patterns sections. The most important design patterns to follow are linked directly below:</p>
 
-<ul>
-<li><a href="https://sourcemaking.com/design_patterns/factory_method">Factory</a></li>
-<li><a href="https://sourcemaking.com/design_patterns/adapter">Adapter</a></li>
-<li><a href="https://sourcemaking.com/design_patterns/decorator">Decorator/Wrapper</a></li>
-</ul>
+
+<p>Here you&rsquo;ll find a brief overview of technologies used in the Radio Telescope system.</p>
+
+<h2 id="javascript">JavaScript</h2>
+
+<p>If you have worked with JavaScript in the past and walked away hating it, you&rsquo;re probably
+familiar with the bad parts of JavaScript. Whether you&rsquo;re
+familiar with JavaScript or not, a great resource to improve your language fluency and competence
+is <a href="https://github.com/transidai1705/javascript-ebooks/blob/master/%5BJavaScript%20The%20Good%20Parts%201st%20Edition%20by%20Douglas%20Crockford%20-%202008%5D.pdf">JavaScript: The Good Parts</a>.
+JavaScript has some seriously poorly designed language constructs, but if you know which parts to use
+and which parts to avoid, it can be a very powerful language.</p>
+
+<h3 id="javascript-es6">JavaScript ES6</h3>
+
+<p>JavaScript ES6 (also known as ECMAScript 2015) introduces some <strong>serious</strong> improvement to the
+language. If you hate JavaScript, you&rsquo;re probably familiar with the problems and frustrations
+caused by JavaScript&rsquo;s <em>function scope</em> variables. ES6 introduces 2 new variable initializers,
+<code>let</code> and <code>const</code>, which have <em>block scope</em> (this is what you&rsquo;re used to if you come from
+a C/C++/Java background, or nearly any other modern language).</p>
+
+<p>Take a look at this <a href="https://github.com/lukehoban/es6features">brief overview of new ES6 features</a>.</p>
+
+<h3 id="es6-module-system">ES6 Module System</h3>
+
+<p>If you&rsquo;re not familiar with the module system introduced by ES6, read about it <a href="https://www.sitepoint.com/understanding-es6-modules/">here</a>.
+Again, this is used extensively in the frontend application.</p>
+
+<h2 id="rest">REST</h2>
+
+<p>If you&rsquo;re not familiar with at least the basics of REST API design, read <a href="https://restfulapi.net/">here</a>.</p>
+
+<h2 id="kotlin">Kotlin</h2>
+
+<p>If you&rsquo;re new to Kotlin, a great way to learn the syntax is <a href="https://try.kotlinlang.org">Kotlin Koans</a>,
+essentially a web-based sandbox environment.</p>
+
+<h2 id="gradle">Gradle</h2>
+
+<p>The backend app is managed with Gradle. If you&rsquo;re not familiar, you can <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html">get started here</a>.</p>
 
 
 <footer class=" footline" >
@@ -370,26 +417,6 @@
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
                 
                 
 
@@ -417,6 +444,23 @@
             
         
                     
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
         
@@ -424,10 +468,10 @@
 
 
         
-            <a class="nav nav-prev" href="/example-project/environment/npm/" title="NPM"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/example-project/gradle/" title="Gradle Build System"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/example-project/gradle/" title="Gradle Build System" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/example-project/environment/" title="Development Environment" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
