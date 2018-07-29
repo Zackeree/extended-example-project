@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on YCP Radio Telescope Knowledge Base</title>
+    <link>/example-project/workflows/git/</link>
+    <description>Recent content in Git on YCP Radio Telescope Knowledge Base</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/example-project/workflows/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Common Git Tasks</title>
+      <link>/example-project/workflows/git/common-git-tasks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/example-project/workflows/git/common-git-tasks/</guid>
+      <description>Committing/Pushing Changes When committing changes, its important to avoid merge conflicts, and to avoid committing files that should not be added to version control; this includes IDE files/folders like *.iml files and the .idea directory, as well as any keyfiles like ~/.gradle/gradle.properties. The workflow to ensure this goes smoothly typically looks something like:
+git status # show your local repo state git add . # or alternatively, git add path/to/file1.</description>
+    </item>
+    
+  </channel>
+</rss>

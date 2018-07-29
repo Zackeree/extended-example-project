@@ -32,6 +32,16 @@ Usage npm has lots of commands and features. The few you&amp;rsquo;ll use most o
     </item>
     
     <item>
+      <title>Common Git Tasks</title>
+      <link>/example-project/workflows/git/common-git-tasks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/example-project/workflows/git/common-git-tasks/</guid>
+      <description>Committing/Pushing Changes When committing changes, its important to avoid merge conflicts, and to avoid committing files that should not be added to version control; this includes IDE files/folders like *.iml files and the .idea directory, as well as any keyfiles like ~/.gradle/gradle.properties. The workflow to ensure this goes smoothly typically looks something like:
+git status # show your local repo state git add . # or alternatively, git add path/to/file1.</description>
+    </item>
+    
+    <item>
       <title>Kotlin Style Guide</title>
       <link>/example-project/styleguides/kotlin/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
