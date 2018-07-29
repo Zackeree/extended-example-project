@@ -1,5 +1,7 @@
+---
+title: "YCP Radio Telescope Knowledge Base"
+---
+
 # YCP Radio Telescope Knowledge Base
 
-{{% notice info %}} 
-This is the official knowledge base and documentation for the YCP Radio Telescope web application project. 
-{{% /notice %}}
+Here, you'll find documentation on the development toolchain, practices, workflows, and more
