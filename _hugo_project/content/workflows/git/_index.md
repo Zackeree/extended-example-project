@@ -27,7 +27,7 @@ second line. Lastly, **you must include the related YouTrack issue ID(s) as the 
 message**. This can be done through the IntelliJ git client commit message editor, or from the command 
 line (each appearance of the -m flag indicates a new line of the message):
 
-`git commit -m "implement Address Entity create command object" -m "that will persist
+`git commit -m "Implement Address Entity create command object" -m "that will persist
 a new Address record"`
 
 See [What Makes a Good Commit Message?](https://github.com/erlang/otp/wiki/Writing-good-commit-messages)
