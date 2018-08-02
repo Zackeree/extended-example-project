@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/example-project/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/example-project/images/favicon.png" type="image/x-icon" />
-    <title>NPM :: YCP Radio Telescope Knowledge Base</title>
+    <title>Spring Data JPA :: YCP Radio Telescope Knowledge Base</title>
     
     
     <link href="/example-project/css/nucleus.css?1533243885" rel="stylesheet">
@@ -34,7 +34,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/example-project/environment/npm/">
+  <body class="" data-url="/example-project/webapp-stack/backend/springdatajpa/">
     <nav id="sidebar" class="">
 
 
@@ -75,7 +75,7 @@
   
     
     <li data-nav-id="/example-project/environment/" title="Development Environment" class="dd-item 
-        parent
+        
         
         
         ">
@@ -118,7 +118,7 @@
  
   
     
-      <li data-nav-id="/example-project/environment/npm/" title="NPM" class="dd-item active">
+      <li data-nav-id="/example-project/environment/npm/" title="NPM" class="dd-item ">
         <a href="/example-project/environment/npm/">
         NPM
         
@@ -327,7 +327,7 @@
   
     
     <li data-nav-id="/example-project/webapp-stack/" title="Radio Telescope Webapp Stack" class="dd-item 
-        
+        parent
         
         
         ">
@@ -354,7 +354,7 @@
   
     
     <li data-nav-id="/example-project/webapp-stack/backend/" title="Backend" class="dd-item 
-        
+        parent
         
         
         ">
@@ -378,7 +378,7 @@
  
   
     
-      <li data-nav-id="/example-project/webapp-stack/backend/springdatajpa/" title="Spring Data JPA" class="dd-item ">
+      <li data-nav-id="/example-project/webapp-stack/backend/springdatajpa/" title="Spring Data JPA" class="dd-item active">
         <a href="/example-project/webapp-stack/backend/springdatajpa/">
         Spring Data JPA
         
@@ -476,7 +476,13 @@
             
           
           
-            <a href='/example-project/'>YCP Radio Telescope Knowledge Base</a> > <a href='/example-project/environment/'>Development Environment</a> > NPM
+            
+            
+          
+          
+            <a href='/example-project/'>YCP Radio Telescope Knowledge Base</a> > <a href='/example-project/webapp-stack/'>Radio Telescope Webapp Stack</a> > <a href='/example-project/webapp-stack/backend/'>Backend</a> > Spring Data JPA
+          
+         
           
          
           
@@ -492,10 +498,16 @@
 <ul>
 <li>
 <ul>
-<li>
+<li><a href="#entities-and-repositories">Entities and Repositories</a>
 <ul>
-<li><a href="#usage">Usage</a></li>
+<li><a href="#create">Create</a></li>
+<li><a href="#read">Read</a></li>
+<li><a href="#update">Update</a></li>
+<li><a href="#delete">Delete</a></li>
 </ul></li>
+<li><a href="#query-dsl">Query DSL</a></li>
+<li><a href="#query-annotation">Query Annotation</a></li>
+<li><a href="#paging-and-sorting">Paging And Sorting</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -510,7 +522,7 @@
         
         <div id="body-inner">
           
-            <h1>NPM</h1>
+            <h1>Spring Data JPA</h1>
           
 
         
@@ -518,18 +530,96 @@
 
 
 
-<p>NPM (Node Package Manager) is a Javascript package manager. If you&rsquo;re running a modern Linux distro,
-you can likely install it through apt-get: <code>$ sudo apt-get install npm</code>. If you are using Windows, go <a href="https://www.npmjs.com/package/npm">here</a>
-for the download.</p>
+<h2 id="entities-and-repositories">Entities and Repositories</h2>
 
-<h3 id="usage">Usage</h3>
+<p>Spring Data JPA (Java Persistence API), part of the Spring Data family, allows us to abstract away much
+of the SQL Layer by acting as
+a wrapper overtop of the SQL ORM layer. What Spring does is allows us to create Entity objects (indicated via
+the @Entity annotation,
+which model our database tables and allows us to perform CRUD operations on our MySQL database without actually
+ever needing to write a
+SQL statement.</p>
 
-<p>npm has lots of commands and features. The few you&rsquo;ll use most often are listed below.</p>
+<p>This is made possible by Spring Repositories (indicated via the @Repository annotation), which are interfaces that
+essentially are able to adapt the
+entity objects into SQL statements for us. Each Spring Repository is in charge of managing a single Spring Entity</p>
 
-<ol>
-<li><code>npm install --save package-name</code> - add package with name <code>package-name</code> to <code>package.json</code> as a runtime dependency.</li>
-<li><code>npm install --save-dev package-name</code> - add package with name <code>package-name</code> to <code>package.json</code> as a build dependency.</li>
-</ol>
+<h3 id="create">Create</h3>
+
+<p>For persisting new values, what happens is this. A request from the client-side is sent to the server.
+Our &ldquo;business logic&rdquo; (more on this later)
+will be in charge of validating any constraints with the request. Once a request gets validated, we will adapt
+the client-side request into an Entity object.
+Then all we need to do is use the Entity&rsquo;s Repository to persist the new entry (done with the save() method)</p>
+
+<h3 id="read">Read</h3>
+
+<p>For retrieving existing values from the database, a request from the client-side is sent to the server,
+often only containing the id of the record
+we wish to pull up. Then all we need to do is call the Entity&rsquo;s Repository method aptly named findById
+and it will retrieve the record for us.</p>
+
+<h3 id="update">Update</h3>
+
+<p>In order to grab an existing entry in the database and update it, we basically combine the processes
+for creating and reading.
+A request from the client-side will be sent to the server containing all of the new values we wish to
+persist, along with the id of the
+entry we wish to update.</p>
+
+<h3 id="delete">Delete</h3>
+
+<p>Deleting an entry is as easy as retrieving it. Pretty much the same exact thing occurs, except we will
+be deleting the record rather than returning it to the server.</p>
+
+<h2 id="query-dsl">Query DSL</h2>
+
+<p>Spring&rsquo;s Query DSL (Domain-Specific Language) is a key feature behind the design choice for the larger Spring
+Framework as a whole. It allows us to
+build out custom repository methods really easily.The way Spring Data JPA is designed allows Spring Repositories
+to be &ldquo;aware&rdquo; of the contents of the Entity
+object they are tied to.</p>
+
+<p>This means we can build out really powerful queries as long as we follow the Query DSL syntax.
+All methods built using the
+Query DSL syntax must start with either &ldquo;findBy&rdquo;, &ldquo;findAllBy&rdquo;, &ldquo;findFirstBy&rdquo;, &ldquo;countBy&rdquo;, or &ldquo;existsBy&rdquo;.</p>
+
+<p>Beyond that, since the Query DSL knows about the fields contained in the Entity object they are tied to,
+we can build a method to find all people by
+first name just by instantiating the method prototype &ldquo;findAllByFirstName&rdquo;. Spring will deal with the rest.</p>
+
+<h2 id="query-annotation">Query Annotation</h2>
+
+<p>So I may have ever so slightly fibbed when I said we would NEVER have to write something that resembles a
+SQL statement. As it turns out,
+there are some queries that we can&rsquo;t build out using Spring Data JPA&rsquo;s. What Spring allows us to do in this
+scenario is use their built-in
+@Query annotation to build something that is more or less a psuedo-SQL statement.</p>
+
+<p>You can see examples of this in the example project repositories. In the example application, the majority
+of the repository methods were written
+using the Query annotation, and while it is not necessary, due to an issue with how Kotlin as a language works,
+Kotlin has trouble creating those
+repository methods correctly sometimes once it is compiled to Java.</p>
+
+<p>As it turns out, the best way to ameliorate this issue is by using the Query annotation. It allows Spring to compile
+the repository method correctly because
+rather than trying to build the method using the Query DSL, it will use the Query annotation, which works regardless
+of the method name it is tied to.</p>
+
+<p>Note that queries built following the Query DSL conventions should work when Kotlin is compiled to Java, but the
+Query annotation acts
+as an extra failsafe.</p>
+
+<h2 id="paging-and-sorting">Paging And Sorting</h2>
+
+<p>One final thing to note about Spring Data JPA is the PagingAndSortingRepository interface that all of our repositories
+will extend from.
+The PagingAndSortingRepository itself extends the basic CrudRepository that Spring has and just adds a few extra methods
+that allow for us to
+integrate pagination into our list queries for our Entity objects. This will more or less just allow us to return a slice
+of an entire set so
+we can cut down on network overhead</p>
 
 
 <footer class=" footline" >
@@ -568,6 +658,8 @@ for the download.</p>
             
                 
                     
+                        
+                        
                     
                 
                 
@@ -581,9 +673,6 @@ for the download.</p>
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -595,42 +684,6 @@ for the download.</p>
                     
             
         
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
                         
             
@@ -664,24 +717,6 @@ for the download.</p>
                     
 
                     
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
                         
             
             
@@ -694,22 +729,6 @@ for the download.</p>
                     
                     
 
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
                     
             
         
@@ -799,6 +818,78 @@ for the download.</p>
             
         
                     
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
         
@@ -806,10 +897,10 @@ for the download.</p>
 
 
         
-            <a class="nav nav-prev" href="/example-project/environment/idea/" title="IntelliJ IDEA Ultimate Edition"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/example-project/webapp-stack/backend/" title="Backend"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/example-project/styleguides/" title="Code Style Guides" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/example-project/resources/" title="Learning Resources" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
