@@ -13,6 +13,11 @@ you should run the `gradle verify` task; this is essentially an alias for
 `git rebase` instead of `git pull`.
 {{% /notice %}}
 
+## Learning Git
+If you walked away from CS320 absolutely hating Git, check out [this site](https://learngitbranching.js.org/). It is the best hands-on 
+tool I have found to learn 
+about the different git workflows and really teaches you how to harness the power Git offers
+
 ## Git Commit Messages
 When writing a commit message, **write in the present tense** (e.g. use "add" and not "added", or
 "implement" instead of "implemented"). The first line should be short (~50 characters), concise,
