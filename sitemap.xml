@@ -60,6 +60,10 @@
   </url>
   
   <url>
+    <loc>/example-project/webapp-stack/backend/contracts/</loc>
+  </url>
+  
+  <url>
     <loc>/example-project/webapp-stack/backend/springdatajpa/</loc>
   </url>
   

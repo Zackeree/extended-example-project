@@ -32,7 +32,8 @@ Each **major** feature/project should get it's own branch; typically, these will
 something marked accordingly on whatever task management software is being used.
 If you need to branch off of one of the major branches, that's okay, but it should be 
 merged back into a major branch as soon as possible, and **the branch should be removed 
-once it is merged!**
+once it is merged!** We don't want 35 stale branches sitting around on our repository and following
+this convention will ensure this doesn't happen.
 
 ## Development Process
 Typically, the process of pushing new code should be:
