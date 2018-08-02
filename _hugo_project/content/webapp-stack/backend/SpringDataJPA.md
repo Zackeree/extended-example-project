@@ -1,5 +1,6 @@
 ---
 title: "Spring Data JPA"
+weight: 1
 ---
 
 ## Entities and Repositories

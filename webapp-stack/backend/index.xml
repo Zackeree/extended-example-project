@@ -11,21 +11,21 @@
     
     
     <item>
-      <title>Radio Telescope Contracts</title>
-      <link>/example-project/webapp-stack/backend/contracts/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/example-project/webapp-stack/backend/contracts/</guid>
-      <description>What do we mean by &amp;ldquo;Contracts&amp;rdquo; Whenever we refer to the &amp;ldquo;business logic&amp;rdquo; or &amp;ldquo;contracts&amp;rdquo; part of an application, we are referring to the part of the application responsible for validating any incoming request from the client-side. This validation will cover anything from making sure the required fields for a given request are filled in to making sure the person accessing a certain endpoint has the permission to do so.</description>
-    </item>
-    
-    <item>
       <title>Spring Data JPA</title>
       <link>/example-project/webapp-stack/backend/springdatajpa/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/example-project/webapp-stack/backend/springdatajpa/</guid>
       <description>Entities and Repositories Spring Data JPA (Java Persistence API), part of the Spring Data family, allows us to abstract away much of the SQL Layer by acting as a wrapper overtop of the SQL ORM layer. What Spring does is allows us to create Entity objects (indicated via the @Entity annotation, which model our database tables and allows us to perform CRUD operations on our MySQL database without actually ever needing to write a SQL statement.</description>
+    </item>
+    
+    <item>
+      <title>Radio Telescope Contracts</title>
+      <link>/example-project/webapp-stack/backend/contracts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/example-project/webapp-stack/backend/contracts/</guid>
+      <description>What do we mean by &amp;ldquo;Contracts&amp;rdquo; Whenever we refer to the &amp;ldquo;business logic&amp;rdquo; or &amp;ldquo;contracts&amp;rdquo; part of an application, we are referring to the part of the application responsible for validating any incoming request from the client-side. This validation will cover anything from making sure the required fields for a given request are filled in to making sure the person accessing a certain endpoint has the permission to do so.</description>
     </item>
     
   </channel>
