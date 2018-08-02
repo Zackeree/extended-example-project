@@ -14,12 +14,7 @@ If you do not have Gradle, [go here](https://gradle.org/install/). After all of 
 
 ### Plugins 
 Plugins can be installed from the settings menu (press `CTRL+ALT+S`), then search for 'plugins', then click 
-'Browse repositories...'. Below is a list of some recommended plugins for IntelliJ
-
-* .gitignore - easily add files/directories to the .gitignore file from the right-click menu.
+'Browse repositories...'.
 
 ### DataGrip
-It's also recommended that you install JetBrains DataGrip, a database management and query tool. Similar 
-to MySQL Workbench, the main difference being that DataGrip doesn't completely suck. 
-
 If you're interested in also getting a really useful database management and query tool, check out JetBrains DataGrip. Much like SQL Workbench, but also developed by the JetBrains team

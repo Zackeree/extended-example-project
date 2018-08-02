@@ -12,19 +12,19 @@
     <title>Common Git Tasks :: YCP Radio Telescope Knowledge Base</title>
     
     
-    <link href="/example-project/css/nucleus.css?1532890755" rel="stylesheet">
-    <link href="/example-project/css/font-awesome.min.css?1532890755" rel="stylesheet">
-    <link href="/example-project/css/hybrid.css?1532890755" rel="stylesheet">
-    <link href="/example-project/css/featherlight.min.css?1532890755" rel="stylesheet">
-    <link href="/example-project/css/perfect-scrollbar.min.css?1532890755" rel="stylesheet">
-    <link href="/example-project/css/auto-complete.css?1532890755" rel="stylesheet">
-    <link href="/example-project/css/theme.css?1532890755" rel="stylesheet">
-    <link href="/example-project/css/hugo-theme.css?1532890755" rel="stylesheet">
+    <link href="/example-project/css/nucleus.css?1533241455" rel="stylesheet">
+    <link href="/example-project/css/font-awesome.min.css?1533241455" rel="stylesheet">
+    <link href="/example-project/css/hybrid.css?1533241455" rel="stylesheet">
+    <link href="/example-project/css/featherlight.min.css?1533241455" rel="stylesheet">
+    <link href="/example-project/css/perfect-scrollbar.min.css?1533241455" rel="stylesheet">
+    <link href="/example-project/css/auto-complete.css?1533241455" rel="stylesheet">
+    <link href="/example-project/css/theme.css?1533241455" rel="stylesheet">
+    <link href="/example-project/css/hugo-theme.css?1533241455" rel="stylesheet">
     
-      <link href="/example-project/css/theme-blue.css?1532890755" rel="stylesheet">
+      <link href="/example-project/css/theme-blue.css?1533241455" rel="stylesheet">
     
 
-    <script src="/example-project/js/jquery-2.x.min.js?1532890755"></script>
+    <script src="/example-project/js/jquery-2.x.min.js?1533241455"></script>
     
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{ 
@@ -51,14 +51,14 @@
     <span data-search-clear=""><i class="fa fa-close"></i></span>
 </div>
 
-<script type="text/javascript" src="/example-project/js/lunr.min.js?1532890755"></script>
-<script type="text/javascript" src="/example-project/js/auto-complete.js?1532890755"></script>
+<script type="text/javascript" src="/example-project/js/lunr.min.js?1533241455"></script>
+<script type="text/javascript" src="/example-project/js/auto-complete.js?1533241455"></script>
 <script type="text/javascript">
     
         var baseurl = '\/example-project\/';
     
 </script>
-<script type="text/javascript" src="/example-project/js/search.js?1532890755"></script>
+<script type="text/javascript" src="/example-project/js/search.js?1533241455"></script>
 
     
   </div>
@@ -342,6 +342,93 @@
  
 
           
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/example-project/webapp-stack/" title="Webapp-stacks" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/example-project/webapp-stack/">
+          Webapp-stacks
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/example-project/webapp-stack/backend/" title="Backend" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/example-project/webapp-stack/backend/">
+          Backend
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/example-project/webapp-stack/backend/spring/" title="Spring Framework" class="dd-item ">
+        <a href="/example-project/webapp-stack/backend/spring/">
+        Spring Framework
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
          
     </ul>
 
@@ -412,8 +499,7 @@
 <li>
 <ul>
 <li><a href="#committing-pushing-changes">Committing/Pushing Changes</a></li>
-<li><a href="#temporarily-revert-local-changes">Temporarily Revert Local Changes</a></li>
-<li><a href="#move-unpushed-local-commits-to-another-branch">Move Unpushed Local Commits to Another Branch</a>
+<li><a href="#temporarily-revert-local-changes">Temporarily Revert Local Changes</a>
 <ul>
 <li>
 <ul>
@@ -471,44 +557,6 @@ you can use <code>git stash</code>. To stash committed or staged changes, simply
 # do other stuff you wanted to do 
 git stash pop  # your changes are back!
 </code></pre>
-
-<h2 id="move-unpushed-local-commits-to-another-branch">Move Unpushed Local Commits to Another Branch</h2>
-
-<p>If you&rsquo;ve been working and committing changes, but have not yet pushed,
- and you meant to be
-working on a different branch, don&rsquo;t worry; you can move your most recent
-committed-but-unpushed changes to another branch. All you need is the number of commits
-you want to move.</p>
-
-<p>Consider the following example repository state:
-<div class="mermaid" align="center">
-graph LR;
-subgraph master
-  A(commit A)-->B(commit B)
-  B-->C(commit C)
-  C-->D(commit D)
-  D-->E(commit E)
-  E-->F( )
-end
-</div>
-
-But suppose what you <em>meant</em> to do was:
-<div class="mermaid" align="center">
-graph LR;
-subgraph master
-  A(commit A)-->B(commit B)
-  F
-end
-subgraph other-branch-name
-  B-->C(commit C)
-  C-->D(commit D)
-  D-->E(commit E)
-  E-->F( )
-end
-</div>
-</p>
-
-<p>So, you want to move your <em>most recent</em> <strong>THREE (3)</strong> <em>commits</em>.</p>
 
 <h4 id="to-a-new-branch">To a NEW Branch</h4>
 
@@ -752,6 +800,56 @@ git checkout existing-branch-name  # now on the other branch with the moved comm
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
             
         
         
@@ -771,20 +869,20 @@ git checkout existing-branch-name  # now on the other branch with the moved comm
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/example-project/js/clipboard.min.js?1532890755"></script>
-    <script src="/example-project/js/perfect-scrollbar.min.js?1532890755"></script>
-    <script src="/example-project/js/perfect-scrollbar.jquery.min.js?1532890755"></script>
-    <script src="/example-project/js/jquery.sticky.js?1532890755"></script>
-    <script src="/example-project/js/featherlight.min.js?1532890755"></script>
-    <script src="/example-project/js/html5shiv-printshiv.min.js?1532890755"></script>
-    <script src="/example-project/js/highlight.pack.js?1532890755"></script>
+    <script src="/example-project/js/clipboard.min.js?1533241455"></script>
+    <script src="/example-project/js/perfect-scrollbar.min.js?1533241455"></script>
+    <script src="/example-project/js/perfect-scrollbar.jquery.min.js?1533241455"></script>
+    <script src="/example-project/js/jquery.sticky.js?1533241455"></script>
+    <script src="/example-project/js/featherlight.min.js?1533241455"></script>
+    <script src="/example-project/js/html5shiv-printshiv.min.js?1533241455"></script>
+    <script src="/example-project/js/highlight.pack.js?1533241455"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/example-project/js/modernizr.custom.71422.js?1532890755"></script>
-    <script src="/example-project/js/learn.js?1532890755"></script>
-    <script src="/example-project/js/hugo-learn.js?1532890755"></script>
+    <script src="/example-project/js/modernizr.custom.71422.js?1533241455"></script>
+    <script src="/example-project/js/learn.js?1533241455"></script>
+    <script src="/example-project/js/hugo-learn.js?1533241455"></script>
 
-    <link href="/example-project/mermaid/mermaid.css?1532890755" type="text/css" rel="stylesheet" />
-    <script src="/example-project/mermaid/mermaid.js?1532890755"></script>
+    <link href="/example-project/mermaid/mermaid.css?1533241455" type="text/css" rel="stylesheet" />
+    <script src="/example-project/mermaid/mermaid.js?1533241455"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

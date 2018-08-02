@@ -51,5 +51,14 @@ git status # show your local repo state git add . # or alternatively, git add pa
 val userFactory = BaseUserFactory(userRepo)  Kotlin has a useful class definition keyword, the data keyword. Classes defined with the data keywork implicitly have useful helper methods like equals(), hashCode(), and toString() of the form (for example) &amp;quot;User(username=cspath1, email=cspath1@ycp.edu, password=pass1234)&amp;quot;, and copy() The copy() function provides the ability to very easily create a copy of a data class while optionally changing the value for any of the properties in the copy.</description>
     </item>
     
+    <item>
+      <title>Spring Framework</title>
+      <link>/example-project/webapp-stack/backend/spring/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/example-project/webapp-stack/backend/spring/</guid>
+      <description>Spring Data JPA - Entities and Repositories Spring Data JPA (Java Persistence API), part of the Spring Data family, allows us to abstract away much of the SQL Layer by acting as a wrapper overtop of the SQL ORM layer. What Spring does is allows us to create Entity objects (indicated via the @Entity annotation, which model our database tables and allows us to perform CRUD operations on our MySQL database without actually ever needing to write a SQL statement.</description>
+    </item>
+    
   </channel>
 </rss>

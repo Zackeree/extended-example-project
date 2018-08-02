@@ -29,42 +29,6 @@ git stash -u   # repository is now in clean state (mirrors remote); local change
 git stash pop  # your changes are back!
 ```
 
-
-## Move Unpushed Local Commits to Another Branch
-If you've been working and committing changes, but have not yet pushed,
- and you meant to be 
-working on a different branch, don't worry; you can move your most recent 
-committed-but-unpushed changes to another branch. All you need is the number of commits 
-you want to move.
-
-Consider the following example repository state:
-{{<mermaid align="center">}}
-graph LR;
-subgraph master
-  A(commit A)-->B(commit B)
-  B-->C(commit C)
-  C-->D(commit D)
-  D-->E(commit E)
-  E-->F( )
-end
-{{</mermaid>}}
-But suppose what you *meant* to do was:
-{{<mermaid align="center">}}
-graph LR;
-subgraph master
-  A(commit A)-->B(commit B)
-  F
-end
-subgraph other-branch-name
-  B-->C(commit C)
-  C-->D(commit D)
-  D-->E(commit E)
-  E-->F( )
-end
-{{</mermaid>}}
-
-So, you want to move your *most recent* **THREE (3)** *commits*.
-
 #### To a NEW Branch
 To move these 3 most recent commits to a **NEW** branch, you can do the following:
 ```bash

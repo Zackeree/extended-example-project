@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/example-project/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/example-project/images/favicon.png" type="image/x-icon" />
-    <title>Development Environment :: YCP Radio Telescope Knowledge Base</title>
+    <title>Spring Framework :: YCP Radio Telescope Knowledge Base</title>
     
     
     <link href="/example-project/css/nucleus.css?1533241455" rel="stylesheet">
@@ -34,7 +34,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/example-project/environment/">
+  <body class="" data-url="/example-project/webapp-stack/backend/spring/">
     <nav id="sidebar" class="">
 
 
@@ -75,8 +75,8 @@
   
     
     <li data-nav-id="/example-project/environment/" title="Development Environment" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/example-project/environment/">
@@ -349,7 +349,7 @@
   
     
     <li data-nav-id="/example-project/webapp-stack/" title="Webapp-stacks" class="dd-item 
-        
+        parent
         
         
         ">
@@ -376,7 +376,7 @@
   
     
     <li data-nav-id="/example-project/webapp-stack/backend/" title="Backend" class="dd-item 
-        
+        parent
         
         
         ">
@@ -400,7 +400,7 @@
  
   
     
-      <li data-nav-id="/example-project/webapp-stack/backend/spring/" title="Spring Framework" class="dd-item ">
+      <li data-nav-id="/example-project/webapp-stack/backend/spring/" title="Spring Framework" class="dd-item active">
         <a href="/example-project/webapp-stack/backend/spring/">
         Spring Framework
         
@@ -472,7 +472,19 @@
             
           
           
-            <a href='/example-project/'>YCP Radio Telescope Knowledge Base</a> > Development Environment
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/example-project/'>YCP Radio Telescope Knowledge Base</a> > <a href='/example-project/webapp-stack/'>Webapp-stacks</a> > <a href='/example-project/webapp-stack/backend/'>Backend</a> > Spring Framework
+          
+         
+          
+         
           
          
           
@@ -486,7 +498,14 @@
 <ul>
 <li>
 <ul>
-<li><a href="#contents">Contents</a></li>
+<li><a href="#spring-data-jpa-entities-and-repositories">Spring Data JPA - Entities and Repositories</a>
+<ul>
+<li><a href="#create">Create</a></li>
+<li><a href="#read">Read</a></li>
+<li><a href="#update">Update</a></li>
+<li><a href="#delete">Delete</a></li>
+</ul></li>
+<li><a href="#spring-data-jpa-query-dsl">Spring Data JPA - Query DSL</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -501,7 +520,7 @@
         
         <div id="body-inner">
           
-            <h1>Development Environment</h1>
+            <h1>Spring Framework</h1>
           
 
         
@@ -509,112 +528,55 @@
 
 
 
-<p>In this section, you&rsquo;ll find documentation on how to set up your development environment to work on the
-Radio Telescope project.</p>
+<h2 id="spring-data-jpa-entities-and-repositories">Spring Data JPA - Entities and Repositories</h2>
 
-<h2 id="contents">Contents</h2>
+<p>Spring Data JPA (Java Persistence API), part of the Spring Data family, allows us to abstract away much
+of the SQL Layer by acting as
+a wrapper overtop of the SQL ORM layer. What Spring does is allows us to create Entity objects (indicated via
+the @Entity annotation,
+which model our database tables and allows us to perform CRUD operations on our MySQL database without actually
+ever needing to write a
+SQL statement.</p>
 
+<p>This is made possible by Spring Repositories (indicated via the @Repository annotation), which are interfaces that
+essentially are able to adapt the
+entity objects into SQL statements for us. Each Spring Repository is in charge of managing a single Spring Entity</p>
 
+<h3 id="create">Create</h3>
 
+<p>For persisting new values, what happens is this. A request from the client-side is sent to the server.
+Our &ldquo;business logic&rdquo; (more on this later)
+will be in charge of validating any constraints with the request. Once a request gets validated, we will adapt
+the client-side request into an Entity object.
+Then all we need to do is use the Entity&rsquo;s Repository to persist the new entry (done with the save() method)</p>
 
+<h3 id="read">Read</h3>
 
+<p>For retrieving existing values from the database, a request from the client-side is sent to the server,
+often only containing the id of the record
+we wish to pull up. Then all we need to do is call the Entity&rsquo;s Repository method aptly named findById
+and it will retrieve the record for us.</p>
 
+<h3 id="update">Update</h3>
 
+<p>In order to grab an existing entry in the database and update it, we basically combine the processes
+for creating and reading.
+A request from the client-side will be sent to the server containing all of the new values we wish to
+persist, along with the id of the
+entry we wish to update.</p>
 
-<ul class="children children-li">
-	
-    
-    
+<h3 id="delete">Delete</h3>
 
-	
-		
-	
-		
-  
+<p>Deleting an entry is as easy as retrieving it. Pretty much the same exact thing occurs, except we will
+be deleting the record rather than returning it to the server.</p>
 
-
-<li>
-<a href="/example-project/environment/idea/" >IntelliJ IDEA Ultimate Edition</a>
-</li>
-
-
-
-
-
-
-			
-		
-
-		
-			
-
-<ul>
-
-	
-    
-    
-
-	
-		
-	
-
-	
-
-</ul>
-
-			
-
-		
-	
-		
-  
-
-
-<li>
-<a href="/example-project/environment/npm/" >NPM</a>
-</li>
-
-
-
-
-
-
-			
-		
-
-		
-			
-
-<ul>
-
-	
-    
-    
-
-	
-		
-	
-
-	
-
-</ul>
-
-			
-
-		
-	
-
-	
-</ul>
-
-
-
-
+<h2 id="spring-data-jpa-query-dsl">Spring Data JPA - Query DSL</h2>
 
 
 <footer class=" footline" >
 	
 </footer>
+
 
         
         </div> 
@@ -647,20 +609,6 @@ Radio Telescope project.</p>
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
                         
                         
                     
@@ -671,9 +619,6 @@ Radio Telescope project.</p>
                     
                     
 
-                    
-            
-        
                     
                         
             
@@ -690,22 +635,6 @@ Radio Telescope project.</p>
                     
             
         
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
                         
             
@@ -739,37 +668,6 @@ Radio Telescope project.</p>
                     
 
                     
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
                         
             
             
@@ -785,25 +683,6 @@ Radio Telescope project.</p>
                     
             
         
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
             
         
@@ -874,6 +753,91 @@ Radio Telescope project.</p>
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
             
         
         
@@ -881,10 +845,10 @@ Radio Telescope project.</p>
 
 
         
-            <a class="nav nav-prev" href="/example-project/" title="YCP Radio Telescope Knowledge Base"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/example-project/webapp-stack/backend/" title="Backend"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/example-project/environment/idea/" title="IntelliJ IDEA Ultimate Edition" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/example-project/environment/" title="Development Environment" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -914,3 +878,4 @@ Radio Telescope project.</p>
 
   </body>
 </html>
+
