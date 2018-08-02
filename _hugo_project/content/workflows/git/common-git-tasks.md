@@ -9,7 +9,7 @@ files that should not be added to version control; this includes IDE files/folde
 The workflow to ensure this goes smoothly typically looks something like:
 ```bash
 git status  # show your local repo state
-git add .   # or alternatively, git add path/to/file1.groovy path/to/file2.vue ... etc.
+git add .   # or alternatively, git add path/to/file1.kotlin path/to/file2.vue ... etc.
 git status  # double check which changes have been staged 
 git push    # push to remote
 # if git push fails from non-fast-forward, continue to these steps
