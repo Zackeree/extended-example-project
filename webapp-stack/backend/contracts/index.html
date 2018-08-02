@@ -12,19 +12,19 @@
     <title>Radio Telescope Contracts :: YCP Radio Telescope Knowledge Base</title>
     
     
-    <link href="/example-project/css/nucleus.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/font-awesome.min.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/hybrid.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/featherlight.min.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/perfect-scrollbar.min.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/auto-complete.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/theme.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/hugo-theme.css?1533248922" rel="stylesheet">
+    <link href="/example-project/css/nucleus.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/font-awesome.min.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/hybrid.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/featherlight.min.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/perfect-scrollbar.min.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/auto-complete.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/theme.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/hugo-theme.css?1533249088" rel="stylesheet">
     
-      <link href="/example-project/css/theme-blue.css?1533248922" rel="stylesheet">
+      <link href="/example-project/css/theme-blue.css?1533249088" rel="stylesheet">
     
 
-    <script src="/example-project/js/jquery-2.x.min.js?1533248922"></script>
+    <script src="/example-project/js/jquery-2.x.min.js?1533249088"></script>
     
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{ 
@@ -51,14 +51,14 @@
     <span data-search-clear=""><i class="fa fa-close"></i></span>
 </div>
 
-<script type="text/javascript" src="/example-project/js/lunr.min.js?1533248922"></script>
-<script type="text/javascript" src="/example-project/js/auto-complete.js?1533248922"></script>
+<script type="text/javascript" src="/example-project/js/lunr.min.js?1533249088"></script>
+<script type="text/javascript" src="/example-project/js/auto-complete.js?1533249088"></script>
 <script type="text/javascript">
     
         var baseurl = '\/example-project\/';
     
 </script>
-<script type="text/javascript" src="/example-project/js/search.js?1533248922"></script>
+<script type="text/javascript" src="/example-project/js/search.js?1533249088"></script>
 
     
   </div>
@@ -531,11 +531,11 @@
 <li>
 <ul>
 <li><a href="#what-do-we-mean-by-contracts">What do we mean by &ldquo;Contracts&rdquo;</a></li>
-<li><a href="#the-command-object">The Command Object</a></li>
-<li><a href="#the-responder-interface">The Responder Interface</a></li>
-<li><a href="#the-factory-interface">The Factory Interface</a></li>
-<li><a href="#the-usercontextwrapper-interface">The UserContextWrapper Interface</a></li>
-<li><a href="#testing-the-contracts-layer">Testing the Contracts layer</a></li>
+<li><a href="#1-the-command-object">1. The Command Object</a></li>
+<li><a href="#2-the-responder-interface">2. The Responder Interface</a></li>
+<li><a href="#3-the-factory-interface">3. The Factory Interface</a></li>
+<li><a href="#4-the-usercontextwrapper-interface">4. The UserContextWrapper Interface</a></li>
+<li><a href="#5-testing-the-contracts-layer">5. Testing the Contracts layer</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -568,7 +568,7 @@ anything from making sure the required fields for a given request are filled in 
 the person accessing
 a certain endpoint has the permission to do so.</p>
 
-<h2 id="the-command-object">The Command Object</h2>
+<h2 id="1-the-command-object">1. The Command Object</h2>
 
 <p>There are two things that make up the centerpiece of the contracts architecture: The Command Object
 and The Responder interface (see next section).
@@ -578,7 +578,7 @@ Each concretely-implemented class that extends the Command Object will concretel
 method. This method
 is the one that is actually responsible for querying/inserting/deleting items from the database.</p>
 
-<h2 id="the-responder-interface">The Responder Interface</h2>
+<h2 id="2-the-responder-interface">2. The Responder Interface</h2>
 
 <p>The second part that makes up the centerpiece of the contracts architecture is the Responder interface.
 It is in charge of responding
@@ -593,7 +593,7 @@ back to the client-side on success.</p>
 enum containing
 the different constraints that could fail</p>
 
-<h2 id="the-factory-interface">The Factory Interface</h2>
+<h2 id="3-the-factory-interface">3. The Factory Interface</h2>
 
 <p>For each Spring Entity we have, in our contracts layer we will also need a Factory Interface for it. The purpose
 of the factory interface
@@ -601,7 +601,7 @@ is more or less just to wrap up all of our command objects for an Entity into on
 concretely implement the factory interface
 and have all of our methods in one consolidated class.</p>
 
-<h2 id="the-usercontextwrapper-interface">The UserContextWrapper Interface</h2>
+<h2 id="4-the-usercontextwrapper-interface">4. The UserContextWrapper Interface</h2>
 
 <p>The UserContextWrapper Interface is in charge of tying in to Spring Security and validating that the person making
 a request has the roles/permissions
@@ -615,7 +615,7 @@ an Authentication token created
 once a user has been validated and logged in. All endpoints that can be accessed by an anonymous user will
 not have any Spring Security authentication.</p>
 
-<h2 id="testing-the-contracts-layer">Testing the Contracts layer</h2>
+<h2 id="5-testing-the-contracts-layer">5. Testing the Contracts layer</h2>
 
 <p>One of the main reasons this layer in web-app architecture is referred to as the &ldquo;business logic&rdquo; is due to
 the fact that the majority of our application&rsquo;s logic exists here.</p>
@@ -933,20 +933,20 @@ should have a unit test the checks all possible validation scenarios.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/example-project/js/clipboard.min.js?1533248922"></script>
-    <script src="/example-project/js/perfect-scrollbar.min.js?1533248922"></script>
-    <script src="/example-project/js/perfect-scrollbar.jquery.min.js?1533248922"></script>
-    <script src="/example-project/js/jquery.sticky.js?1533248922"></script>
-    <script src="/example-project/js/featherlight.min.js?1533248922"></script>
-    <script src="/example-project/js/html5shiv-printshiv.min.js?1533248922"></script>
-    <script src="/example-project/js/highlight.pack.js?1533248922"></script>
+    <script src="/example-project/js/clipboard.min.js?1533249088"></script>
+    <script src="/example-project/js/perfect-scrollbar.min.js?1533249088"></script>
+    <script src="/example-project/js/perfect-scrollbar.jquery.min.js?1533249088"></script>
+    <script src="/example-project/js/jquery.sticky.js?1533249088"></script>
+    <script src="/example-project/js/featherlight.min.js?1533249088"></script>
+    <script src="/example-project/js/html5shiv-printshiv.min.js?1533249088"></script>
+    <script src="/example-project/js/highlight.pack.js?1533249088"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/example-project/js/modernizr.custom.71422.js?1533248922"></script>
-    <script src="/example-project/js/learn.js?1533248922"></script>
-    <script src="/example-project/js/hugo-learn.js?1533248922"></script>
+    <script src="/example-project/js/modernizr.custom.71422.js?1533249088"></script>
+    <script src="/example-project/js/learn.js?1533249088"></script>
+    <script src="/example-project/js/hugo-learn.js?1533249088"></script>
 
-    <link href="/example-project/mermaid/mermaid.css?1533248922" type="text/css" rel="stylesheet" />
-    <script src="/example-project/mermaid/mermaid.js?1533248922"></script>
+    <link href="/example-project/mermaid/mermaid.css?1533249088" type="text/css" rel="stylesheet" />
+    <script src="/example-project/mermaid/mermaid.js?1533249088"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

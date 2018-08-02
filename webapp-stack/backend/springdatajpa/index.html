@@ -12,19 +12,19 @@
     <title>Spring Data JPA :: YCP Radio Telescope Knowledge Base</title>
     
     
-    <link href="/example-project/css/nucleus.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/font-awesome.min.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/hybrid.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/featherlight.min.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/perfect-scrollbar.min.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/auto-complete.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/theme.css?1533248922" rel="stylesheet">
-    <link href="/example-project/css/hugo-theme.css?1533248922" rel="stylesheet">
+    <link href="/example-project/css/nucleus.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/font-awesome.min.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/hybrid.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/featherlight.min.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/perfect-scrollbar.min.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/auto-complete.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/theme.css?1533249088" rel="stylesheet">
+    <link href="/example-project/css/hugo-theme.css?1533249088" rel="stylesheet">
     
-      <link href="/example-project/css/theme-blue.css?1533248922" rel="stylesheet">
+      <link href="/example-project/css/theme-blue.css?1533249088" rel="stylesheet">
     
 
-    <script src="/example-project/js/jquery-2.x.min.js?1533248922"></script>
+    <script src="/example-project/js/jquery-2.x.min.js?1533249088"></script>
     
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{ 
@@ -51,14 +51,14 @@
     <span data-search-clear=""><i class="fa fa-close"></i></span>
 </div>
 
-<script type="text/javascript" src="/example-project/js/lunr.min.js?1533248922"></script>
-<script type="text/javascript" src="/example-project/js/auto-complete.js?1533248922"></script>
+<script type="text/javascript" src="/example-project/js/lunr.min.js?1533249088"></script>
+<script type="text/javascript" src="/example-project/js/auto-complete.js?1533249088"></script>
 <script type="text/javascript">
     
         var baseurl = '\/example-project\/';
     
 </script>
-<script type="text/javascript" src="/example-project/js/search.js?1533248922"></script>
+<script type="text/javascript" src="/example-project/js/search.js?1533249088"></script>
 
     
   </div>
@@ -530,16 +530,16 @@
 <ul>
 <li>
 <ul>
-<li><a href="#entities-and-repositories">Entities and Repositories</a>
+<li><a href="#1-entities-and-repositories">1. Entities and Repositories</a>
 <ul>
-<li><a href="#create">Create</a></li>
-<li><a href="#read">Read</a></li>
-<li><a href="#update">Update</a></li>
-<li><a href="#delete">Delete</a></li>
+<li><a href="#a-create">A. Create</a></li>
+<li><a href="#b-read">B. Read</a></li>
+<li><a href="#c-update">C. Update</a></li>
+<li><a href="#d-delete">D. Delete</a></li>
 </ul></li>
-<li><a href="#query-dsl">Query DSL</a></li>
-<li><a href="#query-annotation">Query Annotation</a></li>
-<li><a href="#paging-and-sorting">Paging And Sorting</a></li>
+<li><a href="#2-query-dsl">2. Query DSL</a></li>
+<li><a href="#3-query-annotation">3. Query Annotation</a></li>
+<li><a href="#4-paging-and-sorting">4. Paging And Sorting</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -562,7 +562,7 @@
 
 
 
-<h2 id="entities-and-repositories">Entities and Repositories</h2>
+<h2 id="1-entities-and-repositories">1. Entities and Repositories</h2>
 
 <p>Spring Data JPA (Java Persistence API), part of the Spring Data family, allows us to abstract away much
 of the SQL Layer by acting as
@@ -576,7 +576,7 @@ SQL statement.</p>
 essentially are able to adapt the
 entity objects into SQL statements for us. Each Spring Repository is in charge of managing a single Spring Entity</p>
 
-<h3 id="create">Create</h3>
+<h3 id="a-create">A. Create</h3>
 
 <p>For persisting new values, what happens is this. A request from the client-side is sent to the server.
 Our &ldquo;business logic&rdquo; (more on this later)
@@ -584,14 +584,14 @@ will be in charge of validating any constraints with the request. Once a request
 the client-side request into an Entity object.
 Then all we need to do is use the Entity&rsquo;s Repository to persist the new entry (done with the save() method)</p>
 
-<h3 id="read">Read</h3>
+<h3 id="b-read">B. Read</h3>
 
 <p>For retrieving existing values from the database, a request from the client-side is sent to the server,
 often only containing the id of the record
 we wish to pull up. Then all we need to do is call the Entity&rsquo;s Repository method aptly named findById
 and it will retrieve the record for us.</p>
 
-<h3 id="update">Update</h3>
+<h3 id="c-update">C. Update</h3>
 
 <p>In order to grab an existing entry in the database and update it, we basically combine the processes
 for creating and reading.
@@ -599,12 +599,12 @@ A request from the client-side will be sent to the server containing all of the 
 persist, along with the id of the
 entry we wish to update.</p>
 
-<h3 id="delete">Delete</h3>
+<h3 id="d-delete">D. Delete</h3>
 
 <p>Deleting an entry is as easy as retrieving it. Pretty much the same exact thing occurs, except we will
 be deleting the record rather than returning it to the server.</p>
 
-<h2 id="query-dsl">Query DSL</h2>
+<h2 id="2-query-dsl">2. Query DSL</h2>
 
 <p>Spring&rsquo;s Query DSL (Domain-Specific Language) is a key feature behind the design choice for the larger Spring
 Framework as a whole. It allows us to
@@ -620,7 +620,7 @@ Query DSL syntax must start with either &ldquo;findBy&rdquo;, &ldquo;findAllBy&r
 we can build a method to find all people by
 first name just by instantiating the method prototype &ldquo;findAllByFirstName&rdquo;. Spring will deal with the rest.</p>
 
-<h2 id="query-annotation">Query Annotation</h2>
+<h2 id="3-query-annotation">3. Query Annotation</h2>
 
 <p>So I may have ever so slightly fibbed when I said we would NEVER have to write something that resembles a
 SQL statement. As it turns out,
@@ -643,7 +643,7 @@ of the method name it is tied to.</p>
 Query annotation acts
 as an extra failsafe.</p>
 
-<h2 id="paging-and-sorting">Paging And Sorting</h2>
+<h2 id="4-paging-and-sorting">4. Paging And Sorting</h2>
 
 <p>One final thing to note about Spring Data JPA is the PagingAndSortingRepository interface that all of our repositories
 will extend from.
@@ -957,20 +957,20 @@ we can cut down on network overhead</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/example-project/js/clipboard.min.js?1533248922"></script>
-    <script src="/example-project/js/perfect-scrollbar.min.js?1533248922"></script>
-    <script src="/example-project/js/perfect-scrollbar.jquery.min.js?1533248922"></script>
-    <script src="/example-project/js/jquery.sticky.js?1533248922"></script>
-    <script src="/example-project/js/featherlight.min.js?1533248922"></script>
-    <script src="/example-project/js/html5shiv-printshiv.min.js?1533248922"></script>
-    <script src="/example-project/js/highlight.pack.js?1533248922"></script>
+    <script src="/example-project/js/clipboard.min.js?1533249088"></script>
+    <script src="/example-project/js/perfect-scrollbar.min.js?1533249088"></script>
+    <script src="/example-project/js/perfect-scrollbar.jquery.min.js?1533249088"></script>
+    <script src="/example-project/js/jquery.sticky.js?1533249088"></script>
+    <script src="/example-project/js/featherlight.min.js?1533249088"></script>
+    <script src="/example-project/js/html5shiv-printshiv.min.js?1533249088"></script>
+    <script src="/example-project/js/highlight.pack.js?1533249088"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/example-project/js/modernizr.custom.71422.js?1533248922"></script>
-    <script src="/example-project/js/learn.js?1533248922"></script>
-    <script src="/example-project/js/hugo-learn.js?1533248922"></script>
+    <script src="/example-project/js/modernizr.custom.71422.js?1533249088"></script>
+    <script src="/example-project/js/learn.js?1533249088"></script>
+    <script src="/example-project/js/hugo-learn.js?1533249088"></script>
 
-    <link href="/example-project/mermaid/mermaid.css?1533248922" type="text/css" rel="stylesheet" />
-    <script src="/example-project/mermaid/mermaid.js?1533248922"></script>
+    <link href="/example-project/mermaid/mermaid.css?1533249088" type="text/css" rel="stylesheet" />
+    <script src="/example-project/mermaid/mermaid.js?1533249088"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
