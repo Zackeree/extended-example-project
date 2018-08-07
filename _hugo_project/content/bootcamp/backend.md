@@ -2,8 +2,6 @@
 title: "Backend Bootcamp"
 ---
 
-# Backend Bootcamp
-
 The purpose of this section is to help you get hands on with the structure and work-flow of the architecture. If you plan on working on
 the backend, it is **highly recommended** to work through the bootcamp section to get a good understanding of what the backend architecture
 will look like, how to use Kotlin efficienty, and how all of the different pieces of the architecture fit with each other.
