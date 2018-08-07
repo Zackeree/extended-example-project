@@ -47,12 +47,20 @@
   </url>
   
   <url>
+    <loc>/example-project/bootcamp/backend/</loc>
+  </url>
+  
+  <url>
     <loc>/example-project/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/example-project/workflows/git/common-git-tasks/</loc>
+  </url>
+  
+  <url>
+    <loc>/example-project/bootcamp/</loc>
   </url>
   
   <url>

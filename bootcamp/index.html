@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/example-project/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/example-project/images/favicon.png" type="image/x-icon" />
-    <title>Git :: YCP Radio Telescope Knowledge Base</title>
+    <title>Example Project Bootcamp :: YCP Radio Telescope Knowledge Base</title>
     
     
     <link href="/example-project/css/nucleus.css?1533682814" rel="stylesheet">
@@ -34,7 +34,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/example-project/workflows/git/">
+  <body class="" data-url="/example-project/bootcamp/">
     <nav id="sidebar" class="">
 
 
@@ -218,7 +218,7 @@
   
     
     <li data-nav-id="/example-project/workflows/" title="Development Workflows" class="dd-item 
-        parent
+        
         
         
         ">
@@ -245,8 +245,8 @@
   
     
     <li data-nav-id="/example-project/workflows/git/" title="Git" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/example-project/workflows/git/">
@@ -455,8 +455,8 @@
   
     
     <li data-nav-id="/example-project/bootcamp/" title="Example Project Bootcamp" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/example-project/bootcamp/">
@@ -558,13 +558,7 @@
             
           
           
-            
-            
-          
-          
-            <a href='/example-project/'>YCP Radio Telescope Knowledge Base</a> > <a href='/example-project/workflows/'>Development Workflows</a> > Git
-          
-         
+            <a href='/example-project/'>YCP Radio Telescope Knowledge Base</a> > Example Project Bootcamp
           
          
           
@@ -576,13 +570,9 @@
     <div class="wrapper">
 <nav id="TableOfContents">
 <ul>
-<li>
+<li><a href="#example-project-bootcamp">Example Project Bootcamp</a>
 <ul>
-<li><a href="#learning-git">Learning Git</a></li>
-<li><a href="#git-commit-messages">Git Commit Messages</a></li>
-<li><a href="#branching">Branching</a></li>
-<li><a href="#development-process">Development Process</a></li>
-<li><a href="#merging-branches">Merging Branches</a></li>
+<li><a href="#contents">Contents</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -597,7 +587,7 @@
         
         <div id="body-inner">
           
-            <h1>Git</h1>
+            <h1>Example Project Bootcamp</h1>
           
 
         
@@ -605,77 +595,72 @@
 
 
 
-<div class="notices info" ><p><strong>AT ALL COSTS, AVOID PUSHING CODE THAT WILL FAIL TO BUILD!</strong></p>
+<h1 id="example-project-bootcamp">Example Project Bootcamp</h1>
 
-<p>For the Radio Telescope Contracts project, this means that before you push any changes to remote,
-you should run the <code>gradle verify</code> task; this is essentially an alias for
-<code>gradle build test jacocoTestCoverageVerification</code>.</p>
+<p>In this section, you will find a list of tasks for you to complete with the example application. It will (eventually) be two sections: Frontend and Backend,
+but that is still TBD. This section also expects that you have <strong>read through the rest of the site&rsquo;s documentation first</strong></p>
 
-<p><strong>IMPORTANT</strong>: if you use the git client built into IntelliJ IDEA, make sure you set &lsquo;update&rsquo; to use
-<code>git rebase</code> instead of <code>git pull</code>.</p>
-</div>
+<h2 id="contents">Contents</h2>
 
 
-<h2 id="learning-git">Learning Git</h2>
 
-<p>If you walked away from CS320 absolutely hating Git, check out <a href="https://learngitbranching.js.org/">this site</a>. It is the best hands-on
-tool I have found to learn
-about the different git workflows and really teaches you how to harness the power Git offers.</p>
 
-<h2 id="git-commit-messages">Git Commit Messages</h2>
 
-<p>When writing a commit message, <strong>write in the present tense</strong> (e.g. use &ldquo;add&rdquo; and not &ldquo;added&rdquo;, or
-&ldquo;implement&rdquo; instead of &ldquo;implemented&rdquo;). The first line should be short (~50 characters), concise,
-and descriptive (include some context of the module you&rsquo;re working on). Then, if more detail
-is needed to describe the commit contents, an optional extra description should be included on the
-second line. Lastly, <strong>you must include the related YouTrack issue ID(s) as the last line of your commit
-message</strong>. This can be done through the IntelliJ git client commit message editor, or from the command
-line (each appearance of the -m flag indicates a new line of the message):</p>
 
-<p><code>git commit -m &quot;Implement Address Entity create command object&quot; -m &quot;that will persist
-a new Address record&quot;</code></p>
 
-<p>See <a href="https://github.com/erlang/otp/wiki/Writing-good-commit-messages">What Makes a Good Commit Message?</a></p>
 
-<h2 id="branching">Branching</h2>
+<ul class="children children-li">
+	
+    
+    
 
-<p>Each <strong>major</strong> feature/project should get it&rsquo;s own branch; typically, these will correlate with
-something marked accordingly on whatever task management software is being used.
-If you need to branch off of one of the major branches, that&rsquo;s okay, but it should be
-merged back into a major branch as soon as possible, and <strong>the branch should be removed
-once it is merged!</strong> We don&rsquo;t want 35 stale branches sitting around on our repository and following
-this convention will ensure this doesn&rsquo;t happen.</p>
+	
+		
+	
+		
+  
 
-<h2 id="development-process">Development Process</h2>
 
-<p>Typically, the process of pushing new code should be:</p>
+<li>
+<a href="/example-project/bootcamp/backend/" >Backend Bootcamp</a>
+</li>
 
-<pre><code class="language-bash">git status # show changes 
-git add . # or specific files; DO NOT COMMIT IDE FILES/FOLDERS
-git status # double check staged changes 
-git fetch # fetch remote changes; if no output is produced here, you can skip the next step
-git rebase # use rebase, NOT pull; avoids merge conflicts 
-git push # push to remote
-</code></pre>
 
-<h2 id="merging-branches">Merging Branches</h2>
 
-<p><code>git rebase</code> can also be used to avoid merge conflicts when merging branches. Procedure is as follows:</p>
 
-<pre><code class="language-bash"># current branch: source-branch
-git fetch  # make sure current
-git rebase # branch is up to date
-git checkout dest-branch # checkout destination branch
-git fetch  # make sure it is 
-git rebase # up to date
-git rebase source-branch # rebase source-branch onto dest-branch
-git push # push to remote
-</code></pre>
 
-<p>For merging something onto master, you will need to submit a pull request on GitHub.
-If you are unfamiliar with how to do that, <a href="https://help.github.com/articles/creating-a-pull-request/">go here</a></p>
 
-<p>Nobody (aside from the repository owner) should be able to push code directly onto master.</p>
+			
+		
+
+		
+			
+
+<ul>
+
+	
+    
+    
+
+	
+		
+	
+
+	
+
+</ul>
+
+			
+
+		
+	
+
+	
+</ul>
+
+
+
+
 
 
 <footer class=" footline" >
@@ -812,7 +797,6 @@ If you are unfamiliar with how to do that, <a href="https://help.github.com/arti
             
                 
                     
-                    
                 
                 
 
@@ -828,7 +812,6 @@ If you are unfamiliar with how to do that, <a href="https://help.github.com/arti
             
                 
                     
-                    
                 
                 
 
@@ -841,9 +824,6 @@ If you are unfamiliar with how to do that, <a href="https://help.github.com/arti
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -965,6 +945,7 @@ If you are unfamiliar with how to do that, <a href="https://help.github.com/arti
             
                 
                     
+                    
                 
                 
 
@@ -978,6 +959,9 @@ If you are unfamiliar with how to do that, <a href="https://help.github.com/arti
             
                 
                     
+                        
+                        
+                    
                 
                 
 
@@ -999,10 +983,10 @@ If you are unfamiliar with how to do that, <a href="https://help.github.com/arti
 
 
         
-            <a class="nav nav-prev" href="/example-project/workflows/" title="Development Workflows"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/example-project/resources/" title="Learning Resources"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/example-project/workflows/git/common-git-tasks/" title="Common Git Tasks" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/example-project/bootcamp/backend/" title="Backend Bootcamp" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
