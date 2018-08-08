@@ -6,7 +6,7 @@ The purpose of this section is to help you get hands on with the structure and w
 the backend, it is **highly recommended** to work through the bootcamp section to get a good understanding of what the backend architecture
 will look like, how to use Kotlin efficienty, and how all of the different pieces of the architecture fit with each other.
 
-By this point, you should have access to the repo, if not (email me)[mailto:cspath1@ycp.edu] and I will add you. The first thing you are 
+By this point, you should have access to the repo, if not [email me](mailto:cspath1@ycp.edu) and I will add you. The first thing you are 
 going to want to do after cloning the repo, is take a look at the branches. You should see a branch named "master-YourGitHubUsername". This
 branch will effectively act as your master branch. It is protected so that only users that have been given the privilege to are allowed to
 push changes to it.
@@ -74,4 +74,4 @@ each type of operation (Create, Retrieve, Update, Delete, Page) which ties into 
 types (as they appear respectively), I have been returning the following (Long, Info class, Long, Long, Page of Info classes). I would recommend 
 following this as well.
 
-If you have any comments or concerns, again feel free to (email me)[mailto:cspath1@ycp.edu] or text me at 717-823-2216.
+If you have any comments or concerns, again feel free to [email me](mailto:cspath1@ycp.edu) or text me at 717-823-2216.
